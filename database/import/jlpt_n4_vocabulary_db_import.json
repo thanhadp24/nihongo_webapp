@@ -3,20 +3,102 @@
     "name": "JLPT N4 strict database import data",
     "source_file": "database/import/jlpt_n4_vocabulary_by_chapter_topic.json",
     "jlpt_level_id_assumption": 2,
-    "generated_at": "2026-07-25T12:13:28.286Z",
+    "generated_at": "2026-07-25T13:42:42.730Z",
     "import_order": [
+      "chapters",
       "topics",
       "vocabularies"
     ],
     "notes": [
-      "This file keeps only columns available in the provided topics and vocabularies schema.",
-      "Import topics first with id values, then import vocabularies with topic_id references.",
+      "This file keeps only columns available in the chapters, topics, and vocabularies schema.",
+      "Import chapters first, then topics with chapter_id references, then vocabularies with topic_id references.",
       "created_at and updated_at are omitted so MySQL can use default timestamps."
     ]
   },
+  "chapters": [
+    {
+      "id": 11,
+      "jlpt_level_id": 2,
+      "chapter_number": 1,
+      "name": "Mỗi ngày của chúng tôi",
+      "reading": "私たちの毎日",
+      "description": "N4 - Chapter 1: Mỗi ngày của chúng tôi",
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 12,
+      "jlpt_level_id": 2,
+      "chapter_number": 2,
+      "name": "Việc học và công việc",
+      "reading": "勉強と仕事",
+      "description": "N4 - Chapter 2: Việc học và công việc",
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 13,
+      "jlpt_level_id": 2,
+      "chapter_number": 3,
+      "name": "Những việc vui vẻ",
+      "reading": "楽しいこと",
+      "description": "N4 - Chapter 3: Những việc vui vẻ",
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 14,
+      "jlpt_level_id": 2,
+      "chapter_number": 4,
+      "name": "Hãy đi ra ngoài nào",
+      "reading": "出かけよう！",
+      "description": "N4 - Chapter 4: Hãy đi ra ngoài nào",
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 15,
+      "jlpt_level_id": 2,
+      "chapter_number": 5,
+      "name": "Mối quan hệ giữa người với người",
+      "reading": "人と人との関係",
+      "description": "N4 - Chapter 5: Mối quan hệ giữa người với người",
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 16,
+      "jlpt_level_id": 2,
+      "chapter_number": 6,
+      "name": "Sức khỏe và trạng thái",
+      "reading": "けんこうとようす",
+      "description": "N4 - Chapter 6: Sức khỏe và trạng thái",
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 17,
+      "jlpt_level_id": 2,
+      "chapter_number": 7,
+      "name": "Khi nào? Tại đâu?",
+      "reading": "いつ？どこで？",
+      "description": "N4 - Chapter 7: Khi nào? Tại đâu?",
+      "display_order": 7,
+      "is_published": true,
+      "version": 1
+    }
+  ],
   "topics": [
     {
       "id": 51,
+      "chapter_id": 11,
+      "section_number": 1,
       "name": "N4-C01S01 - Thời gian",
       "description": "N4 - Chapter 1: Mỗi ngày của chúng tôi - Section 1: Thời gian",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter1Section1.mp3",
@@ -26,6 +108,8 @@
     },
     {
       "id": 52,
+      "chapter_id": 11,
+      "section_number": 2,
       "name": "N4-C01S02 - Gia đình",
       "description": "N4 - Chapter 1: Mỗi ngày của chúng tôi - Section 2: Gia đình",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter1Section2.mp3",
@@ -35,6 +119,8 @@
     },
     {
       "id": 53,
+      "chapter_id": 11,
+      "section_number": 3,
       "name": "N4-C01S03 - Nhà",
       "description": "N4 - Chapter 1: Mỗi ngày của chúng tôi - Section 3: Nhà",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter1Section3.mp3",
@@ -44,6 +130,8 @@
     },
     {
       "id": 54,
+      "chapter_id": 11,
+      "section_number": 4,
       "name": "N4-C01S04 - Phòng",
       "description": "N4 - Chapter 1: Mỗi ngày của chúng tôi - Section 4: Phòng",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter1Section4.mp3",
@@ -53,6 +141,8 @@
     },
     {
       "id": 55,
+      "chapter_id": 11,
+      "section_number": 5,
       "name": "N4-C01S05 - Từ sáng đến tối",
       "description": "N4 - Chapter 1: Mỗi ngày của chúng tôi - Section 5: Từ sáng đến tối",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter1Section5.mp3",
@@ -62,6 +152,8 @@
     },
     {
       "id": 56,
+      "chapter_id": 12,
+      "section_number": 1,
       "name": "N4-C02S01 - Trường học",
       "description": "N4 - Chapter 2: Việc học và công việc - Section 1: Trường học",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter2Section1.mp3",
@@ -71,6 +163,8 @@
     },
     {
       "id": 57,
+      "chapter_id": 12,
+      "section_number": 2,
       "name": "N4-C02S02 - Trường đại học",
       "description": "N4 - Chapter 2: Việc học và công việc - Section 2: Trường đại học",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter2Section2.mp3",
@@ -80,6 +174,8 @@
     },
     {
       "id": 58,
+      "chapter_id": 12,
+      "section_number": 3,
       "name": "N4-C02S03 - Việc học",
       "description": "N4 - Chapter 2: Việc học và công việc - Section 3: Việc học",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter2Section3.mp3",
@@ -89,6 +185,8 @@
     },
     {
       "id": 59,
+      "chapter_id": 12,
+      "section_number": 4,
       "name": "N4-C02S04 - Công việc ①",
       "description": "N4 - Chapter 2: Việc học và công việc - Section 4: Công việc ①",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter2Section4.mp3",
@@ -98,6 +196,8 @@
     },
     {
       "id": 60,
+      "chapter_id": 12,
+      "section_number": 5,
       "name": "N4-C02S05 - Công việc ②",
       "description": "N4 - Chapter 2: Việc học và công việc - Section 5: Công việc ②",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter2Section5.mp3",
@@ -107,6 +207,8 @@
     },
     {
       "id": 61,
+      "chapter_id": 13,
+      "section_number": 1,
       "name": "N4-C03S01 - Du lịch",
       "description": "N4 - Chapter 3: Những việc vui vẻ - Section 1: Du lịch",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter3Section1.mp3",
@@ -116,6 +218,8 @@
     },
     {
       "id": 62,
+      "chapter_id": 13,
+      "section_number": 2,
       "name": "N4-C03S02 - Món ăn ~ Ăn",
       "description": "N4 - Chapter 3: Những việc vui vẻ - Section 2: Món ăn ~ Ăn",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter3Section2.mp3",
@@ -125,6 +229,8 @@
     },
     {
       "id": 63,
+      "chapter_id": 13,
+      "section_number": 3,
       "name": "N4-C03S03 - Món ăn ~ Nấu (Làm)",
       "description": "N4 - Chapter 3: Những việc vui vẻ - Section 3: Món ăn ~ Nấu (Làm)",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter3Section3.mp3",
@@ -134,6 +240,8 @@
     },
     {
       "id": 64,
+      "chapter_id": 13,
+      "section_number": 4,
       "name": "N4-C03S04 - Đi chợ, mua sắm",
       "description": "N4 - Chapter 3: Những việc vui vẻ - Section 4: Đi chợ, mua sắm",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter3Section4.mp3",
@@ -143,6 +251,8 @@
     },
     {
       "id": 65,
+      "chapter_id": 13,
+      "section_number": 5,
       "name": "N4-C03S05 - Nơi, chỗ",
       "description": "N4 - Chapter 3: Những việc vui vẻ - Section 5: Nơi, chỗ",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter3Section5.mp3",
@@ -152,6 +262,8 @@
     },
     {
       "id": 66,
+      "chapter_id": 14,
+      "section_number": 1,
       "name": "N4-C04S01 - Thời tiết",
       "description": "N4 - Chapter 4: Hãy đi ra ngoài nào - Section 1: Thời tiết",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter4Section1.mp3",
@@ -161,6 +273,8 @@
     },
     {
       "id": 67,
+      "chapter_id": 14,
+      "section_number": 2,
       "name": "N4-C04S02 - Tự nhiên",
       "description": "N4 - Chapter 4: Hãy đi ra ngoài nào - Section 2: Tự nhiên",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter4Section2.mp3",
@@ -170,6 +284,8 @@
     },
     {
       "id": 68,
+      "chapter_id": 14,
+      "section_number": 3,
       "name": "N4-C04S03 - Phương tiện giao thông",
       "description": "N4 - Chapter 4: Hãy đi ra ngoài nào - Section 3: Phương tiện giao thông",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter4Section3.mp3",
@@ -179,6 +295,8 @@
     },
     {
       "id": 69,
+      "chapter_id": 14,
+      "section_number": 4,
       "name": "N4-C04S04 - Lái xe (xe, tàu)",
       "description": "N4 - Chapter 4: Hãy đi ra ngoài nào - Section 4: Lái xe (xe, tàu)",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter4Section4.mp3",
@@ -188,6 +306,8 @@
     },
     {
       "id": 70,
+      "chapter_id": 14,
+      "section_number": 5,
       "name": "N4-C04S05 - Thế giới",
       "description": "N4 - Chapter 4: Hãy đi ra ngoài nào - Section 5: Thế giới",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter4Section5.mp3",
@@ -197,6 +317,8 @@
     },
     {
       "id": 71,
+      "chapter_id": 15,
+      "section_number": 1,
       "name": "N4-C05S01 - Giao tiếp",
       "description": "N4 - Chapter 5: Mối quan hệ giữa người với người - Section 1: Giao tiếp",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter5Section1.mp3",
@@ -206,6 +328,8 @@
     },
     {
       "id": 72,
+      "chapter_id": 15,
+      "section_number": 2,
       "name": "N4-C05S02 - Người yêu",
       "description": "N4 - Chapter 5: Mối quan hệ giữa người với người - Section 2: Người yêu",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter5Section2.mp3",
@@ -215,6 +339,8 @@
     },
     {
       "id": 73,
+      "chapter_id": 15,
+      "section_number": 3,
       "name": "N4-C05S03 - Những rắc rối",
       "description": "N4 - Chapter 5: Mối quan hệ giữa người với người - Section 3: Những rắc rối",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter5Section3.mp3",
@@ -224,6 +350,8 @@
     },
     {
       "id": 74,
+      "chapter_id": 15,
+      "section_number": 4,
       "name": "N4-C05S04 - Sở thích",
       "description": "N4 - Chapter 5: Mối quan hệ giữa người với người - Section 4: Sở thích",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter5Section4.mp3",
@@ -233,6 +361,8 @@
     },
     {
       "id": 75,
+      "chapter_id": 15,
+      "section_number": 5,
       "name": "N4-C05S05 - Thể thao",
       "description": "N4 - Chapter 5: Mối quan hệ giữa người với người - Section 5: Thể thao",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter5Section5.mp3",
@@ -242,6 +372,8 @@
     },
     {
       "id": 76,
+      "chapter_id": 16,
+      "section_number": 1,
       "name": "N4-C06S01 - Cơ thể / Sức khỏe",
       "description": "N4 - Chapter 6: Sức khỏe và trạng thái - Section 1: Cơ thể / Sức khỏe",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter6Section1.mp3",
@@ -251,6 +383,8 @@
     },
     {
       "id": 77,
+      "chapter_id": 16,
+      "section_number": 2,
       "name": "N4-C06S02 - Đau ốm / Bị thương",
       "description": "N4 - Chapter 6: Sức khỏe và trạng thái - Section 2: Đau ốm / Bị thương",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter6Section2.mp3",
@@ -260,6 +394,8 @@
     },
     {
       "id": 78,
+      "chapter_id": 16,
+      "section_number": 3,
       "name": "N4-C06S03 - Thời trang",
       "description": "N4 - Chapter 6: Sức khỏe và trạng thái - Section 3: Thời trang",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter6Section3.mp3",
@@ -269,6 +405,8 @@
     },
     {
       "id": 79,
+      "chapter_id": 16,
+      "section_number": 4,
       "name": "N4-C06S04 - Trạng thái, tình trạng ①",
       "description": "N4 - Chapter 6: Sức khỏe và trạng thái - Section 4: Trạng thái, tình trạng ①",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter6Section4.mp3",
@@ -278,6 +416,8 @@
     },
     {
       "id": 80,
+      "chapter_id": 16,
+      "section_number": 5,
       "name": "N4-C06S05 - Trạng thái, tình trạng ②",
       "description": "N4 - Chapter 6: Sức khỏe và trạng thái - Section 5: Trạng thái, tình trạng ②",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter6Section5.mp3",
@@ -287,6 +427,8 @@
     },
     {
       "id": 81,
+      "chapter_id": 17,
+      "section_number": 1,
       "name": "N4-C07S01 - Tin tức",
       "description": "N4 - Chapter 7: Khi nào? Tại đâu? - Section 1: Tin tức",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter7Section1.mp3",
@@ -296,6 +438,8 @@
     },
     {
       "id": 82,
+      "chapter_id": 17,
+      "section_number": 2,
       "name": "N4-C07S02 - Lời hứa",
       "description": "N4 - Chapter 7: Khi nào? Tại đâu? - Section 2: Lời hứa",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter7Section2.mp3",
@@ -305,6 +449,8 @@
     },
     {
       "id": 83,
+      "chapter_id": 17,
+      "section_number": 3,
       "name": "N4-C07S03 - Cảm giác",
       "description": "N4 - Chapter 7: Khi nào? Tại đâu? - Section 3: Cảm giác",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter7Section3.mp3",
@@ -314,6 +460,8 @@
     },
     {
       "id": 84,
+      "chapter_id": 17,
+      "section_number": 4,
       "name": "N4-C07S04 - Hãy ghi nhớ cả phó từ ①",
       "description": "N4 - Chapter 7: Khi nào? Tại đâu? - Section 4: Hãy ghi nhớ cả phó từ ①",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter7Section4.mp3",
@@ -323,6 +471,8 @@
     },
     {
       "id": 85,
+      "chapter_id": 17,
+      "section_number": 5,
       "name": "N4-C07S05 - Hãy ghi nhớ cả phó từ ②",
       "description": "N4 - Chapter 7: Khi nào? Tại đâu? - Section 5: Hãy ghi nhớ cả phó từ ②",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter7Section5.mp3",
@@ -332,6 +482,8 @@
     },
     {
       "id": 86,
+      "chapter_id": 17,
+      "section_number": 6,
       "name": "N4-C07S06 - Hãy ghi nhớ cả từ nối!",
       "description": "N4 - Chapter 7: Khi nào? Tại đâu? - Section 6: Hãy ghi nhớ cả từ nối!",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n4/section/Chapter7Section6.mp3",

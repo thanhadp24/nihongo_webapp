@@ -3,20 +3,135 @@
     "name": "JLPT N5 strict database import data",
     "source_file": "database/import/jlpt_n5_vocabulary_by_chapter_topic.json",
     "jlpt_level_id_assumption": 1,
-    "generated_at": "2026-07-25T10:36:01.340Z",
+    "generated_at": "2026-07-25T13:42:42.711Z",
     "import_order": [
+      "chapters",
       "topics",
       "vocabularies"
     ],
     "notes": [
-      "This file keeps only columns available in the provided topics and vocabularies schema.",
-      "Import topics first with id values, then import vocabularies with topic_id references.",
+      "This file keeps only columns available in the chapters, topics, and vocabularies schema.",
+      "Import chapters first, then topics with chapter_id references, then vocabularies with topic_id references.",
       "created_at and updated_at are omitted so MySQL can use default timestamps."
     ]
   },
+  "chapters": [
+    {
+      "id": 1,
+      "jlpt_level_id": 1,
+      "chapter_number": 1,
+      "name": "Tự giới thiệu",
+      "reading": "じこしょうかい",
+      "description": "N5 - Chapter 1: Tự giới thiệu",
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 2,
+      "jlpt_level_id": 1,
+      "chapter_number": 2,
+      "name": "Học tập",
+      "reading": "べんきょう",
+      "description": "N5 - Chapter 2: Học tập",
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 3,
+      "jlpt_level_id": 1,
+      "chapter_number": 3,
+      "name": "Công việc",
+      "reading": "しごと",
+      "description": "N5 - Chapter 3: Công việc",
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 4,
+      "jlpt_level_id": 1,
+      "chapter_number": 4,
+      "name": "Bạn bè",
+      "reading": "友だち",
+      "description": "N5 - Chapter 4: Bạn bè",
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 5,
+      "jlpt_level_id": 1,
+      "chapter_number": 5,
+      "name": "Cơm hôm nay",
+      "reading": "きょうのごはん",
+      "description": "N5 - Chapter 5: Cơm hôm nay",
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 6,
+      "jlpt_level_id": 1,
+      "chapter_number": 6,
+      "name": "Sở thích",
+      "reading": "しゅみ",
+      "description": "N5 - Chapter 6: Sở thích",
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 7,
+      "jlpt_level_id": 1,
+      "chapter_number": 7,
+      "name": "Mua sắm",
+      "reading": "買い物",
+      "description": "N5 - Chapter 7: Mua sắm",
+      "display_order": 7,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 8,
+      "jlpt_level_id": 1,
+      "chapter_number": 8,
+      "name": "Ngày nghỉ",
+      "reading": "休みの日",
+      "description": "N5 - Chapter 8: Ngày nghỉ",
+      "display_order": 8,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 9,
+      "jlpt_level_id": 1,
+      "chapter_number": 9,
+      "name": "Sống",
+      "reading": "すむ",
+      "description": "N5 - Chapter 9: Sống",
+      "display_order": 9,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 10,
+      "jlpt_level_id": 1,
+      "chapter_number": 10,
+      "name": "Sức khỏe",
+      "reading": "けんこう",
+      "description": "N5 - Chapter 10: Sức khỏe",
+      "display_order": 10,
+      "is_published": true,
+      "version": 1
+    }
+  ],
   "topics": [
     {
       "id": 1,
+      "chapter_id": 1,
+      "section_number": 1,
       "name": "N5-C01S01 - Là",
       "description": "JLPT N5 - Chapter 1: Tự giới thiệu - Section 1: Là",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0001.mp3",
@@ -26,6 +141,8 @@
     },
     {
       "id": 2,
+      "chapter_id": 1,
+      "section_number": 2,
       "name": "N5-C01S02 - Xin chào",
       "description": "JLPT N5 - Chapter 1: Tự giới thiệu - Section 2: Xin chào",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0002.mp3",
@@ -35,6 +152,8 @@
     },
     {
       "id": 3,
+      "chapter_id": 1,
+      "section_number": 3,
       "name": "N5-C01S03 - Gia đình",
       "description": "JLPT N5 - Chapter 1: Tự giới thiệu - Section 3: Gia đình",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0003.mp3",
@@ -44,6 +163,8 @@
     },
     {
       "id": 4,
+      "chapter_id": 1,
+      "section_number": 4,
       "name": "N5-C01S04 - Bao nhiêu người",
       "description": "JLPT N5 - Chapter 1: Tự giới thiệu - Section 4: Bao nhiêu người",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0004.mp3",
@@ -53,6 +174,8 @@
     },
     {
       "id": 5,
+      "chapter_id": 1,
+      "section_number": 5,
       "name": "N5-C01S05 - Đến từ",
       "description": "JLPT N5 - Chapter 1: Tự giới thiệu - Section 5: Đến từ",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0005.mp3",
@@ -62,6 +185,8 @@
     },
     {
       "id": 6,
+      "chapter_id": 2,
+      "section_number": 1,
       "name": "N5-C02S01 - Trường học",
       "description": "JLPT N5 - Chapter 2: Học tập - Section 1: Trường học",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0006.mp3",
@@ -71,6 +196,8 @@
     },
     {
       "id": 7,
+      "chapter_id": 2,
+      "section_number": 2,
       "name": "N5-C02S02 - Số đếm",
       "description": "JLPT N5 - Chapter 2: Học tập - Section 2: Số đếm",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0007.mp3",
@@ -80,6 +207,8 @@
     },
     {
       "id": 8,
+      "chapter_id": 2,
+      "section_number": 3,
       "name": "N5-C02S03 - Thứ (trong tuần)",
       "description": "JLPT N5 - Chapter 2: Học tập - Section 3: Thứ (trong tuần)",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0008.mp3",
@@ -89,6 +218,8 @@
     },
     {
       "id": 9,
+      "chapter_id": 2,
+      "section_number": 4,
       "name": "N5-C02S04 - Từ ngữ",
       "description": "JLPT N5 - Chapter 2: Học tập - Section 4: Từ ngữ",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0009.mp3",
@@ -98,6 +229,8 @@
     },
     {
       "id": 10,
+      "chapter_id": 2,
+      "section_number": 5,
       "name": "N5-C02S05 - Học tập",
       "description": "JLPT N5 - Chapter 2: Học tập - Section 5: Học tập",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0010.mp3",
@@ -107,6 +240,8 @@
     },
     {
       "id": 11,
+      "chapter_id": 3,
+      "section_number": 1,
       "name": "N5-C03S01 - Làm việc, lao động",
       "description": "JLPT N5 - Chapter 3: Công việc - Section 1: Làm việc, lao động",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0011.mp3",
@@ -116,6 +251,8 @@
     },
     {
       "id": 12,
+      "chapter_id": 3,
+      "section_number": 2,
       "name": "N5-C03S02 - Công việc",
       "description": "JLPT N5 - Chapter 3: Công việc - Section 2: Công việc",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0012.mp3",
@@ -125,6 +262,8 @@
     },
     {
       "id": 13,
+      "chapter_id": 3,
+      "section_number": 3,
       "name": "N5-C03S03 - Đây là cái gì?",
       "description": "JLPT N5 - Chapter 3: Công việc - Section 3: Đây là cái gì?",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0013.mp3",
@@ -134,6 +273,8 @@
     },
     {
       "id": 14,
+      "chapter_id": 3,
+      "section_number": 4,
       "name": "N5-C03S04 - Có bao nhiêu cái?",
       "description": "JLPT N5 - Chapter 3: Công việc - Section 4: Có bao nhiêu cái?",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0014.mp3",
@@ -143,6 +284,8 @@
     },
     {
       "id": 15,
+      "chapter_id": 3,
+      "section_number": 5,
       "name": "N5-C03S05 - Thời gian",
       "description": "JLPT N5 - Chapter 3: Công việc - Section 5: Thời gian",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0015.mp3",
@@ -152,6 +295,8 @@
     },
     {
       "id": 16,
+      "chapter_id": 4,
+      "section_number": 1,
       "name": "N5-C04S01 - Người như thế nào?",
       "description": "JLPT N5 - Chapter 4: Bạn bè - Section 1: Người như thế nào?",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0016.mp3",
@@ -161,6 +306,8 @@
     },
     {
       "id": 17,
+      "chapter_id": 4,
+      "section_number": 2,
       "name": "N5-C04S02 - Mặc áo",
       "description": "JLPT N5 - Chapter 4: Bạn bè - Section 2: Mặc áo",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0017.mp3",
@@ -170,6 +317,8 @@
     },
     {
       "id": 18,
+      "chapter_id": 4,
+      "section_number": 3,
       "name": "N5-C04S03 - Mặc váy",
       "description": "JLPT N5 - Chapter 4: Bạn bè - Section 3: Mặc váy",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0018.mp3",
@@ -179,6 +328,8 @@
     },
     {
       "id": 19,
+      "chapter_id": 4,
+      "section_number": 4,
       "name": "N5-C04S04 - Chơi",
       "description": "JLPT N5 - Chapter 4: Bạn bè - Section 4: Chơi",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0019.mp3",
@@ -188,6 +339,8 @@
     },
     {
       "id": 20,
+      "chapter_id": 4,
+      "section_number": 5,
       "name": "N5-C04S05 - Phố xá, thị trấn",
       "description": "JLPT N5 - Chapter 4: Bạn bè - Section 5: Phố xá, thị trấn",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0020.mp3",
@@ -197,6 +350,8 @@
     },
     {
       "id": 21,
+      "chapter_id": 5,
+      "section_number": 1,
       "name": "N5-C05S01 - Sáng, tối",
       "description": "JLPT N5 - Chapter 5: Cơm hôm nay - Section 1: Sáng, tối",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0021.mp3",
@@ -206,6 +361,8 @@
     },
     {
       "id": 22,
+      "chapter_id": 5,
+      "section_number": 2,
       "name": "N5-C05S02 - Ăn, uống",
       "description": "JLPT N5 - Chapter 5: Cơm hôm nay - Section 2: Ăn, uống",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0022.mp3",
@@ -215,6 +372,8 @@
     },
     {
       "id": 23,
+      "chapter_id": 5,
+      "section_number": 3,
       "name": "N5-C05S03 - Món ăn",
       "description": "JLPT N5 - Chapter 5: Cơm hôm nay - Section 3: Món ăn",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0023.mp3",
@@ -224,6 +383,8 @@
     },
     {
       "id": 24,
+      "chapter_id": 5,
+      "section_number": 4,
       "name": "N5-C05S04 - Nhà hàng",
       "description": "JLPT N5 - Chapter 5: Cơm hôm nay - Section 4: Nhà hàng",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0024.mp3",
@@ -233,6 +394,8 @@
     },
     {
       "id": 25,
+      "chapter_id": 5,
+      "section_number": 5,
       "name": "N5-C05S05 - Như thế nào?",
       "description": "JLPT N5 - Chapter 5: Cơm hôm nay - Section 5: Như thế nào?",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0025.mp3",
@@ -242,6 +405,8 @@
     },
     {
       "id": 26,
+      "chapter_id": 6,
+      "section_number": 1,
       "name": "N5-C06S01 - Sở thích",
       "description": "JLPT N5 - Chapter 6: Sở thích - Section 1: Sở thích",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0026.mp3",
@@ -251,6 +416,8 @@
     },
     {
       "id": 27,
+      "chapter_id": 6,
+      "section_number": 2,
       "name": "N5-C06S02 - Âm nhạc",
       "description": "JLPT N5 - Chapter 6: Sở thích - Section 2: Âm nhạc",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0027.mp3",
@@ -260,6 +427,8 @@
     },
     {
       "id": 28,
+      "chapter_id": 6,
+      "section_number": 3,
       "name": "N5-C06S03 - Thể thao",
       "description": "JLPT N5 - Chapter 6: Sở thích - Section 3: Thể thao",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0028.mp3",
@@ -269,6 +438,8 @@
     },
     {
       "id": 29,
+      "chapter_id": 6,
+      "section_number": 4,
       "name": "N5-C06S04 - Thời tiết",
       "description": "JLPT N5 - Chapter 6: Sở thích - Section 4: Thời tiết",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0029.mp3",
@@ -278,6 +449,8 @@
     },
     {
       "id": 30,
+      "chapter_id": 6,
+      "section_number": 5,
       "name": "N5-C06S05 - Mùa",
       "description": "JLPT N5 - Chapter 6: Sở thích - Section 5: Mùa",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0030.mp3",
@@ -287,6 +460,8 @@
     },
     {
       "id": 31,
+      "chapter_id": 7,
+      "section_number": 1,
       "name": "N5-C07S01 - Mua sắm",
       "description": "JLPT N5 - Chapter 7: Mua sắm - Section 1: Mua sắm",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0031.mp3",
@@ -296,6 +471,8 @@
     },
     {
       "id": 32,
+      "chapter_id": 7,
+      "section_number": 2,
       "name": "N5-C07S02 - Cửa hàng, của tiệm",
       "description": "JLPT N5 - Chapter 7: Mua sắm - Section 2: Cửa hàng, của tiệm",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0032.mp3",
@@ -305,6 +482,8 @@
     },
     {
       "id": 33,
+      "chapter_id": 7,
+      "section_number": 3,
       "name": "N5-C07S03 - Máy rút tiền tự động",
       "description": "JLPT N5 - Chapter 7: Mua sắm - Section 3: Máy rút tiền tự động",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0033.mp3",
@@ -314,6 +493,8 @@
     },
     {
       "id": 34,
+      "chapter_id": 7,
+      "section_number": 4,
       "name": "N5-C07S04 - Gửi",
       "description": "JLPT N5 - Chapter 7: Mua sắm - Section 4: Gửi",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0034.mp3",
@@ -323,6 +504,8 @@
     },
     {
       "id": 35,
+      "chapter_id": 7,
+      "section_number": 5,
       "name": "N5-C07S05 - Quà tặng",
       "description": "JLPT N5 - Chapter 7: Mua sắm - Section 5: Quà tặng",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0035.mp3",
@@ -332,6 +515,8 @@
     },
     {
       "id": 36,
+      "chapter_id": 8,
+      "section_number": 1,
       "name": "N5-C08S01 - Phương tiện giao thông",
       "description": "JLPT N5 - Chapter 8: Ngày nghỉ - Section 1: Phương tiện giao thông",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0036.mp3",
@@ -341,6 +526,8 @@
     },
     {
       "id": 37,
+      "chapter_id": 8,
+      "section_number": 2,
       "name": "N5-C08S02 - Khoảng bao lâu?",
       "description": "JLPT N5 - Chapter 8: Ngày nghỉ - Section 2: Khoảng bao lâu?",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0037.mp3",
@@ -350,6 +537,8 @@
     },
     {
       "id": 38,
+      "chapter_id": 8,
+      "section_number": 3,
       "name": "N5-C08S03 - Đường đi",
       "description": "JLPT N5 - Chapter 8: Ngày nghỉ - Section 3: Đường đi",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0038.mp3",
@@ -359,6 +548,8 @@
     },
     {
       "id": 39,
+      "chapter_id": 8,
+      "section_number": 4,
       "name": "N5-C08S04 - Ở đâu",
       "description": "JLPT N5 - Chapter 8: Ngày nghỉ - Section 4: Ở đâu",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0039.mp3",
@@ -368,6 +559,8 @@
     },
     {
       "id": 40,
+      "chapter_id": 8,
+      "section_number": 5,
       "name": "N5-C08S05 - Ra ngoài",
       "description": "JLPT N5 - Chapter 8: Ngày nghỉ - Section 5: Ra ngoài",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0040.mp3",
@@ -377,6 +570,8 @@
     },
     {
       "id": 41,
+      "chapter_id": 9,
+      "section_number": 1,
       "name": "N5-C09S01 - Nhà",
       "description": "JLPT N5 - Chapter 9: Sống - Section 1: Nhà",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0041.mp3",
@@ -386,6 +581,8 @@
     },
     {
       "id": 42,
+      "chapter_id": 9,
+      "section_number": 2,
       "name": "N5-C09S02 - Tầng 2 chung cư",
       "description": "JLPT N5 - Chapter 9: Sống - Section 2: Tầng 2 chung cư",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0042.mp3",
@@ -395,6 +592,8 @@
     },
     {
       "id": 43,
+      "chapter_id": 9,
+      "section_number": 3,
       "name": "N5-C09S03 - Chuyển nhà",
       "description": "JLPT N5 - Chapter 9: Sống - Section 3: Chuyển nhà",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0043.mp3",
@@ -404,6 +603,8 @@
     },
     {
       "id": 44,
+      "chapter_id": 9,
+      "section_number": 4,
       "name": "N5-C09S04 - Nhà của giáo viên",
       "description": "JLPT N5 - Chapter 9: Sống - Section 4: Nhà của giáo viên",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0044.mp3",
@@ -413,6 +614,8 @@
     },
     {
       "id": 45,
+      "chapter_id": 9,
+      "section_number": 5,
       "name": "N5-C09S05 - Điện",
       "description": "JLPT N5 - Chapter 9: Sống - Section 5: Điện",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0045.mp3",
@@ -422,6 +625,8 @@
     },
     {
       "id": 46,
+      "chapter_id": 10,
+      "section_number": 1,
       "name": "N5-C10S01 - Bệnh",
       "description": "JLPT N5 - Chapter 10: Sức khỏe - Section 1: Bệnh",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0046.mp3",
@@ -431,6 +636,8 @@
     },
     {
       "id": 47,
+      "chapter_id": 10,
+      "section_number": 2,
       "name": "N5-C10S02 - (Bạn) khỏe không?",
       "description": "JLPT N5 - Chapter 10: Sức khỏe - Section 2: (Bạn) khỏe không?",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0047.mp3",
@@ -440,6 +647,8 @@
     },
     {
       "id": 48,
+      "chapter_id": 10,
+      "section_number": 3,
       "name": "N5-C10S03 - Vật - việc quan trọng",
       "description": "JLPT N5 - Chapter 10: Sức khỏe - Section 3: Vật - việc quan trọng",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0048.mp3",
@@ -449,6 +658,8 @@
     },
     {
       "id": 49,
+      "chapter_id": 10,
+      "section_number": 4,
       "name": "N5-C10S04 - Tương lai",
       "description": "JLPT N5 - Chapter 10: Sức khỏe - Section 4: Tương lai",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0049.mp3",
@@ -458,6 +669,8 @@
     },
     {
       "id": 50,
+      "chapter_id": 10,
+      "section_number": 5,
       "name": "N5-C10S05 - Hãy nhớ cả những từ này!",
       "description": "JLPT N5 - Chapter 10: Sức khỏe - Section 5: Hãy nhớ cả những từ này!",
       "topic_audio_url": "https://cloud.jtest.net/tango/sound/n5/section/0050.mp3",
