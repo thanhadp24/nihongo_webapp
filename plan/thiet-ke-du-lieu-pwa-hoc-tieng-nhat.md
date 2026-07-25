@@ -1,4 +1,4 @@
-# Thiết kế dữ liệu cho ứng dụng PWA học tiếng Nhật
+# Thiết kế sản phẩm và dữ liệu cho ứng dụng PWA học tiếng Nhật
 
 ## 1. Mục tiêu hệ thống
 
@@ -31,6 +31,56 @@ PWA Frontend
 ```
 
 PWA vẫn là frontend của hệ thống. Backend và cơ sở dữ liệu vẫn được thiết kế như một ứng dụng web thông thường.
+
+### 1.1. Trọng tâm thiết kế hiện tại
+
+Ở giai đoạn đầu, hệ thống nên tập trung vào thiết kế trải nghiệm học và cấu trúc dữ liệu trước. API, đồng bộ offline, tài khoản và trang quản trị sẽ triển khai sau khi luồng dữ liệu học chính đã ổn định.
+
+Ưu tiên hiện tại:
+
+```text
+1. Thiết kế luồng học chính
+2. Chuẩn hóa dữ liệu cấp độ JLPT
+3. Chuẩn hóa dữ liệu chapter theo từng cấp độ
+4. Chuẩn hóa dữ liệu chủ đề trong từng chapter
+5. Chuẩn hóa dữ liệu từ vựng thuộc từng chủ đề
+```
+
+Luồng hiển thị chính của frontend:
+
+```text
+Danh sách cấp độ JLPT
+  ↓ click một level
+Danh sách chapter thuộc level đó
+  ↓ trong mỗi chapter
+Danh sách chủ đề thuộc chapter đó
+  ↓ click một chủ đề
+Danh sách từ vựng / bài học thuộc chủ đề
+```
+
+Với hướng này, màn hình đầu tiên không cần là trang giới thiệu. Người học nên nhìn thấy ngay các cấp độ JLPT, chọn level và đi tiếp vào chapter/chủ đề.
+
+### 1.2. Mô hình dữ liệu học ưu tiên
+
+Mô hình dữ liệu chính cho giai đoạn đầu:
+
+```text
+jlpt_levels
+  1-n chapters
+        1-n topics
+              1-n vocabularies
+```
+
+Ý nghĩa:
+
+- Một cấp độ JLPT có nhiều chapter.
+- Một chapter thuộc một cấp độ JLPT.
+- Một chapter có nhiều chủ đề.
+- Một chủ đề thuộc một chapter chính.
+- Một chủ đề có nhiều từ vựng.
+- Một từ vựng thuộc một chủ đề chính.
+
+Các bảng khác như `grammar_lessons`, `reading_lessons`, `picture_lessons`, `exercises`, `user_progress`, `sync_queue` vẫn quan trọng, nhưng không phải trọng tâm thiết kế đầu tiên.
 
 ---
 
@@ -130,6 +180,7 @@ PWA không thay thế backend hoặc database.
 Nên lưu trong MySQL:
 
 ```text
+chapters
 topics
 vocabularies
 grammar_lessons
@@ -270,52 +321,109 @@ Các bảng nội dung như `vocabularies`, `grammar_lessons`, `reading_lessons`
 Các bảng cơ bản:
 
 ```text
+chapters
 topics
 vocabularies
-topic_vocabularies
 ```
 
-### 4.1. Bảng chủ đề
+Quan hệ dữ liệu học chính là:
+
+```text
+Một cấp độ JLPT có nhiều chapter.
+Một chapter có nhiều topic.
+Một topic có nhiều từ vựng.
+```
+
+Nếu sau này cần một từ xuất hiện ở nhiều chủ đề, có thể bổ sung bảng nối sau. Ở giai đoạn hiện tại nên dùng `topic_id` trực tiếp trong bảng `vocabularies` để dữ liệu đơn giản và dễ quản trị hơn.
+
+### 4.1. Bảng chapter
+
+Chapter là nhóm bài học nằm dưới một cấp độ JLPT. Khi người dùng click vào level như `N5`, frontend sẽ load danh sách chapter thuộc level đó.
 
 ```sql
-CREATE TABLE topics (
+CREATE TABLE chapters (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    jlpt_level_id BIGINT NOT NULL,
     name VARCHAR(150) NOT NULL,
     description TEXT,
-    image_url VARCHAR(500),
     display_order INT DEFAULT 0,
     is_published BOOLEAN DEFAULT TRUE,
     version INT NOT NULL DEFAULT 1,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (jlpt_level_id)
+        REFERENCES jlpt_levels(id),
+
+    INDEX idx_chapters_jlpt_level_order (jlpt_level_id, display_order)
 );
+```
+
+Ví dụ chapter cho `JLPT N5`:
+
+```text
+Chapter 1: Chào hỏi và giới thiệu
+Chapter 2: Gia đình và đời sống
+Chapter 3: Thời gian và lịch trình
+Chapter 4: Mua sắm và di chuyển
+```
+
+### 4.2. Bảng chủ đề
+
+```sql
+CREATE TABLE topics (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    chapter_id BIGINT NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    description TEXT,
+    topic_audio_url VARCHAR(500),
+    display_order INT DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (chapter_id)
+        REFERENCES chapters(id),
+
+    INDEX idx_topics_chapter_order (chapter_id, display_order)
+);
+```
+
+`topic_audio_url` dùng để lưu file audio tổng cho toàn bộ danh sách từ vựng thuộc topic đó.
+
+Ví dụ:
+
+```text
+/media/audio/topics/kitchen-vocabulary.mp3
 ```
 
 Ví dụ chủ đề:
 
 ```text
-Gia đình
-Trường học
-Đồ dùng nhà bếp
-Giao thông
-Thời tiết
-Du lịch
-Công việc
-Mua sắm
+Chào hỏi hằng ngày
+Giới thiệu bản thân
+Quốc tịch và nghề nghiệp
+Thành viên gia đình
+Đồ dùng trong nhà
+Bữa ăn và thực phẩm
+Ngày, tháng, năm
+Lịch sinh hoạt
 ```
 
-### 4.2. Bảng từ vựng
+### 4.3. Bảng từ vựng
 
 ```sql
 CREATE TABLE vocabularies (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    topic_id BIGINT NOT NULL,
     word VARCHAR(100) NOT NULL,
     reading VARCHAR(150),
     meaning_vi VARCHAR(500) NOT NULL,
     part_of_speech VARCHAR(50),
     jlpt_level_id BIGINT,
-    image_url VARCHAR(500),
     example_sentence TEXT,
     example_reading TEXT,
     example_meaning_vi TEXT,
@@ -326,38 +434,24 @@ CREATE TABLE vocabularies (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
 
+    FOREIGN KEY (topic_id)
+        REFERENCES topics(id),
+
     FOREIGN KEY (jlpt_level_id)
         REFERENCES jlpt_levels(id)
 );
 ```
 
-### 4.3. Bảng liên kết chủ đề và từ vựng
-
-```sql
-CREATE TABLE topic_vocabularies (
-    topic_id BIGINT NOT NULL,
-    vocabulary_id BIGINT NOT NULL,
-    display_order INT DEFAULT 0,
-
-    PRIMARY KEY (topic_id, vocabulary_id),
-
-    FOREIGN KEY (topic_id)
-        REFERENCES topics(id),
-
-    FOREIGN KEY (vocabulary_id)
-        REFERENCES vocabularies(id)
-);
-```
-
-Nên dùng bảng liên kết vì một từ có thể thuộc nhiều chủ đề.
-
-Ví dụ từ `包丁` có thể thuộc:
+Với quan hệ này, frontend có thể load dữ liệu theo thứ tự:
 
 ```text
-Đồ dùng nhà bếp
-Nấu ăn
-Đồ vật thường ngày
+Chọn jlpt_level
+  → lấy chapters theo jlpt_level_id
+  → lấy topics theo chapter_id
+  → lấy vocabularies theo topic_id
 ```
+
+API `GET /api/topics/{topicId}/vocabularies` chỉ cần lọc theo `vocabularies.topic_id`.
 
 ---
 
@@ -911,7 +1005,7 @@ app_metadata
   "reading": "きょう",
   "meaningVi": "hôm nay",
   "jlptLevel": "N5",
-  "topicIds": [1, 3],
+  "topicId": 1,
   "imageUrl": "/media/vocabulary/today.webp",
   "version": 2,
   "updatedAt": "2026-07-25T10:30:00Z"
@@ -1016,6 +1110,15 @@ Tải bài đọc này
 Tải toàn bộ cấp độ N5
 ```
 
+Khi tải một chủ đề để học offline, PWA nên tải kèm:
+
+```text
+- Dữ liệu topic
+- Danh sách từ vựng có topic_id tương ứng
+- Ảnh của từng từ vựng
+- Audio tổng của topic
+```
+
 Luồng hoạt động:
 
 ```text
@@ -1034,6 +1137,7 @@ Ví dụ dữ liệu lưu offline:
 {
   "id": 5,
   "name": "Đồ dùng nhà bếp",
+  "topicAudioUrl": "/media/audio/topics/kitchen-vocabulary.mp3",
   "version": 3,
   "downloadedAt": "2026-07-25T05:00:00Z",
   "vocabularies": [
@@ -1107,6 +1211,9 @@ Response:
 
 ```http
 GET /api/jlpt-levels
+GET /api/jlpt-levels/{levelCode}/chapters
+GET /api/chapters/{chapterId}
+GET /api/chapters/{chapterId}/topics
 GET /api/topics
 GET /api/topics/{topicId}
 GET /api/topics/{topicId}/vocabularies
@@ -1238,8 +1345,9 @@ Lịch sử làm bài
 
 | Loại dữ liệu | Nơi lưu chính |
 |---|---|
-| Chủ đề | MySQL |
 | Cấp độ JLPT | MySQL |
+| Chapter theo cấp độ JLPT | MySQL |
+| Chủ đề trong chapter | MySQL |
 | Từ vựng | MySQL |
 | Ngữ pháp | MySQL |
 | Bài đọc | MySQL |
@@ -1251,11 +1359,14 @@ Lịch sử làm bài
 | Lịch sử làm bài | MySQL |
 | File ảnh | Local storage hoặc cloud storage |
 | Đường dẫn ảnh | MySQL |
+| File audio tổng của topic | Local storage hoặc cloud storage |
+| Đường dẫn audio tổng của topic | MySQL |
 | JSON API | Backend tạo từ dữ liệu MySQL |
 | Dữ liệu bài học offline | IndexedDB |
 | Thao tác chưa đồng bộ | IndexedDB sync_queue |
 | HTML, CSS, JS, icon | Cache Storage |
 | Ảnh bài học offline | Cache Storage |
+| Audio bài học offline | Cache Storage |
 | Cấu hình tĩnh nhỏ | File JSON |
 
 ---
@@ -1311,7 +1422,7 @@ MySQL
 MySQL phù hợp với các quan hệ:
 
 ```text
-Chủ đề - từ vựng
+Chủ đề - từ vựng: 1-n
 Từ vựng - câu ví dụ
 Bài ngữ pháp - ví dụ
 Bài đọc - trang đọc
@@ -1345,6 +1456,7 @@ project/
 │   ├── app/
 │   │   ├── api/
 │   │   │   ├── topics.py
+│   │   │   ├── chapters.py
 │   │   │   ├── vocabularies.py
 │   │   │   ├── grammar.py
 │   │   │   ├── readings.py
@@ -1394,14 +1506,37 @@ project/
 
 ## 21. Lộ trình triển khai đề xuất
 
-### Giai đoạn 1: Xây dựng dữ liệu chính
+### Giai đoạn 1: Chốt thiết kế màn hình và dữ liệu học chính
 
 Ưu tiên:
 
 ```text
-topics
 jlpt_levels
+chapters
+topics
 vocabularies
+```
+
+Thiết kế màn hình cần có trước:
+
+```text
+Màn chọn cấp độ JLPT
+Màn danh sách chapter sau khi chọn level
+Danh sách chủ đề trong từng chapter
+Màn danh sách từ vựng của một chủ đề
+```
+
+Mục tiêu của giai đoạn này là người học có thể đi theo luồng:
+
+```text
+JLPT level → Chapter → Chủ đề → Từ vựng
+```
+
+### Giai đoạn 2: Mở rộng dữ liệu nội dung
+
+Sau khi luồng chính ổn định, bổ sung:
+
+```text
 grammar_lessons
 grammar_examples
 reading_lessons
@@ -1410,15 +1545,25 @@ picture_lessons
 picture_items
 ```
 
-Sau đó xây dựng API đọc dữ liệu.
+### Giai đoạn 3: Xây dựng API đọc dữ liệu
 
-### Giai đoạn 2: Xây dựng frontend PWA
+API ưu tiên:
+
+```text
+GET /api/jlpt-levels
+GET /api/jlpt-levels/{levelCode}/chapters
+GET /api/chapters/{chapterId}/topics
+GET /api/topics/{topicId}/vocabularies
+```
+
+### Giai đoạn 4: Xây dựng frontend PWA đầy đủ
 
 Tạo các màn hình:
 
 ```text
-Trang chủ
-Danh sách chủ đề
+Danh sách cấp độ JLPT
+Danh sách chapter theo level
+Danh sách chủ đề theo chapter
 Danh sách từ vựng
 Chi tiết từ vựng
 Danh sách ngữ pháp
@@ -1428,7 +1573,7 @@ Chi tiết bài đọc
 Bài học qua tranh
 ```
 
-### Giai đoạn 3: Thêm tài khoản và tiến độ
+### Giai đoạn 5: Thêm tài khoản và tiến độ
 
 Bổ sung:
 
@@ -1440,7 +1585,7 @@ Tiến độ học
 Lịch sử làm bài
 ```
 
-### Giai đoạn 4: Thêm khả năng offline
+### Giai đoạn 6: Thêm khả năng offline
 
 Bổ sung:
 
@@ -1453,7 +1598,7 @@ Sync queue
 Đồng bộ khi có mạng
 ```
 
-### Giai đoạn 5: Thêm trang quản trị
+### Giai đoạn 7: Thêm trang quản trị
 
 Cho phép:
 
