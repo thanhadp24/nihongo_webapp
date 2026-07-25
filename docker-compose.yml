@@ -1,23 +1,30 @@
 services:
   mysql:
-    image: mysql:8.4
+    build:
+      context: ./database
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-nihongo_webapp}
       MYSQL_USER: ${MYSQL_USER:-nihongo}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-nihongo_password}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT:-3306}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./database/schema/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql:ro
-      - ./database/seed/001_jlpt_levels.sql:/docker-entrypoint-initdb.d/002_jlpt_levels.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   backend:
     build:
       context: ./backend
     env_file:
-      - .env.example
+      - .env
     ports:
       - "8000:8000"
     volumes:
@@ -29,7 +36,7 @@ services:
     build:
       context: ./frontend
     env_file:
-      - .env.example
+      - .env
     ports:
       - "5173:5173"
     volumes:

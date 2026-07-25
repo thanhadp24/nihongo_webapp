@@ -11,3 +11,43 @@ CREATE TABLE IF NOT EXISTS jlpt_levels (
     UNIQUE KEY uk_jlpt_levels_code (code)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS topics (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(150) NOT NULL,
+    description TEXT,
+    topic_audio_url VARCHAR(500),
+    display_order INT DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS vocabularies (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    topic_id BIGINT NOT NULL,
+    word VARCHAR(100) NOT NULL,
+    reading VARCHAR(150),
+    meaning_vi VARCHAR(500) NOT NULL,
+    part_of_speech VARCHAR(50),
+    jlpt_level_id BIGINT,
+    example_sentence TEXT,
+    example_reading TEXT,
+    example_meaning_vi TEXT,
+    display_order INT DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE KEY uk_vocabularies_topic_order (topic_id, display_order),
+    INDEX idx_vocabularies_jlpt_level (jlpt_level_id),
+
+    FOREIGN KEY (topic_id)
+        REFERENCES topics(id),
+
+    FOREIGN KEY (jlpt_level_id)
+        REFERENCES jlpt_levels(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
