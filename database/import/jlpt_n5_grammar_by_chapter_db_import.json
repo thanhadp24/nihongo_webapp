@@ -1,0 +1,3172 @@
+{
+  "metadata": {
+    "name": "JLPT N5 grammar import data by chapter",
+    "source_folder": "plan\\ngữ pháp n5",
+    "jlpt_level_id_assumption": 1,
+    "generated_from": "PDF text layer in plan/ngữ pháp n5",
+    "import_order": [
+      "grammar_chapters",
+      "grammar_lessons",
+      "grammar_examples"
+    ],
+    "notes": [
+      "One grammar_chapter is created for each PDF lesson Bài 1-25.",
+      "Lessons are parsed from numbered headings in each PDF.",
+      "Example rows are extracted from visible VD sections when possible; otherwise a short fallback example is generated."
+    ]
+  },
+  "source_files": [
+    {
+      "chapter_number": 1,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 1.pdf",
+      "parsed_lessons": 5
+    },
+    {
+      "chapter_number": 2,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 2.pdf",
+      "parsed_lessons": 6
+    },
+    {
+      "chapter_number": 3,
+      "file_name": "Tông hợp Ngữ pháp N5 Bài 3.pdf",
+      "parsed_lessons": 6
+    },
+    {
+      "chapter_number": 4,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 4.pdf",
+      "parsed_lessons": 6
+    },
+    {
+      "chapter_number": 5,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 5.pdf",
+      "parsed_lessons": 5
+    },
+    {
+      "chapter_number": 6,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 6.pdf",
+      "parsed_lessons": 5
+    },
+    {
+      "chapter_number": 7,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 7.pdf",
+      "parsed_lessons": 4
+    },
+    {
+      "chapter_number": 8,
+      "file_name": "Tông hợp Ngữ pháp N5 Bài 8.pdf",
+      "parsed_lessons": 8
+    },
+    {
+      "chapter_number": 9,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 9.pdf",
+      "parsed_lessons": 8
+    },
+    {
+      "chapter_number": 10,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 10.pdf",
+      "parsed_lessons": 4
+    },
+    {
+      "chapter_number": 11,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 11.pdf",
+      "parsed_lessons": 4
+    },
+    {
+      "chapter_number": 12,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 12.pdf",
+      "parsed_lessons": 4
+    },
+    {
+      "chapter_number": 13,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 13.pdf",
+      "parsed_lessons": 3
+    },
+    {
+      "chapter_number": 14,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 14.pdf",
+      "parsed_lessons": 5
+    },
+    {
+      "chapter_number": 15,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 15.pdf",
+      "parsed_lessons": 3
+    },
+    {
+      "chapter_number": 16,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 16.pdf",
+      "parsed_lessons": 6
+    },
+    {
+      "chapter_number": 17,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 17.pdf",
+      "parsed_lessons": 5
+    },
+    {
+      "chapter_number": 18,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 18.pdf",
+      "parsed_lessons": 5
+    },
+    {
+      "chapter_number": 19,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 19.pdf",
+      "parsed_lessons": 3
+    },
+    {
+      "chapter_number": 20,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 20.pdf",
+      "parsed_lessons": 2
+    },
+    {
+      "chapter_number": 21,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 21.pdf",
+      "parsed_lessons": 4
+    },
+    {
+      "chapter_number": 22,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 22.pdf",
+      "parsed_lessons": 7
+    },
+    {
+      "chapter_number": 23,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 23.pdf",
+      "parsed_lessons": 3
+    },
+    {
+      "chapter_number": 24,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 24.pdf",
+      "parsed_lessons": 5
+    },
+    {
+      "chapter_number": 25,
+      "file_name": "Tổng hợp ngữ pháp N5 Bài 25.pdf",
+      "parsed_lessons": 3
+    }
+  ],
+  "grammar_chapters": [
+    {
+      "id": 1,
+      "jlpt_level_id": 1,
+      "chapter_number": 1,
+      "name": "Bài 1",
+      "description": "Ngữ pháp N5 - Bài 1",
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 2,
+      "jlpt_level_id": 1,
+      "chapter_number": 2,
+      "name": "Bài 2",
+      "description": "Ngữ pháp N5 - Bài 2",
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 3,
+      "jlpt_level_id": 1,
+      "chapter_number": 3,
+      "name": "Bài 3",
+      "description": "Ngữ pháp N5 - Bài 3",
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 4,
+      "jlpt_level_id": 1,
+      "chapter_number": 4,
+      "name": "Bài 4",
+      "description": "Ngữ pháp N5 - Bài 4",
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 5,
+      "jlpt_level_id": 1,
+      "chapter_number": 5,
+      "name": "Bài 5",
+      "description": "Ngữ pháp N5 - Bài 5",
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 6,
+      "jlpt_level_id": 1,
+      "chapter_number": 6,
+      "name": "Bài 6",
+      "description": "Ngữ pháp N5 - Bài 6",
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 7,
+      "jlpt_level_id": 1,
+      "chapter_number": 7,
+      "name": "Bài 7",
+      "description": "Ngữ pháp N5 - Bài 7",
+      "display_order": 7,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 8,
+      "jlpt_level_id": 1,
+      "chapter_number": 8,
+      "name": "Bài 8",
+      "description": "Ngữ pháp N5 - Bài 8",
+      "display_order": 8,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 9,
+      "jlpt_level_id": 1,
+      "chapter_number": 9,
+      "name": "Bài 9",
+      "description": "Ngữ pháp N5 - Bài 9",
+      "display_order": 9,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 10,
+      "jlpt_level_id": 1,
+      "chapter_number": 10,
+      "name": "Bài 10",
+      "description": "Ngữ pháp N5 - Bài 10",
+      "display_order": 10,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 11,
+      "jlpt_level_id": 1,
+      "chapter_number": 11,
+      "name": "Bài 11",
+      "description": "Ngữ pháp N5 - Bài 11",
+      "display_order": 11,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 12,
+      "jlpt_level_id": 1,
+      "chapter_number": 12,
+      "name": "Bài 12",
+      "description": "Ngữ pháp N5 - Bài 12",
+      "display_order": 12,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 13,
+      "jlpt_level_id": 1,
+      "chapter_number": 13,
+      "name": "Bài 13",
+      "description": "Ngữ pháp N5 - Bài 13",
+      "display_order": 13,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 14,
+      "jlpt_level_id": 1,
+      "chapter_number": 14,
+      "name": "Bài 14",
+      "description": "Ngữ pháp N5 - Bài 14",
+      "display_order": 14,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 15,
+      "jlpt_level_id": 1,
+      "chapter_number": 15,
+      "name": "Bài 15",
+      "description": "Ngữ pháp N5 - Bài 15",
+      "display_order": 15,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 16,
+      "jlpt_level_id": 1,
+      "chapter_number": 16,
+      "name": "Bài 16",
+      "description": "Ngữ pháp N5 - Bài 16",
+      "display_order": 16,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 17,
+      "jlpt_level_id": 1,
+      "chapter_number": 17,
+      "name": "Bài 17",
+      "description": "Ngữ pháp N5 - Bài 17",
+      "display_order": 17,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 18,
+      "jlpt_level_id": 1,
+      "chapter_number": 18,
+      "name": "Bài 18",
+      "description": "Ngữ pháp N5 - Bài 18",
+      "display_order": 18,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 19,
+      "jlpt_level_id": 1,
+      "chapter_number": 19,
+      "name": "Bài 19",
+      "description": "Ngữ pháp N5 - Bài 19",
+      "display_order": 19,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 20,
+      "jlpt_level_id": 1,
+      "chapter_number": 20,
+      "name": "Bài 20",
+      "description": "Ngữ pháp N5 - Bài 20",
+      "display_order": 20,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 21,
+      "jlpt_level_id": 1,
+      "chapter_number": 21,
+      "name": "Bài 21",
+      "description": "Ngữ pháp N5 - Bài 21",
+      "display_order": 21,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 22,
+      "jlpt_level_id": 1,
+      "chapter_number": 22,
+      "name": "Bài 22",
+      "description": "Ngữ pháp N5 - Bài 22",
+      "display_order": 22,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 23,
+      "jlpt_level_id": 1,
+      "chapter_number": 23,
+      "name": "Bài 23",
+      "description": "Ngữ pháp N5 - Bài 23",
+      "display_order": 23,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 24,
+      "jlpt_level_id": 1,
+      "chapter_number": 24,
+      "name": "Bài 24",
+      "description": "Ngữ pháp N5 - Bài 24",
+      "display_order": 24,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 25,
+      "jlpt_level_id": 1,
+      "chapter_number": 25,
+      "name": "Bài 25",
+      "description": "Ngữ pháp N5 - Bài 25",
+      "display_order": 25,
+      "is_published": true,
+      "version": 1
+    }
+  ],
+  "grammar_lessons": [
+    {
+      "id": 1,
+      "grammar_chapter_id": 1,
+      "title": "Câu khẳng định:",
+      "pattern": "S: Chủ ngữ (わたし、ヤマダさん、ちち、はは、あのひ / と、。。。)",
+      "meaning_vi": "Câu khẳng định:",
+      "explanation": "Tôi là Samurai. Tôi là giáo viên. Tôi là người Việt Nam. Tôi 18 tuổi. 1. CÂU KHẲNG ĐỊNH 2. CÂU PHỦ ĐỊNH 3. CÂU NGHI VẤN • Hỏi tuổi:",
+      "formation": "S: Chủ ngữ (わたし、ヤマダさん、ちち、はは、あのひ / と、。。。) / N: Tên, nghề nghiệp, quốc tịch (～じん), tuổi (～さい)。。。",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 2,
+      "grammar_chapter_id": 1,
+      "title": "Câu phủ định:",
+      "pattern": "Câu phủ định:",
+      "meaning_vi": "Câu phủ định:",
+      "explanation": "Tôi không phải là bác sĩ.",
+      "formation": "わたし は いしゃ じゃありません。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 3,
+      "grammar_chapter_id": 1,
+      "title": "Câu nghi vấn:",
+      "pattern": "Câu nghi vấn:",
+      "meaning_vi": "Câu nghi vấn:",
+      "explanation": "N N • Từ để hỏi:",
+      "formation": "Q：ミンさんは がくせいですか。 / A： / はい、がくせい です。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 4,
+      "grammar_chapter_id": 1,
+      "title": "Trợ từ の：",
+      "pattern": "Trợ từ の：",
+      "meaning_vi": "Trợ từ の：",
+      "explanation": "Ý nghĩa: N2 của N1",
+      "formation": "4. Trợ từ の： / サムライにほんご の がくせい。 / わたしは ハノイだいがくの がくせいです。",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 5,
+      "grammar_chapter_id": 1,
+      "title": "Trợ từ も:",
+      "pattern": "S は từ để hỏi / N1 の N2",
+      "meaning_vi": "Trợ từ も:",
+      "explanation": "Ý nghĩa: A là N. B cũng là N.",
+      "formation": "5. Trợ từ も: / S は từ để hỏi / ですか。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 6,
+      "grammar_chapter_id": 2,
+      "title": "Cái này/ đó/ kia:",
+      "pattern": "➢ これ：Dùng để chỉ vật ở gần người nói, xa người nghe. / ➢ それ：Dùng để chỉ vật ở gần người nghe, xa người nói.",
+      "meaning_vi": "Cái này/ đó/ kia:",
+      "explanation": "Cách dùng:",
+      "formation": "➢ これ：Dùng để chỉ vật ở gần người nói, xa người nghe. / ➢ それ：Dùng để chỉ vật ở gần người nghe, xa người nói. / ➢ あれ：Dùng để chỉ vật ở xa 2 người.",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 7,
+      "grammar_chapter_id": 2,
+      "title": "～ Này/ Đó/ Kia:",
+      "pattern": "➢ Nhấn mạnh vào đối tượng trước mắt. / ➢ Về tương quan khoảng cách, giống với これ／それ／あれ.",
+      "meaning_vi": "～ Này/ Đó/ Kia:",
+      "explanation": "Cách dùng: ➢ Nhấn mạnh vào đối tượng trước mắt. Lưu ý:",
+      "formation": "2. ～ Này/ Đó/ Kia: / ➢ Nhấn mạnh vào đối tượng trước mắt. / ➢ Về tương quan khoảng cách, giống với これ／それ／あれ.",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 8,
+      "grammar_chapter_id": 2,
+      "title": "そうです: Đúng vậy, đúng rồi",
+      "pattern": "そうです: Đúng vậy, đúng rồi / ちがいます: Không phải, sai rồi",
+      "meaning_vi": "そうです: Đúng vậy, đúng rồi",
+      "explanation": "A： VD:",
+      "formation": "そうです: Đúng vậy, đúng rồi / ちがいます: Không phải, sai rồi / Q：これ／それ／あれ",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 9,
+      "grammar_chapter_id": 2,
+      "title": "Là N1 hay là N2:",
+      "pattern": "N1 / の N2",
+      "meaning_vi": "Là N1 hay là N2:",
+      "explanation": "Cách dùng: ➢ Là câu hỏi lựa chọn. ➢ Dùng khi phân vân, không biết rõ đối tượng là ai (cái gì). N1 (người) (đồ vật) Lưu ý:",
+      "formation": "4. Là N1 hay là N2: / N1 / の N2",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 10,
+      "grammar_chapter_id": 2,
+      "title": "N2 của N1:",
+      "pattern": "N2 đôi khi được lược bỏ khi đã được nhắc đến trước đó hay đã",
+      "meaning_vi": "N2 của N1:",
+      "explanation": "Cách dùng: Dùng để miêu tả 1 món đồ thuộc quyền sở hữu của ai đó. Lưu ý: N2 đôi khi được lược bỏ khi đã được nhắc đến trước đó hay đã rõ nghĩa.",
+      "formation": "5. N2 của N1: / N2 đôi khi được lược bỏ khi đã được nhắc đến trước đó hay đã / これは わたしの チョコレートです。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 11,
+      "grammar_chapter_id": 2,
+      "title": "Cái này/ Đó/ Kia là ∼ về ∼",
+      "pattern": "➢ Trợ từ の: thuộc về.",
+      "meaning_vi": "Cái này/ Đó/ Kia là ∼ về ∼",
+      "explanation": "Cách dùng: ➢ Dùng khi muốn nói về thuộc tính của đồ vật: lĩnh vực, chuyên ngành,…",
+      "formation": "➢ Trợ từ の: thuộc về. / これは えいごの じしょです。 / Q:このN／その N／あの N はだれの ですか。",
+      "jlpt_level_id": 1,
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 12,
+      "grammar_chapter_id": 3,
+      "title": "Chỗ này/ đó/ kia là N:",
+      "pattern": "Chỗ này/ đó/ kia là N: / ここ",
+      "meaning_vi": "Chỗ này/ đó/ kia là N:",
+      "explanation": "Chú ý:",
+      "formation": "Chỗ này/ đó/ kia là N: / ここ / そこ は N です。",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 13,
+      "grammar_chapter_id": 3,
+      "title": "S là ở N:",
+      "pattern": "S: người, vật, địa điểm. / N: địa điểm.",
+      "meaning_vi": "S là ở N:",
+      "explanation": "Cách dùng: S: người, vật, địa điểm. N: địa điểm. Nhấn mạnh chủ ngữ đang ở địa điểm N.",
+      "formation": "2. S là ở N: / S は N です。 / S: người, vật, địa điểm.",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 14,
+      "grammar_chapter_id": 3,
+      "title": "N là ở đâu?",
+      "pattern": "N là ở đâu?",
+      "meaning_vi": "N là ở đâu?",
+      "explanation": "Cô Linh ở đâu? Cô Linh ở trong phòng học. • Cách nói trang trọng hơn:",
+      "formation": "3. N là ở đâu? / Q： N は どこですか。 / A： Địa điểm です。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 15,
+      "grammar_chapter_id": 3,
+      "title": "Hỏi tên nước, công ty, trường học：",
+      "pattern": "かいしゃ",
+      "meaning_vi": "Hỏi tên nước, công ty, trường học：",
+      "explanation": "Bạn đến từ quốc gia nào? Tôi đến từ Việt Nam.",
+      "formation": "A： おくに / だいがく は どちらですか。 / かいしゃ",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 16,
+      "grammar_chapter_id": 3,
+      "title": "Trợ từ の (xuất xứ):",
+      "pattern": "これ / あれ",
+      "meaning_vi": "Trợ từ の (xuất xứ):",
+      "explanation": "Đây là giày Nhật.",
+      "formation": "5. Trợ từ の (xuất xứ): / これ / それ は nơi sản xuất の N です。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 17,
+      "grammar_chapter_id": 3,
+      "title": "Giá tiền của đồ vật:",
+      "pattern": "この / あの",
+      "meaning_vi": "Giá tiền của đồ vật:",
+      "explanation": "Chiếc đồng hồ này có giá 600 Yên.",
+      "formation": "この / その N は ～えん・ドル・ドンです。 / あの",
+      "jlpt_level_id": 1,
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 18,
+      "grammar_chapter_id": 4,
+      "title": "Bây giờ là ～ giờ ～ phút:",
+      "pattern": "いま、～時 / じ",
+      "meaning_vi": "Bây giờ là ～ giờ ～ phút:",
+      "explanation": "Cách dùng: ：chỉ số giờ • Số đếm + ：chỉ số phút ：chỉ giờ rưỡi Lưu ý: Để phân biệt thời gian buổi sáng, chiều, hay tối, người ta thêm",
+      "formation": "いま、～時 / じ / ～分",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 19,
+      "grammar_chapter_id": 4,
+      "title": "Là thứ mấy?:",
+      "pattern": "Là thứ mấy?:",
+      "meaning_vi": "Là thứ mấy?:",
+      "explanation": "Hôm nay là thứ mấy? Hôm nay là thứ 5.",
+      "formation": "Q: ～は なんようびですか。 / A：～ようびです。 / Q: きょうは なんようびですか。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 20,
+      "grammar_chapter_id": 4,
+      "title": "Động từ ます:",
+      "pattern": "✓ Động từ là loại từ kết thúc bằng ます. / おきます",
+      "meaning_vi": "Động từ ます:",
+      "explanation": "Tôi học bài mỗi tối. Chú ý:",
+      "formation": "3. Động từ ます: / ✓ Động từ là loại từ kết thúc bằng ます. / おきます",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 21,
+      "grammar_chapter_id": 4,
+      "title": "Làm V vào lúc ～ giờ：",
+      "pattern": "ねます / ねません",
+      "meaning_vi": "Làm V vào lúc ～ giờ：",
+      "explanation": "Hôm qua tôi đã ngủ lúc 10 giờ tối.",
+      "formation": "4. Làm V vào lúc ～ giờ： / ねます / ねません",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 22,
+      "grammar_chapter_id": 4,
+      "title": "Từ ～ đến :",
+      "pattern": "N1, N2: thời gian, địa điểm. / ➢ から：biểu thị điểm bắt đầu.",
+      "meaning_vi": "Từ ～ đến :",
+      "explanation": "Ý nghĩa: ➢ Là cách nói khoảng thời gian từ lúc nào đến lúc nào, từ đâu đến đâu.",
+      "formation": "です。 / V ます。 / N1, N2: thời gian, địa điểm.",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 23,
+      "grammar_chapter_id": 4,
+      "title": "N1 và N2:",
+      "pattern": "N1 と N2",
+      "meaning_vi": "N1 và N2:",
+      "explanation": "Cách dùng: ➢ Ý nghĩa: với, và, cùng. ➢ Dùng để nối danh từ với danh từ.",
+      "formation": "6. N1 và N2: / N1 と N2 / このびじゅつかんは きんようびと どようび やすみます。",
+      "jlpt_level_id": 1,
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 24,
+      "grammar_chapter_id": 5,
+      "title": "Nói ngày, tháng, năm:",
+      "pattern": "Nói ngày, tháng, năm:",
+      "meaning_vi": "Nói ngày, tháng, năm:",
+      "explanation": "Hôm nay là ngày mùng 1 tháng 4.",
+      "formation": "Nói ngày, tháng, năm: / Thời gian は ～ねん～がつ～にちです。 / Thời gian: きょう、～のたんじょうび、あした、。。。",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 25,
+      "grammar_chapter_id": 5,
+      "title": "Động từ chuyển động:",
+      "pattern": "S は N へ いきます (đi) / きます (đến)",
+      "meaning_vi": "Động từ chuyển động:",
+      "explanation": "Ý nghĩa: Đi, đến, về một địa điểm nào đó. Chú ý: Trợ từ へ dùng để chỉ phương hướng di chuyển.",
+      "formation": "1. NGÀY, THÁNG, NĂM 4. TRỢ TỪ で / 2. ĐỘNG TỪ CHUYỂN ĐỘNG H 5. TRỢ TỪ と / 3. ĐI/ ĐẾN/ VỀ ĐÂU",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 26,
+      "grammar_chapter_id": 5,
+      "title": "Hỏi đi/ đến/ về đâu?:",
+      "pattern": "Hỏi đi/ đến/ về đâu?:",
+      "meaning_vi": "Hỏi đi/ đến/ về đâu?:",
+      "explanation": "Tháng 7 này cậu đi đâu không? Tớ đi Đà Nẵng",
+      "formation": "Q: どこへ いきますか。 / A： Địa điểm へ いきます。 / どこも いきません。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 27,
+      "grammar_chapter_id": 5,
+      "title": "Bằng phương tiện gì 「で」：",
+      "pattern": "S は N で N へ いきます / (phương tiện) (địa điểm) きます",
+      "meaning_vi": "Bằng phương tiện gì 「で」：",
+      "explanation": "Tôi đến siêu thị bằng xe đạp. • Hỏi đi bằng phương tiện gì?",
+      "formation": "4. Bằng phương tiện gì 「で」： / S は N で N へ いきます / (phương tiện) (địa điểm) きます",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 28,
+      "grammar_chapter_id": 5,
+      "title": "Làm gì với ai đó 「と」：",
+      "pattern": "Làm gì với ai đó 「と」：",
+      "meaning_vi": "Làm gì với ai đó 「と」：",
+      "explanation": "Mẫu ngữ pháp N5: Làm gì với ai đó 「と」：.",
+      "formation": "5. Làm gì với ai đó 「と」： / S は N と N へ いきます。 / (người) (địa điểm) きます。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 29,
+      "grammar_chapter_id": 6,
+      "title": "Ăn ～, uống ～, làm ～：",
+      "pattern": "➢ N: Danh từ (đối tượng của hành động V). / ➢ V: Tha động từ (những động từ có sự tác động trực tiếp của",
+      "meaning_vi": "Ăn ～, uống ～, làm ～：",
+      "explanation": "Cách dùng: ➢ N: Danh từ (đối tượng của hành động V). ➢ V: Tha động từ (những động từ có sự tác động trực tiếp của con người).",
+      "formation": "N を V ます。 / ➢ N: Danh từ (đối tượng của hành động V). / ➢ V: Tha động từ (những động từ có sự tác động trực tiếp của",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 30,
+      "grammar_chapter_id": 6,
+      "title": "Làm, chơi, tổ chức:",
+      "pattern": "Làm, chơi, tổ chức:",
+      "meaning_vi": "Làm, chơi, tổ chức:",
+      "explanation": "Cuối tuần tớ sẽ chơi tennis. • Làm (đã làm) gì? Cách dùng: ➢ Đây là mẫu câu hỏi chung cho tất cả các động từ. ➢ Nếu không làm gì thì sẽ trả lời:",
+      "formation": "N を します。 / しゅうまつ テニスを します。 / Q：なにを しますか／しましたか。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 31,
+      "grammar_chapter_id": 6,
+      "title": "～Làm (đã làm) cái gì ở đâu?:",
+      "pattern": "～Làm (đã làm) cái gì ở đâu?:",
+      "meaning_vi": "～Làm (đã làm) cái gì ở đâu?:",
+      "explanation": "Cậu ăn trưa ở đâu? Tớ ăn trưa ở nhà ăn.",
+      "formation": "Q: どこで N を しますか／しましたか。 / A：Địa điểm で (N を） V ます／ました。 / Q: どこで ひるごはんを たべますか。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 32,
+      "grammar_chapter_id": 6,
+      "title": "Cùng ～ với mình chứ?",
+      "pattern": "➢ ええ、いいですね: Vâng, hay nhỉ (được đấy nhỉ). / ➢ すみません、ちょっと。。。: Xin lỗi, nhưng mà….",
+      "meaning_vi": "Cùng ～ với mình chứ?",
+      "explanation": "Cách dùng: ➢ Dùng để mời, đề nghị ai đó cùng làm việc gì đó với mình. (Đây là cách từ chối khéo lời mời)",
+      "formation": "Q：いっしょに V ませんか。 / A： ええ、いいですね。 / すみません、ちょっと。。。",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 33,
+      "grammar_chapter_id": 6,
+      "title": "Cùng làm ～nhé：",
+      "pattern": "➢ 「ませんか」： / ➢ 「ましょう」：",
+      "meaning_vi": "Cùng làm ～nhé：",
+      "explanation": "Cách dùng: ➢ Mời, đề nghị ai đó làm gì cùng mình, thể hiện thái độ chủ động của người nói. ➢ Hô hào mọi người cùng làm gì đó. ✓ Sử dụng khi chưa biết người nghe có đồng ý với lời mời, đề nghị hay là không. ✓ Thể hiện thái độ rụt rè, giữ ý của người nói. ✓ Sử dụng khi đã biết người nghe đã đồng ý với lời mời, đề nghị của mình. ✓ Mẫu câu này cũng được dùng để trả lời cho mẫu",
+      "formation": "N を ましょう。 / • Phân biệt 「ませんか」 và「ましょう」。 / ➢ 「ませんか」：",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 34,
+      "grammar_chapter_id": 7,
+      "title": "Dùng phương tiện, cách thức nào đó để ~ ：",
+      "pattern": "Dùng phương tiện, cách thức nào đó để ~ ：",
+      "meaning_vi": "Dùng phương tiện, cách thức nào đó để ~ ：",
+      "explanation": "Cắt giấy bằng kéo. • Làm V bằng phương tiện, công cụ nào?",
+      "formation": "N で Ｎを V ます。 / はさみで かみを きります。 / • Làm V bằng phương tiện, công cụ nào?",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 35,
+      "grammar_chapter_id": 7,
+      "title": "A trong ngôn ngữ nào đó là B:",
+      "pattern": "A trong ngôn ngữ nào đó là B: / Chú ý: A , B có thể là 1 câu, 1 từ ngữ hoặc 1 đại từ chỉ thẳng.",
+      "meaning_vi": "A trong ngôn ngữ nào đó là B:",
+      "explanation": "Chú ý: A , B có thể là 1 câu, 1 từ ngữ hoặc 1 đại từ chỉ thẳng.",
+      "formation": "A trong ngôn ngữ nào đó là B: / Ａは ～ごで Ｂです。 / ほん",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 36,
+      "grammar_chapter_id": 7,
+      "title": "Câu cho nhận 1 N:",
+      "pattern": "người cho người nhận V cho / ➢ A cho B 1 N nào đó.",
+      "meaning_vi": "Câu cho nhận 1 N:",
+      "explanation": "Ý nghĩa: ➢ A cho B 1 N nào đó. ➢ V cho:",
+      "formation": "3. Câu cho nhận 1 N: / A は B に Ｎを Ｖます。 / người cho người nhận V cho",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 37,
+      "grammar_chapter_id": 7,
+      "title": "Đã làm xong V rồi:",
+      "pattern": "Đã làm xong V rồi:",
+      "meaning_vi": "Đã làm xong V rồi:",
+      "explanation": "Tôi đã ăn sáng rồi. • Đã làm V chưa?",
+      "formation": "Đã làm xong V rồi: / Ｓは もう Ｎを Ｖました。 / わたしは もう あさごはんを たべました。",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 38,
+      "grammar_chapter_id": 8,
+      "title": "Tính từ:",
+      "pattern": "• Tính từ đuôi い：",
+      "meaning_vi": "Tính từ:",
+      "explanation": "Tính từ:",
+      "formation": "• Tính từ đuôi い： / つめたい (lạnh)、やすい (rẻ)、たかい(cao/ đắt)、。。。 / Tính từ đuôi な：",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 39,
+      "grammar_chapter_id": 8,
+      "title": "Câu khẳng định của tính từ:",
+      "pattern": "➢ N thì ∼ / ➢ Ở mẫu câu này, nếu tính từ đuôi いthì giữ nguyên い, tính từ",
+      "meaning_vi": "Câu khẳng định của tính từ:",
+      "explanation": "Ý nghĩa: ➢ N thì ∼",
+      "formation": "N は A い／ A なです。 / 1. TÍNH TỪ. / 2. CÂU KHẲNG ĐỊNH CỦA TÍNH TỪ.",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 40,
+      "grammar_chapter_id": 8,
+      "title": "Câu phủ định của tính từ:",
+      "pattern": "➢ N thì không∼ / 「いい」→ 「よくない」",
+      "meaning_vi": "Câu phủ định của tính từ:",
+      "explanation": "Ý nghĩa: ➢ N thì không∼ ➢ Trường hợp phủ định của tính từ:",
+      "formation": "Ｎは A い くないです。 / A な じゃ（では）ありません。 / ➢ N thì không∼",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 41,
+      "grammar_chapter_id": 8,
+      "title": "Tính từ bổ nghĩa cho danh từ:",
+      "pattern": "A いN2",
+      "meaning_vi": "Tính từ bổ nghĩa cho danh từ:",
+      "explanation": "Cách dùng: ➢ Khi tính từ bổ nghĩa cho danh từ, cả cụm tính từ + danh từ đó được coi như 1 danh từ. Vì thế, khi chia phủ định, quá khứ thì chia như 1 danh từ.",
+      "formation": "N1 は A な N2 です。 / A いN2",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 42,
+      "grammar_chapter_id": 8,
+      "title": "∼ và, hơn nữa ∼:",
+      "pattern": "Câu 1 そして Câu 2 / Chú ý: Phân biệt そして và と",
+      "meaning_vi": "∼ và, hơn nữa ∼:",
+      "explanation": "Cách dùng: Nối 2 câu tương đồng với nhau về nghĩa. Chú ý: Phân biệt そして và と",
+      "formation": "Câu 1 そして Câu 2 / ➢ そして：Sử dụng để nối 2 câu. / ➢ と ：Sử dụng để nối 2 danh từ.",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 43,
+      "grammar_chapter_id": 8,
+      "title": "∼nhưng, ∼:",
+      "pattern": "Câu 1 が Câu 2",
+      "meaning_vi": "∼nhưng, ∼:",
+      "explanation": "Cách dùng: Nối 2 câu có ý nghĩa trái ngược nhau.",
+      "formation": "Câu 1 が Câu 2",
+      "jlpt_level_id": 1,
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 44,
+      "grammar_chapter_id": 8,
+      "title": "∼như thế nào?:",
+      "pattern": "∼như thế nào?:",
+      "meaning_vi": "∼như thế nào?:",
+      "explanation": "Cách dùng: ➢ Dùng để hỏi về cảm tưởng, tính chất, tình trạng của người hay vật. ➢ Khi trả lời thì không cần kết hợp danh từ ở phía sau. ➢ Khi trả lời thì phải sử dụng mẫu tính từ bổ nghĩa cho danh từ.",
+      "formation": "Q： N は どうですか。 / A： A い／A なです。 / Q： N1 は どん な N2 ですか。",
+      "jlpt_level_id": 1,
+      "display_order": 7,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 45,
+      "grammar_chapter_id": 8,
+      "title": "∼cái nào?:",
+      "pattern": "∼cái nào?:",
+      "meaning_vi": "∼cái nào?:",
+      "explanation": "Cách dùng: ➢ Sử dụng để yêu cầu người nghe xác định một vật nào đó trong một nhóm từ hai vật trở lên. ➢ Chúng ta dùng mẫu câu tính từ bổ nghĩa cho danh từ để trả lời cho câu hỏi trên.",
+      "formation": "N は どれですか。 / Q： ミンさんの くるまは どれですか。 / A： あおい くるまです。",
+      "jlpt_level_id": 1,
+      "display_order": 8,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 46,
+      "grammar_chapter_id": 9,
+      "title": "Thích, ghét ∼:",
+      "pattern": "Thích, ghét ∼:",
+      "meaning_vi": "Thích, ghét ∼:",
+      "explanation": "Tôi thích sushi. • Thích, ghét ∼ không ? Lưu ý: 1. THÍCH, GHÉT∼ 2. GIỎI, KÉM∼ 3. HIỂU, KHÔNG HIỂU∼ 4. CÓ, KHÔNG CÓ∼ 5. PHÓ TỪ CHỈ MỨC ĐỘ 6. N NHƯ THẾ NÀO? 7. ∼ NHƯNG, TUY NHIÊN 8. VÌ ∼ NÊN (CÂU NGUYÊN NHÂN KẾT QUẢ)",
+      "formation": "S は Ｎが すきです。 / きらいです。 / Q: Ｓは Ｎが すき/きらい ですか。",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 47,
+      "grammar_chapter_id": 9,
+      "title": "Giỏi, kém ∼:",
+      "pattern": "Giỏi, kém ∼:",
+      "meaning_vi": "Giỏi, kém ∼:",
+      "explanation": "Tôi nhảy giỏi.",
+      "formation": "S は Ｎが じょうず／ へたです。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 48,
+      "grammar_chapter_id": 9,
+      "title": "Hiểu/ không hiểu ∼:",
+      "pattern": "Hiểu/ không hiểu ∼:",
+      "meaning_vi": "Hiểu/ không hiểu ∼:",
+      "explanation": "Tôi hiểu tiếng Nhật. • Biết, không biết ∼ không?",
+      "formation": "S は N が わかります。 / わかりません。 / わたしは にほんご が わかります。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 49,
+      "grammar_chapter_id": 9,
+      "title": "Có/ không có ∼:",
+      "pattern": "Có/ không có ∼:",
+      "meaning_vi": "Có/ không có ∼:",
+      "explanation": "Nam có xe ô tô đẹp. • Có ∼ không?:",
+      "formation": "S は N が あります。 / ありません。 / ナムさんは きれいな くるまが あります。",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 50,
+      "grammar_chapter_id": 9,
+      "title": "Phó từ chỉ mức độ:",
+      "pattern": "ぜんぜん(hoàn toàn không) / あまり(không…lắm)",
+      "meaning_vi": "Phó từ chỉ mức độ:",
+      "explanation": "Tôi hiểu 1 chút tiếng Nhật. • Phó từ chỉ số lượng:",
+      "formation": "ぜんぜん(hoàn toàn không) / あまり(không…lắm) / すこし(một chút)",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 51,
+      "grammar_chapter_id": 9,
+      "title": "N như thế nào?",
+      "pattern": "A な",
+      "meaning_vi": "N như thế nào?",
+      "explanation": "Bạn thích môn thể thao nào? Tôi thích bóng đá.",
+      "formation": "N như thế nào? / Q: どんなＮ が すき/きらいですか。 / A: A い Ｎ が すき/きらいです。",
+      "jlpt_level_id": 1,
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 52,
+      "grammar_chapter_id": 9,
+      "title": "Vì ∼ nên (câu nguyên nhân, kết quả):",
+      "pattern": "Câu nguyên nhân + から+ Câu kết quả.",
+      "meaning_vi": "Vì ∼ nên (câu nguyên nhân, kết quả):",
+      "explanation": "Vì không có thời gian nên không chơi thể thao.",
+      "formation": "Câu nguyên nhân + から+ Câu kết quả. / じかんが ありませんから、スポーツを しません。",
+      "jlpt_level_id": 1,
+      "display_order": 7,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 53,
+      "grammar_chapter_id": 9,
+      "title": "Tại sao/ Vì sao ～:",
+      "pattern": "Tại sao/ Vì sao ～:",
+      "meaning_vi": "Tại sao/ Vì sao ～:",
+      "explanation": "Tại sao/ Vì sao ～:",
+      "formation": "Q: どうして + V ますか。 / V ませんか。 / A: Lý do + から。",
+      "jlpt_level_id": 1,
+      "display_order": 8,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 54,
+      "grammar_chapter_id": 10,
+      "title": "Cách nói vị trí cụ thể:",
+      "pattern": "N１の N２",
+      "meaning_vi": "Cách nói vị trí cụ thể:",
+      "explanation": "Trên bàn.",
+      "formation": "N１の N２",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 55,
+      "grammar_chapter_id": 10,
+      "title": "Ở địa điểm ∼ có N:",
+      "pattern": "Ở địa điểm ∼ có N: / ➢ Làm gì ở ∼ thì dùng trợ từ で sau địa điểm.",
+      "meaning_vi": "Ở địa điểm ∼ có N:",
+      "explanation": "Chị Mai có quyển từ điển tiếng Nhật.",
+      "formation": "Ở địa điểm ∼ có N: / N1 に N2 が あります。 / N1 に N2 が います。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 56,
+      "grammar_chapter_id": 10,
+      "title": "Nhấn mạnh N ở ∼:",
+      "pattern": "Ｎ1 は N2 に います",
+      "meaning_vi": "Nhấn mạnh N ở ∼:",
+      "explanation": "Rau và hoa quả thì có ở trong tủ lạnh. • N (đồ vật) có ở đâu? • N (người, con vật) có ở đâu?",
+      "formation": "3. Nhấn mạnh N ở ∼: / Ｎ1 は N2 に あります。 / Ｎ1 は N2 に います",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 57,
+      "grammar_chapter_id": 10,
+      "title": "∼ và ∼ và…:",
+      "pattern": "N1 や N2 … など / ➢ と： Dùng để liệt kê toàn bộ danh từ.",
+      "meaning_vi": "∼ và ∼ và…:",
+      "explanation": "Cách dùng: や…や…など： Dùng để liệt kê các danh từ. (ngoài những thứ đó ra vẫn còn những thứ khác)",
+      "formation": "N1 や N2 … など / ➢ と： Dùng để liệt kê toàn bộ danh từ. / ➢ や： Dùng để liệt kê 1 số danh từ tượng trưng.",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 58,
+      "grammar_chapter_id": 11,
+      "title": "Số lượng từ đi với câu có động từ:",
+      "pattern": "Số lượng từ đi với câu có động từ:",
+      "meaning_vi": "Số lượng từ đi với câu có động từ:",
+      "explanation": "Tôi 25 tuổi. Số lượng từ đi với câu có động từ:",
+      "formation": "N は Số lượng từ です。 / N Trợ từ Số lượng từ V ます。 / が あります／います",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 59,
+      "grammar_chapter_id": 11,
+      "title": "Làm V trong khoảng thời gian:",
+      "pattern": "Làm V trong khoảng thời gian:",
+      "meaning_vi": "Làm V trong khoảng thời gian:",
+      "explanation": "Tôi đã học tiếng Nhật trong khoảng 2 tháng. Làm V trong khoảng bao lâu?",
+      "formation": "Làm V trong khoảng thời gian: / N ぐらい V ます。 / 2 かげつぐらい 日本語",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 60,
+      "grammar_chapter_id": 11,
+      "title": "Làm V ～ lần trong khoảng thời gian ～ (câu tần",
+      "pattern": "Làm V ～ lần trong khoảng thời gian ～ (câu tần",
+      "meaning_vi": "Làm V ～ lần trong khoảng thời gian ～ (câu tần",
+      "explanation": "1 ngày tôi ăn cơm 3 lần. • Làm V bao nhiêu lần trong khoảng thời gian N: (khoảng thời gian)",
+      "formation": "3. Làm V ～ lần trong khoảng thời gian ～ (câu tần / N に ～かい N を V ます。 / わたしは いちにちに ３かい ごはんを たべます。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 61,
+      "grammar_chapter_id": 11,
+      "title": "Chỉ ～:",
+      "pattern": "だけ thay thế cho が、を. / Các trợ từ khác như に、で、から thì có thể đứng trước",
+      "meaning_vi": "Chỉ ～:",
+      "explanation": "Cách dùng:",
+      "formation": "N だけ。 / だけ thay thế cho が、を. / Các trợ từ khác như に、で、から thì có thể đứng trước",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 62,
+      "grammar_chapter_id": 12,
+      "title": "Quá khứ của tính từ và danh từ",
+      "pattern": "Tính từ đuôi「な」và danh từ:",
+      "meaning_vi": "Quá khứ của tính từ và danh từ",
+      "explanation": "Sáng nay trời (đã) mưa. 1. QUÁ KHỨ CỦA TÍNH TỪ VÀ DANH TỪ. 2. N1 HƠN N2. 3. N1 VÀ N2 THÌ CÁI NÀO ~ HƠN? 4. TRONG N1 THÌ N2 LÀ ~ NHẤT. Khẳng định: (đã～) Phủ định: (đã không～)",
+      "formation": "Tính từ đuôi「な」và danh từ: / N／A（な）でした。 / N／A（な）じゃありませんでした。",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 63,
+      "grammar_chapter_id": 12,
+      "title": "N1 hơn N2:",
+      "pattern": "N1 hơn N2: / Ø Phó từ thường đi kèm là ずっと (hơn hẳn).",
+      "meaning_vi": "N1 hơn N2:",
+      "explanation": "Cách dùng: Ø Mẫu câu này dùng để so sánh 2 danh từ với nhau.",
+      "formation": "N1 hơn N2: / N1 は N2 より A です。 / Ø Phó từ thường đi kèm là ずっと (hơn hẳn).",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 64,
+      "grammar_chapter_id": 12,
+      "title": "N1 và N2 thì cái nào ∼ hơn?",
+      "pattern": "(Cả N1 và N2 đều ~)",
+      "meaning_vi": "N1 và N2 thì cái nào ∼ hơn?",
+      "explanation": "Núi và biển bạn thích cái nào hơn? Tôi thích biển hơn.",
+      "formation": "3. N1 và N2 thì cái nào ∼ hơn? / Q： N1 と N2 と どちらが A ですか。 / A： N1／N2 の ほうが A です。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 65,
+      "grammar_chapter_id": 12,
+      "title": "Trong N1 thì N2 là ~ nhất:",
+      "pattern": "Trong N1 thì N2 là ~ nhất: / Ø N2 phải thuộc phạm vi N1.",
+      "meaning_vi": "Trong N1 thì N2 là ~ nhất:",
+      "explanation": "Chú ý: Ø N2 phải thuộc phạm vi N1.",
+      "formation": "Trong N1 thì N2 là ~ nhất: / N1（のなか）で N2 が いちばん A です。 / Ø N2 phải thuộc phạm vi N1.",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 66,
+      "grammar_chapter_id": 13,
+      "title": "Muốn/ không muốn cái gì đó",
+      "pattern": "KHÔNG DÙNG khi nói đến ước muốn, ham thích của / NGƯỜI KHÁC.",
+      "meaning_vi": "Muốn/ không muốn cái gì đó",
+      "explanation": "Cách dùng: Dùng để nói ước muốn, ham thích của bản thân. KHÔNG DÙNG khi nói đến ước muốn, ham thích của NGƯỜI KHÁC. Chú ý: N : Đồ vật, người, động vật.",
+      "formation": "(わたし は) N が ほしいです。 / ほしくないです。 / KHÔNG DÙNG khi nói đến ước muốn, ham thích của",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 67,
+      "grammar_chapter_id": 13,
+      "title": "Muốn, không muốn làm hành động gì đó:",
+      "pattern": "• Động từ thể たい:",
+      "meaning_vi": "Muốn, không muốn làm hành động gì đó:",
+      "explanation": "• Tôi thích, muốn làm N: Cách dùng: Dùng để nói mong muốn làm việc gì đó của người nói. KHÔNG DÙNG khi nói đến mong muốn làm hành động của NGƯỜI KHÁC. Chú ý:",
+      "formation": "• Động từ thể たい: / Cách chia: Bỏ đuôi ます rồi thêm たい。 / むかえます(đón) → むかえたい",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 68,
+      "grammar_chapter_id": 13,
+      "title": "Đi/ đến/ trở về địa điểm để làm V,N:",
+      "pattern": "Đi/ đến/ trở về địa điểm để làm V,N: / V ます きます",
+      "meaning_vi": "Đi/ đến/ trở về địa điểm để làm V,N:",
+      "explanation": "Cách dùng: Mẫu câu dùng để nói mục đích đi/ đến/ trở về đâu đó để thực hiện hành động.",
+      "formation": "Đi/ đến/ trở về địa điểm để làm V,N: / V ます きます / Địa điểm へ V しますに いきます",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 69,
+      "grammar_chapter_id": 14,
+      "title": "Phân nhóm động từ. Động từ được chia làm 3 nhóm",
+      "pattern": "Là những động từ đứng trước đuôi ますlà các chữ cái thuộc cột",
+      "meaning_vi": "Phân nhóm động từ. Động từ được chia làm 3 nhóm",
+      "explanation": "• Động từ nhóm II: thuộc cột e. 1. PHÂN NHÓM ĐỘNG TỪ. 3. HÃY ~ 4. ĐANG LÀM V ~ 5. ĐỂ TÔI LÀM ~ GIÚP BẠN NHÉ.",
+      "formation": "Là những động từ đứng trước đuôi ますlà các chữ cái thuộc cột / のみます(uống) いそぎます(nhanh) / はたらきます(làm việc) あそびます(chơi)",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 70,
+      "grammar_chapter_id": 14,
+      "title": "Cách chia thể て:",
+      "pattern": "Cách chia thể て: / ～います",
+      "meaning_vi": "Cách chia thể て:",
+      "explanation": "Ø Cách chia 2:",
+      "formation": "Cách chia thể て: / ～います / ～ちます ～って",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 71,
+      "grammar_chapter_id": 14,
+      "title": "Hãy ～:",
+      "pattern": "Ø Khi nhờ vả thì thường thêm むみませんが đầu câu.",
+      "meaning_vi": "Hãy ～:",
+      "explanation": "Cách dùng: Ø Dùng để sai khiến, yêu cầu, khuyên nhủ, nhờ vả ai đó. Chú ý: Không dùng mẫu này với ý nghĩa sai khiến với người trên.",
+      "formation": "V て ＋ ください。 / Ø Khi nhờ vả thì thường thêm むみませんが đầu câu. / すみませんが、タクシー を よんで ください。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 72,
+      "grammar_chapter_id": 14,
+      "title": "Đang làm V～：",
+      "pattern": "Đang làm V～：",
+      "meaning_vi": "Đang làm V～：",
+      "explanation": "Bây giờ anh Nam đang bơi ở trong bể bơi. • Bây giờ ～ đang ～ phải không?",
+      "formation": "Đang làm V～： / V て ＋ います。 / いま、ナムさんは プールで およいで います。",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 73,
+      "grammar_chapter_id": 14,
+      "title": "Để tôi làm ～ giúp bạn nhé：",
+      "pattern": "Ø Cách kết hợp: V bỏ ます thêm ましょうか.",
+      "meaning_vi": "Để tôi làm ～ giúp bạn nhé：",
+      "explanation": "Cách dùng: Ø Dùng khi muốn đề nghị làm 1 việc gì đó cho người nghe.",
+      "formation": "Q: V ましょうか。 / A: すみません、おねがいします。 / いい、けっこうです。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 74,
+      "grammar_chapter_id": 15,
+      "title": "Làm V cũng được:",
+      "pattern": "Làm V cũng được:",
+      "meaning_vi": "Làm V cũng được:",
+      "explanation": "Cách dùng: Dùng để biểu thị sự được phép làm V.",
+      "formation": "Làm V cũng được: / (S は) N を V てもいいです。 / • Làm V có được không?",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 75,
+      "grammar_chapter_id": 15,
+      "title": "Không được làm V:",
+      "pattern": "Không được làm V: / Dùng để biểu thị sự cấm đoán, không được phép làm V.",
+      "meaning_vi": "Không được làm V:",
+      "explanation": "Cách dùng: Dùng để biểu thị sự cấm đoán, không được phép làm V.",
+      "formation": "Không được làm V: / (S は) N を V ては いけません。 / Dùng để biểu thị sự cấm đoán, không được phép làm V.",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 76,
+      "grammar_chapter_id": 15,
+      "title": "Đang trong tình trạng làm V:",
+      "pattern": "Đang trong tình trạng làm V: / Ø Nếu là thói quen trong quá khứ thì sẽ chia thành",
+      "meaning_vi": "Đang trong tình trạng làm V:",
+      "explanation": "Cách dùng: Ø Trạng thái của hành động diễn ra từ QK-HT-TL. Ø Thói quen , tập quán được lặp đi lặp lại trong 1 thời gian. Ø Nếu là thói quen trong quá khứ thì sẽ chia thành",
+      "formation": "Đang trong tình trạng làm V: / (S は) N を V ています。 / Ø Nếu là thói quen trong quá khứ thì sẽ chia thành",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 77,
+      "grammar_chapter_id": 16,
+      "title": "Làm V1, làm V2, rồi làm …",
+      "pattern": "Ø Thường hay thêm それからtrước hành động cuối cùng.",
+      "meaning_vi": "Làm V1, làm V2, rồi làm …",
+      "explanation": "Cách dùng: Ø Liệt kê hai hay nhiều hành động theo trật tự thời gian. Ø Thì của câu được biểu thị ở động từ cuối cùng.",
+      "formation": "V1 て、V2 て、。。。V ます。 / Ø Thường hay thêm それからtrước hành động cuối cùng. / きのう しごとが おわって、おかねを だして、",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 78,
+      "grammar_chapter_id": 16,
+      "title": "Làm V1 rồi làm V2:",
+      "pattern": "Ø Nhấn mạnh sau khi hành động V1 kết thúc thì liền sau đó",
+      "meaning_vi": "Làm V1 rồi làm V2:",
+      "explanation": "Cách dùng: Ø Nhấn mạnh sau khi hành động V1 kết thúc thì liền sau đó là hành động V2 xảy ra. Ø Thì của câu được biểu thị ở động từ cuối cùng.",
+      "formation": "V1 てから、V2 ます。 / Ø Nhấn mạnh sau khi hành động V1 kết thúc thì liền sau đó / でんわを かけてから、ともだちの うちに いきます。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 79,
+      "grammar_chapter_id": 16,
+      "title": "Cách nối tính từ và danh từ:",
+      "pattern": "A い → くて ＋ A い／A な／N / A な ／N → で ＋ A い／A な／N",
+      "meaning_vi": "Cách nối tính từ và danh từ:",
+      "explanation": "Cách dùng: Ø Dùng để nối 2 hay nhiều tính từ, danh từ với nhau. Ø Vì mang ý nghĩa “và” nên KHÔNG dùng để nối 2 câu có ý nghĩa trái ngược nhau.",
+      "formation": "A い → くて ＋ A い／A な／N / A な ／N → で ＋ A い／A な／N / Ø Vì mang ý nghĩa “và” nên KHÔNG dùng để nối 2 câu có",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 80,
+      "grammar_chapter_id": 16,
+      "title": "N2 (của) N1 thì:",
+      "pattern": "N2 (của) N1 thì: / Ø Dùng để miêu tả đặc điểm, tính chất của N1.",
+      "meaning_vi": "N2 (của) N1 thì:",
+      "explanation": "Cách dùng: Ø Dùng để miêu tả đặc điểm, tính chất của N1. Ø N2 là thuộc tính, thành phần của N1.",
+      "formation": "N2 (của) N1 thì: / N1 は N2 が A です。 / Ø Dùng để miêu tả đặc điểm, tính chất của N1.",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 81,
+      "grammar_chapter_id": 16,
+      "title": "Làm ～ như thế nào?",
+      "pattern": "Làm ～ như thế nào?",
+      "meaning_vi": "Làm ～ như thế nào?",
+      "explanation": "Mẫu ngữ pháp N5: Làm ～ như thế nào?.",
+      "formation": "Làm ～ như thế nào?",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 82,
+      "grammar_chapter_id": 16,
+      "title": "N NÀO?",
+      "pattern": "Ø Nhấn mạnh sau khi hành động V1 kết thúc thì liền sau đó",
+      "meaning_vi": "N NÀO?",
+      "explanation": "Cách dùng: Ø Nhấn mạnh sau khi hành động V1 kết thúc thì liền sau đó là hành động V2 xảy ra. Ø Thì của câu được biểu thị ở động từ cuối cùng.",
+      "formation": "6. N NÀO? / V1 てから、V2 ます。 / Ø Nhấn mạnh sau khi hành động V1 kết thúc thì liền sau đó",
+      "jlpt_level_id": 1,
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 83,
+      "grammar_chapter_id": 17,
+      "title": "Xin đừng làm V:",
+      "pattern": "Xin đừng làm V: / • Thể ない：",
+      "meaning_vi": "Xin đừng làm V:",
+      "explanation": "1. XIN ĐỪNG LÀM V. 2. PHẢI LÀM V, BẮT BUỘC PHẢI LÀM V. 3. KHÔNG LÀM V CŨNG ĐƯỢC. 4. CHẬM NHẤT, CHO ĐẾN TRƯỚC KHI. 5. NHẤN MẠNH N. Ø Động từ nhóm II:",
+      "formation": "Xin đừng làm V: / • Thể ない： / Ｖない ＝ Ｖません",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 84,
+      "grammar_chapter_id": 17,
+      "title": "Phải làm V, bắt buộc phải làm V:",
+      "pattern": "Phải làm V, bắt buộc phải làm V:",
+      "meaning_vi": "Phải làm V, bắt buộc phải làm V:",
+      "explanation": "Cách dùng: Khi một việc coi như nghĩa vụ phải làm, bất chấp ý hướng của người làm. Chú ý: Mặc dù động từ chia ở dạng phủ định nhưng cả câu không mang nghĩa phủ định.",
+      "formation": "Phải làm V, bắt buộc phải làm V: / V なければ なりません。 / V ない + ければ なりません。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 85,
+      "grammar_chapter_id": 17,
+      "title": "Không cần làm V cũng được:",
+      "pattern": "Không cần làm V cũng được:",
+      "meaning_vi": "Không cần làm V cũng được:",
+      "explanation": "Không cần trả tiền cũng được.",
+      "formation": "Không cần làm V cũng được: / V なくてもいいです。 / V ない + くて もいいです。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 86,
+      "grammar_chapter_id": 17,
+      "title": "Chậm nhất, cho đến trước khi:",
+      "pattern": "N までに",
+      "meaning_vi": "Chậm nhất, cho đến trước khi:",
+      "explanation": "Cách dùng: Chỉ rõ thời gian cuối mà một hành động hay một công việc phải được tiến hành trước thời hạn được chỉ định.",
+      "formation": "N までに / 金曜日 / きんようび",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 87,
+      "grammar_chapter_id": 17,
+      "title": "Nhấn mạnh N:",
+      "pattern": "Nhấn mạnh N: / ～N を V ます",
+      "meaning_vi": "Nhấn mạnh N:",
+      "explanation": "Cách dùng: Ø Đưa tân ngữ lên làm chủ ngữ để nhằm nhấn mạnh ý muốn diễn tả.",
+      "formation": "Nhấn mạnh N: / ～N を V ます / N は～ V ます",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 88,
+      "grammar_chapter_id": 18,
+      "title": "Có thể/ có khả năng:",
+      "pattern": "Ｖ(từ điển) ＝ Ｖます / ～i ます → ～u",
+      "meaning_vi": "Có thể/ có khả năng:",
+      "explanation": "1. CÓ THỂ/ CÓ KHẢ NĂNG. 2. SỞ THÍCH. 3. TRƯỚC (KHI). 4. MÃI MÀ KHÔNG. 5. RẤT MUỐN ～/ NHẤT ĐỊNH HÃY ～. Ø Động từ nhóm II:",
+      "formation": "Ｖ(từ điển) ＝ Ｖます / ～i ます → ～u / あいます(gặp) → あう",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 89,
+      "grammar_chapter_id": 18,
+      "title": "Sở thích:",
+      "pattern": "V ること",
+      "meaning_vi": "Sở thích:",
+      "explanation": "Sở thích của tôi là du lịch. • Sở thích của bạn là gì?",
+      "formation": "（わたしの）しゅみは N です。 / V ること / しゅみは なんですか。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 90,
+      "grammar_chapter_id": 18,
+      "title": "Trước khi làm ～ thì làm V2 :",
+      "pattern": "V1 る まえに、V2 / N の",
+      "meaning_vi": "Trước khi làm ～ thì làm V2 :",
+      "explanation": "Chú ý: Ø Thì của câu được biểu thị ở V2.",
+      "formation": "V1 る まえに、V2 / N の / Ø N là danh từ chỉ hành động, hành vi: りょこう(du lịch)、",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 91,
+      "grammar_chapter_id": 18,
+      "title": "Mãi mà không:",
+      "pattern": "Mãi mà không:",
+      "meaning_vi": "Mãi mà không:",
+      "explanation": "Chú ý: Luôn đi kèm với động từ phủ định.",
+      "formation": "なかなか V ません。 / わたしは 日本語 / にほんご",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 92,
+      "grammar_chapter_id": 18,
+      "title": "Rất muốn ～ nhất định hãy ～:",
+      "pattern": "Rất muốn ～ nhất định hãy ～:",
+      "meaning_vi": "Rất muốn ～ nhất định hãy ～:",
+      "explanation": "Tôi rất muốn leo núi Phú Sĩ.",
+      "formation": "ぜひ、 V たいです。 / ぜひ、 V てください。 / ぜひ、ふじさんに のぼりたいです。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 93,
+      "grammar_chapter_id": 19,
+      "title": "Đã từng làm V:",
+      "pattern": "Đã từng làm V: / • Thể た：",
+      "meaning_vi": "Đã từng làm V:",
+      "explanation": "Ø Động từ nhóm II:",
+      "formation": "Đã từng làm V: / • Thể た： / V ます → V て → V た",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 94,
+      "grammar_chapter_id": 19,
+      "title": "Liệt kê hành động:",
+      "pattern": "Liệt kê hành động:",
+      "meaning_vi": "Liệt kê hành động:",
+      "explanation": "Cách dùng: Ø Dùng khi muốn biểu hiện một vài hành động đại diện trong số nhiều hành động mà chủ thể thực hiện, không cần quan tâm cái nào xảy ra trước cái nào xảy ra sau. Ø Thì của mẫu câu được thể hiện ở cuối câu.",
+      "formation": "V1 たり、V2 たり します。 / 日曜日 / にちようび",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 95,
+      "grammar_chapter_id": 19,
+      "title": "Trở nên, trở thành:",
+      "pattern": "A い → く / N に",
+      "meaning_vi": "Trở nên, trở thành:",
+      "explanation": "Cách dùng: Chỉ sự thay đổi một tình trạng hay một điều kiện. sáng → tối, gầy → béo, to → nhỏ.",
+      "formation": "A い → く / A な → に なります／なりました。 / N に",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 96,
+      "grammar_chapter_id": 20,
+      "title": "Thể thông thường và thể lịch sự:",
+      "pattern": "THỂ THÔNG THƯỜNG / V ます",
+      "meaning_vi": "Thể thông thường và thể lịch sự:",
+      "explanation": "Mỗi ngày tôi thức dậy lúc 6 giờ. • Dạng câu hỏi của động từ： cuối câu. Khi trả lời ở dạng câu hỏi có hoặc không:",
+      "formation": "THỂ THÔNG THƯỜNG / V ます / V る",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 97,
+      "grammar_chapter_id": 20,
+      "title": "けど：nhưng Cách dùng:",
+      "pattern": "けど：nhưng",
+      "meaning_vi": "けど：nhưng Cách dùng:",
+      "explanation": "Cách dùng: Ø Hay được dùng trong hội thoại.",
+      "formation": "けど：nhưng / Ø けど có chức năng giống が。 / Tiếng Nhật khó nhưng mà thú vị.",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 98,
+      "grammar_chapter_id": 21,
+      "title": "Tôi nghĩ là:",
+      "pattern": "Tôi nghĩ là:",
+      "meaning_vi": "Tôi nghĩ là:",
+      "explanation": "Cách dùng: Ø Biểu thị phỏng đoán, phán đoán chủ quan. Ø Bày tỏ ý kiến, đánh giá cá nhân. Ø Thể hiện sự đồng tình hoặc không đồng tình với ý kiến của người khác.",
+      "formation": "Thể thông thường とおもいます。",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 99,
+      "grammar_chapter_id": 21,
+      "title": "Trích dẫn lời nói:",
+      "pattern": "Trích dẫn lời nói:",
+      "meaning_vi": "Trích dẫn lời nói:",
+      "explanation": "• Trích dẫn lời nói của người khác. Ø Trích dẫn lời nói trực tiếp:",
+      "formation": "1. TÔI NGHĨ LÀ. / 2. TRÍCH DẪN LỜI NÓI. / 3. ～PHẢI KHÔNG NHỈ?/ ～ĐÚNG KHÔNG?",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 100,
+      "grammar_chapter_id": 21,
+      "title": "～Phải không nhỉ?/ ～đúng không?",
+      "pattern": "Ａな/Ｎだ→Ｎ",
+      "meaning_vi": "～Phải không nhỉ?/ ～đúng không?",
+      "explanation": "Cách dùng: Ø Kêu gọi sự đồng tình, xác nhận sự đồng ý của người nghe. Ø Phát âm lên cao giọng ở cuối câu.",
+      "formation": "Thể thông thường でしょう。 / Ａな/Ｎだ→Ｎ / かれは ハンサムでしょう。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 101,
+      "grammar_chapter_id": 21,
+      "title": "Ở đâu có điều gì đó:",
+      "pattern": "Ở đâu có điều gì đó:",
+      "meaning_vi": "Ở đâu có điều gì đó:",
+      "explanation": "Ở Hà Nội có trận bóng đá giữa Việt Nam và Thái Lan. • 1 sự việc diễn ra ở 1 tình huống nào đó:",
+      "formation": "Địa điểm で N が あります。 / ハノイで タイと ベトナムのサッカーの / しあいが あります。",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 102,
+      "grammar_chapter_id": 22,
+      "title": "Mệnh đề bổ ngữ:",
+      "pattern": "Mệnh đề bổ ngữ:",
+      "meaning_vi": "Mệnh đề bổ ngữ:",
+      "explanation": "Định nghĩa: Ø Bổ ngữ là thành phần bổ sung thêm ý nghĩa, làm rõ nghĩa hơn cho danh từ. Ø Phần bổ ngữ luôn đứng trước danh từ mà nó bổ nghĩa. • Mệnh đề bổ nghĩa đã học: Ø Danh từ bổ nghĩa cho danh từ",
+      "formation": "Giáo viên tiếng Nhật. / 1. MỆNH ĐỀ BỔ NGỮ. / 2. MỆNH ĐỀ BỔ NGỮ CHO DANH TỪ LÀ VỊ NGỮ.",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 103,
+      "grammar_chapter_id": 22,
+      "title": "Mệnh đề bổ ngữ cho danh từ là vị ngữ:",
+      "pattern": "=> trợ từ が. / Ø Chủ ngữ chính của câu => trợ từ は.",
+      "meaning_vi": "Mệnh đề bổ ngữ cho danh từ là vị ngữ:",
+      "explanation": "Ý nghĩa: S là N mà. Lưu ý: Ø Chủ ngữ của mệnh đề bổ nghĩa cho danh từ => chủ ngữ phụ nguyên.",
+      "formation": "S は 文(thể thông thường) N です。 / => trợ từ が. / Ø Chủ ngữ chính của câu => trợ từ は.",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 104,
+      "grammar_chapter_id": 22,
+      "title": "Mệnh đề bổ ngữ cho danh từ là chủ ngữ:",
+      "pattern": "もの ひと ところ",
+      "meaning_vi": "Mệnh đề bổ ngữ cho danh từ là chủ ngữ:",
+      "explanation": "Ý nghĩa: N mà… là…",
+      "formation": "文(thể thông thường) N は ～ です。 / もの ひと ところ / めがねを かけている 人 はマイさんです。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 105,
+      "grammar_chapter_id": 22,
+      "title": "Mệnh đề bổ ngữ cho danh từ là chủ ngữ và vị ngữ:",
+      "pattern": "文(thể thông thường)N は 文(thể thông thường)N です. / S N",
+      "meaning_vi": "Mệnh đề bổ ngữ cho danh từ là chủ ngữ và vị ngữ:",
+      "explanation": "Đôi giày mà tôi đang đi là đôi giày mà mẹ tôi đã mua.",
+      "formation": "文(thể thông thường)N は 文(thể thông thường)N です. / S N",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 106,
+      "grammar_chapter_id": 22,
+      "title": "Mệnh đề bổ ngữ cho danh từ là tân ngữ:",
+      "pattern": "Mệnh đề bổ ngữ cho danh từ là tân ngữ:",
+      "meaning_vi": "Mệnh đề bổ ngữ cho danh từ là tân ngữ:",
+      "explanation": "Tôi thích người mà có tính hài hước.",
+      "formation": "S は 文(thể thông thường)N+ を～。 / O が～。 / ユーモアが あるひと がすきです。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 107,
+      "grammar_chapter_id": 22,
+      "title": "Có (không có) thời gian, cuộc hẹn, việc bận, tiền để làm gì đó:",
+      "pattern": "V る ＋ じかん／やくそく ＋ が あります",
+      "meaning_vi": "Có (không có) thời gian, cuộc hẹn, việc bận, tiền để làm gì đó:",
+      "explanation": "Tôi không có thời gian để ăn trưa.",
+      "formation": "V る ＋ じかん／やくそく ＋ が あります / thể thông ようじ／おかね ありません。",
+      "jlpt_level_id": 1,
+      "display_order": 6,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 108,
+      "grammar_chapter_id": 22,
+      "title": "Chúng ta hãy cùng ～",
+      "pattern": "Chúng ta hãy cùng ～",
+      "meaning_vi": "Chúng ta hãy cùng ～",
+      "explanation": "Cách dùng: Ø Biểu thị đề nghị cả người nói và người nghe cùng làm một việc gì đó.",
+      "formation": "V ます → ましょうか。",
+      "jlpt_level_id": 1,
+      "display_order": 7,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 109,
+      "grammar_chapter_id": 23,
+      "title": "Khi/ lúc (trạng ngữ chỉ thời gian):",
+      "pattern": "V る/ V ない / A い/ A な ＋とき",
+      "meaning_vi": "Khi/ lúc (trạng ngữ chỉ thời gian):",
+      "explanation": "Chú ý: Ø Thời của mệnh đề bổ ngữ KHÔNG phụ thuộc vào thời của mệnh đề chính.",
+      "formation": "V る/ V ない / A い/ A な ＋とき / N の",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 110,
+      "grammar_chapter_id": 23,
+      "title": "Trước khi/ sau khi:",
+      "pattern": "V る / ＋とき",
+      "meaning_vi": "Trước khi/ sau khi:",
+      "explanation": "Trước khi/ sau khi: Lưu ý: VD:",
+      "formation": "V る / 1. KHI/ LÚC (TRẠNG NGỮ CHỈ THỜI GIAN). / 3. HỄ/ CỨ LÀM V1 THÌ V2 TỰ DIỄN RA.",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 111,
+      "grammar_chapter_id": 23,
+      "title": "Hễ/ cứ làm V1 thì V2 tự diễn ra:",
+      "pattern": "Hễ/ cứ làm V1 thì V2 tự diễn ra:",
+      "meaning_vi": "Hễ/ cứ làm V1 thì V2 tự diễn ra:",
+      "explanation": "Cách dùng: Ø Diễn tả một sự việc hiển nhiên, tự nhiên. Ø Dùng để hướng dẫn cách sử dụng máy móc, thiết bị. Ø Dùng để chỉ đường.",
+      "formation": "V１ると、 V２。 / はるになると、はなが さきます。 / V1 て、V2 て、V3 と、địa điểm にN があります。",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 112,
+      "grammar_chapter_id": 24,
+      "title": "Cho, tặng hành động:",
+      "pattern": "わたし",
+      "meaning_vi": "Cho, tặng hành động:",
+      "explanation": "Ý nghĩa: A làm V cho B",
+      "formation": "A は B に N を V てあげます。 / わたし / わたしは おとうとに とけいを なおしてあげました。",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 113,
+      "grammar_chapter_id": 24,
+      "title": "Nhận hành động:",
+      "pattern": "Nhận hành động:",
+      "meaning_vi": "Nhận hành động:",
+      "explanation": "Ý nghĩa: A được B làm V cho.",
+      "formation": "Nhận hành động: / A は B に N を V てもらいます。 / わたしは むすこに えを かいてもらいました。",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 114,
+      "grammar_chapter_id": 24,
+      "title": "Cho, tặng (tôi):",
+      "pattern": "Ø B thường là: 私 / わたし",
+      "meaning_vi": "Cho, tặng (tôi):",
+      "explanation": "Cách dùng: Ø Ai đó cho, tặng mình (người thân) cái gì đó.",
+      "formation": "A は B に N を くれます。 / Ø B thường là: 私 / わたし",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 115,
+      "grammar_chapter_id": 24,
+      "title": "Cho, tặng (tôi) hành động:",
+      "pattern": "Cho, tặng (tôi) hành động:",
+      "meaning_vi": "Cho, tặng (tôi) hành động:",
+      "explanation": "Ý nghĩa: A làm V cho B(tôi).",
+      "formation": "A は B に N を V てくれます。 / むすこは えを かいてくれました。",
+      "jlpt_level_id": 1,
+      "display_order": 4,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 116,
+      "grammar_chapter_id": 24,
+      "title": "Nhấn mạnh danh từ:",
+      "pattern": "Nhấn mạnh danh từ:",
+      "meaning_vi": "Nhấn mạnh danh từ:",
+      "explanation": "Mẹ đã nấu món ăn này cho tôi. Món ăn này là mẹ nấu cho tôi.",
+      "formation": "5. Nhấn mạnh danh từ: / S は N を V ます。 / N は S が V ます。",
+      "jlpt_level_id": 1,
+      "display_order": 5,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 117,
+      "grammar_chapter_id": 25,
+      "title": "Câu điều kiện giả đinh: nếu…thì…:",
+      "pattern": "A い → A かった / A な → A だった",
+      "meaning_vi": "Câu điều kiện giả đinh: nếu…thì…:",
+      "explanation": "Cách dùng: Ø Dùng khi người nói muốn bày tỏ lập trường, ý kiến, mong muốn, yêu cầu, lời mời…của mình trong điều kiện giả định đó. của người nói.",
+      "formation": "A い → A かった / A な → A だった / （もし） N → N だった ら",
+      "jlpt_level_id": 1,
+      "display_order": 1,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 118,
+      "grammar_chapter_id": 25,
+      "title": "Sau khi làm V1 thì làm V2:",
+      "pattern": "V1 たら、V2 / Ø Nhấn mạnh thứ tự trước sau của hành động.",
+      "meaning_vi": "Sau khi làm V1 thì làm V2:",
+      "explanation": "Cách dùng: Ø Nhấn mạnh thứ tự trước sau của hành động. Ø V2 (mệnh đề chính) luôn ở thời hiện tại.",
+      "formation": "V1 たら、V2 / Ø Nhấn mạnh thứ tự trước sau của hành động. / (= V1 てから、V2)",
+      "jlpt_level_id": 1,
+      "display_order": 2,
+      "is_published": true,
+      "version": 1
+    },
+    {
+      "id": 119,
+      "grammar_chapter_id": 25,
+      "title": "Câu mệnh đề ngược nghĩa: dù, cho dù… thì vẫn…:",
+      "pattern": "A い → A くて / A な → A で",
+      "meaning_vi": "Câu mệnh đề ngược nghĩa: dù, cho dù… thì vẫn…:",
+      "explanation": "Cách dùng: Ø Mệnh đề ngược nghĩa: Vế 1 có xảy ra như thế nào thì vế 2 vẫn sẽ xảy ra. Nhấn mạnh về mức độ điều kiện.",
+      "formation": "A い → A くて / A な → A で / （いくら）N → N で も",
+      "jlpt_level_id": 1,
+      "display_order": 3,
+      "is_published": true,
+      "version": 1
+    }
+  ],
+  "grammar_examples": [
+    {
+      "id": 1,
+      "grammar_lesson_id": 1,
+      "japanese_text": "わたし は サムライです。",
+      "reading": null,
+      "meaning_vi": "Tôi là Samurai.",
+      "display_order": 1
+    },
+    {
+      "id": 2,
+      "grammar_lesson_id": 1,
+      "japanese_text": "わたし は きょうしです。",
+      "reading": null,
+      "meaning_vi": "Tôi là giáo viên.",
+      "display_order": 2
+    },
+    {
+      "id": 3,
+      "grammar_lesson_id": 2,
+      "japanese_text": "わたし は いしゃ じゃありません。",
+      "reading": null,
+      "meaning_vi": "Tôi không phải là bác sĩ.",
+      "display_order": 1
+    },
+    {
+      "id": 4,
+      "grammar_lesson_id": 3,
+      "japanese_text": "いいえ、がくせい じゃありません。",
+      "reading": null,
+      "meaning_vi": "N N",
+      "display_order": 1
+    },
+    {
+      "id": 5,
+      "grammar_lesson_id": 3,
+      "japanese_text": "おいくつですか。",
+      "reading": null,
+      "meaning_vi": "• Từ để hỏi:",
+      "display_order": 2
+    },
+    {
+      "id": 6,
+      "grammar_lesson_id": 4,
+      "japanese_text": "サムライにほんご の がくせい。",
+      "reading": null,
+      "meaning_vi": "Học viên của Samurai nihongo.",
+      "display_order": 1
+    },
+    {
+      "id": 7,
+      "grammar_lesson_id": 4,
+      "japanese_text": "わたしは ハノイだいがくの がくせいです。",
+      "reading": null,
+      "meaning_vi": "Tôi là học sinh của trường đại học Hà Nội.",
+      "display_order": 2
+    },
+    {
+      "id": 8,
+      "grammar_lesson_id": 5,
+      "japanese_text": "私もベトナム人です。",
+      "reading": null,
+      "meaning_vi": "Tôi cũng là người Việt Nam.",
+      "display_order": 1
+    },
+    {
+      "id": 9,
+      "grammar_lesson_id": 6,
+      "japanese_text": "これは とけいです。",
+      "reading": null,
+      "meaning_vi": "Đây là đồng hồ.",
+      "display_order": 1
+    },
+    {
+      "id": 10,
+      "grammar_lesson_id": 6,
+      "japanese_text": "それは じしょです。",
+      "reading": null,
+      "meaning_vi": "Đó là quyển từ điển.",
+      "display_order": 2
+    },
+    {
+      "id": 11,
+      "grammar_lesson_id": 7,
+      "japanese_text": "このひとは ミンさんです。",
+      "reading": null,
+      "meaning_vi": "Người này là Minh Q：～",
+      "display_order": 1
+    },
+    {
+      "id": 12,
+      "grammar_lesson_id": 8,
+      "japanese_text": "教室に学生がいます。",
+      "reading": null,
+      "meaning_vi": "Trong lớp có học sinh.",
+      "display_order": 1
+    },
+    {
+      "id": 13,
+      "grammar_lesson_id": 9,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Là N1 hay là N2:.",
+      "display_order": 1
+    },
+    {
+      "id": 14,
+      "grammar_lesson_id": 10,
+      "japanese_text": "これは わたしの チョコレートです。",
+      "reading": null,
+      "meaning_vi": "Đây là sô cô la của tôi. • Cái này là N của ai? (đồ vật) • N này là của ai?",
+      "display_order": 1
+    },
+    {
+      "id": 15,
+      "grammar_lesson_id": 11,
+      "japanese_text": "これは えいごの じしょです。",
+      "reading": null,
+      "meaning_vi": "Đây là quyển từ điển tiếng Anh.",
+      "display_order": 1
+    },
+    {
+      "id": 16,
+      "grammar_lesson_id": 12,
+      "japanese_text": "ここ は きょうしつ です。",
+      "reading": null,
+      "meaning_vi": "Đây là phòng học.",
+      "display_order": 1
+    },
+    {
+      "id": 17,
+      "grammar_lesson_id": 12,
+      "japanese_text": "こちら は わたしのかいしゃ です。",
+      "reading": null,
+      "meaning_vi": "Đây là công ty của tôi. • Chỗ này/đó/kia không phải là N :",
+      "display_order": 2
+    },
+    {
+      "id": 18,
+      "grammar_lesson_id": 13,
+      "japanese_text": "コンピューターは じむしょです。",
+      "reading": null,
+      "meaning_vi": "Máy tính ở văn phòng.",
+      "display_order": 1
+    },
+    {
+      "id": 19,
+      "grammar_lesson_id": 14,
+      "japanese_text": "トイレはどこですか。",
+      "reading": null,
+      "meaning_vi": "Nhà vệ sinh ở đâu?",
+      "display_order": 1
+    },
+    {
+      "id": 20,
+      "grammar_lesson_id": 15,
+      "japanese_text": "B: ベトナムです。",
+      "reading": null,
+      "meaning_vi": "Tôi đến từ Việt Nam.",
+      "display_order": 1
+    },
+    {
+      "id": 21,
+      "grammar_lesson_id": 16,
+      "japanese_text": "B：イギリスの でんわです。",
+      "reading": null,
+      "meaning_vi": "Điện thoại này sản xuất ở Anh.",
+      "display_order": 1
+    },
+    {
+      "id": 22,
+      "grammar_lesson_id": 17,
+      "japanese_text": "B： ～えん・ドル・ドンです。",
+      "reading": null,
+      "meaning_vi": "Chiếc ô này bao nhiêu tiền?",
+      "display_order": 1
+    },
+    {
+      "id": 23,
+      "grammar_lesson_id": 17,
+      "japanese_text": "B：にじゅうまんドンです。",
+      "reading": null,
+      "meaning_vi": "Chiếc ô này có giá 200.000 đồng.",
+      "display_order": 2
+    },
+    {
+      "id": 24,
+      "grammar_lesson_id": 18,
+      "japanese_text": "いま、ごぜん くじです。",
+      "reading": null,
+      "meaning_vi": "Bây giờ là 9 giờ sáng. • Cách nói giờ kém:",
+      "display_order": 1
+    },
+    {
+      "id": 25,
+      "grammar_lesson_id": 18,
+      "japanese_text": "まえです。",
+      "reading": null,
+      "meaning_vi": "Cách dùng: ➢ Nói trong phạm vi 10 phút trở về. ➢ Cách nói giờ hơn thì nói như bình thường",
+      "display_order": 2
+    },
+    {
+      "id": 26,
+      "grammar_lesson_id": 19,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Là thứ mấy?:.",
+      "display_order": 1
+    },
+    {
+      "id": 27,
+      "grammar_lesson_id": 20,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Động từ ます:.",
+      "display_order": 1
+    },
+    {
+      "id": 28,
+      "grammar_lesson_id": 21,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Làm V vào lúc ～ giờ：.",
+      "display_order": 1
+    },
+    {
+      "id": 29,
+      "grammar_lesson_id": 22,
+      "japanese_text": "あした いちじから ごじまで べんきょうします。",
+      "reading": null,
+      "meaning_vi": "Ngày mai tôi học từ 1 giờ đến 5 giờ.",
+      "display_order": 1
+    },
+    {
+      "id": 30,
+      "grammar_lesson_id": 23,
+      "japanese_text": "このびじゅつかんは きんようびと どようび やすみます。",
+      "reading": null,
+      "meaning_vi": "Bảo tàng mĩ thuật này nghỉ vào thứ 6 và thứ 7.",
+      "display_order": 1
+    },
+    {
+      "id": 31,
+      "grammar_lesson_id": 24,
+      "japanese_text": "きょうは しがつ ついたちです。",
+      "reading": null,
+      "meaning_vi": "Hôm nay là ngày mùng 1 tháng 4.",
+      "display_order": 1
+    },
+    {
+      "id": 32,
+      "grammar_lesson_id": 25,
+      "japanese_text": "わたしは にほんへ きました。",
+      "reading": null,
+      "meaning_vi": "Tôi đã đến Nhật.",
+      "display_order": 1
+    },
+    {
+      "id": 33,
+      "grammar_lesson_id": 26,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Hỏi đi/ đến/ về đâu?:.",
+      "display_order": 1
+    },
+    {
+      "id": 34,
+      "grammar_lesson_id": 27,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Bằng phương tiện gì 「で」：.",
+      "display_order": 1
+    },
+    {
+      "id": 35,
+      "grammar_lesson_id": 28,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Làm gì với ai đó 「と」：.",
+      "display_order": 1
+    },
+    {
+      "id": 36,
+      "grammar_lesson_id": 29,
+      "japanese_text": "けさ パンを たべました。",
+      "reading": null,
+      "meaning_vi": "Sáng nay tôi đã ăn bánh mì. Chú ý: • Ăn, uống, làm… cái gì? Q:",
+      "display_order": 1
+    },
+    {
+      "id": 37,
+      "grammar_lesson_id": 29,
+      "japanese_text": "おとうさん、なにを のみますか。",
+      "reading": null,
+      "meaning_vi": "A:",
+      "display_order": 2
+    },
+    {
+      "id": 38,
+      "grammar_lesson_id": 30,
+      "japanese_text": "しゅうまつ テニスを します。",
+      "reading": null,
+      "meaning_vi": "Cuối tuần tớ sẽ chơi tennis. • Làm (đã làm) gì? Cách dùng: ➢ Đây là mẫu câu hỏi chung cho tất cả các động từ. ➢ Nếu không làm gì thì sẽ trả lời:",
+      "display_order": 1
+    },
+    {
+      "id": 39,
+      "grammar_lesson_id": 31,
+      "japanese_text": "トイレはどこですか。",
+      "reading": null,
+      "meaning_vi": "Nhà vệ sinh ở đâu?",
+      "display_order": 1
+    },
+    {
+      "id": 40,
+      "grammar_lesson_id": 32,
+      "japanese_text": "この料理はおいしいですが、高いです。",
+      "reading": null,
+      "meaning_vi": "Món này ngon nhưng đắt.",
+      "display_order": 1
+    },
+    {
+      "id": 41,
+      "grammar_lesson_id": 33,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Cùng làm ～nhé：.",
+      "display_order": 1
+    },
+    {
+      "id": 42,
+      "grammar_lesson_id": 34,
+      "japanese_text": "はさみで かみを きります。",
+      "reading": null,
+      "meaning_vi": "Cắt giấy bằng kéo. • Làm V bằng phương tiện, công cụ nào?",
+      "display_order": 1
+    },
+    {
+      "id": 43,
+      "grammar_lesson_id": 34,
+      "japanese_text": "Ｑ： Ｓは なにで Ｎを Ｖますか。",
+      "reading": null,
+      "meaning_vi": "ĐỂ THỰC HIỆN V. Q:",
+      "display_order": 2
+    },
+    {
+      "id": 44,
+      "grammar_lesson_id": 35,
+      "japanese_text": "は えいごで “Book”です。",
+      "reading": null,
+      "meaning_vi": "Sách trong tiếng Anh là “book”. • A trong ngôn ngữ ~ là gì?",
+      "display_order": 1
+    },
+    {
+      "id": 45,
+      "grammar_lesson_id": 35,
+      "japanese_text": "Ａは ～ごで なんですか。",
+      "reading": null,
+      "meaning_vi": "Cái này tiếng Nhật là gì?",
+      "display_order": 2
+    },
+    {
+      "id": 46,
+      "grammar_lesson_id": 36,
+      "japanese_text": "わたしは ちちに えを あげます。",
+      "reading": null,
+      "meaning_vi": "Tôi tặng bố bức tranh. người nhận người cho V nhận Ý nghĩa: ➢ A nhận từ B 1 N nào đó. ➢ V nhận:",
+      "display_order": 1
+    },
+    {
+      "id": 47,
+      "grammar_lesson_id": 36,
+      "japanese_text": "✓ ならいます (học từ)",
+      "reading": null,
+      "meaning_vi": "Bố nhận từ tôi bức tranh. Lưu ý: Trong câu nhận: ➢ Nếu đối tượng B (người cho) là một tổ chức , cơ quan thì • Ai cho/ nhận của ai N:",
+      "display_order": 2
+    },
+    {
+      "id": 48,
+      "grammar_lesson_id": 37,
+      "japanese_text": "わたしは もう あさごはんを たべました。",
+      "reading": null,
+      "meaning_vi": "Tôi đã ăn sáng rồi. • Đã làm V chưa?",
+      "display_order": 1
+    },
+    {
+      "id": 49,
+      "grammar_lesson_id": 38,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Tính từ:.",
+      "display_order": 1
+    },
+    {
+      "id": 50,
+      "grammar_lesson_id": 39,
+      "japanese_text": "桜はきれいです。",
+      "reading": null,
+      "meaning_vi": "Hoa anh đào đẹp.",
+      "display_order": 1
+    },
+    {
+      "id": 51,
+      "grammar_lesson_id": 40,
+      "japanese_text": "ホアさんは げんき じゃありません。",
+      "reading": null,
+      "meaning_vi": "Bạn Hoa không khỏe. • ∼phải không?",
+      "display_order": 1
+    },
+    {
+      "id": 52,
+      "grammar_lesson_id": 41,
+      "japanese_text": "これは新しい本です。",
+      "reading": null,
+      "meaning_vi": "Đây là quyển sách mới.",
+      "display_order": 1
+    },
+    {
+      "id": 53,
+      "grammar_lesson_id": 42,
+      "japanese_text": "ナムさんは ハンサムです。そして、しんせつです。",
+      "reading": null,
+      "meaning_vi": "Nam thì đẹp trai và tốt bụng.",
+      "display_order": 1
+    },
+    {
+      "id": 54,
+      "grammar_lesson_id": 43,
+      "japanese_text": "この料理はおいしいですが、高いです。",
+      "reading": null,
+      "meaning_vi": "Món này ngon nhưng đắt.",
+      "display_order": 1
+    },
+    {
+      "id": 55,
+      "grammar_lesson_id": 44,
+      "japanese_text": "日本の生活はどうですか。",
+      "reading": null,
+      "meaning_vi": "Cuộc sống ở Nhật thế nào?",
+      "display_order": 1
+    },
+    {
+      "id": 56,
+      "grammar_lesson_id": 45,
+      "japanese_text": "あなたのかばんはどれですか。",
+      "reading": null,
+      "meaning_vi": "Cái cặp của bạn là cái nào?",
+      "display_order": 1
+    },
+    {
+      "id": 57,
+      "grammar_lesson_id": 46,
+      "japanese_text": "いいえ、すき/きらい じゃありません。",
+      "reading": null,
+      "meaning_vi": "Lưu ý: Cậu thích xem phim không? Không, tớ không thích xem phim lắm.",
+      "display_order": 1
+    },
+    {
+      "id": 58,
+      "grammar_lesson_id": 47,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Giỏi, kém ∼:.",
+      "display_order": 1
+    },
+    {
+      "id": 59,
+      "grammar_lesson_id": 48,
+      "japanese_text": "わたしは にほんご が わかります。",
+      "reading": null,
+      "meaning_vi": "Tôi hiểu tiếng Nhật. • Biết, không biết ∼ không?",
+      "display_order": 1
+    },
+    {
+      "id": 60,
+      "grammar_lesson_id": 48,
+      "japanese_text": "いいえ、わかりません。",
+      "reading": null,
+      "meaning_vi": "Cậu biết tiếng Đức không? Có, tôi biết.",
+      "display_order": 2
+    },
+    {
+      "id": 61,
+      "grammar_lesson_id": 49,
+      "japanese_text": "ナムさんは きれいな くるまが あります。",
+      "reading": null,
+      "meaning_vi": "Nam có xe ô tô đẹp. • Có ∼ không?:",
+      "display_order": 1
+    },
+    {
+      "id": 62,
+      "grammar_lesson_id": 49,
+      "japanese_text": "いいえ、ありません。",
+      "reading": null,
+      "meaning_vi": "Bạn có thời gian không? Không, tôi không có.",
+      "display_order": 2
+    },
+    {
+      "id": 63,
+      "grammar_lesson_id": 50,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Phó từ chỉ mức độ:.",
+      "display_order": 1
+    },
+    {
+      "id": 64,
+      "grammar_lesson_id": 51,
+      "japanese_text": "日本の生活はどうですか。",
+      "reading": null,
+      "meaning_vi": "Cuộc sống ở Nhật thế nào?",
+      "display_order": 1
+    },
+    {
+      "id": 65,
+      "grammar_lesson_id": 52,
+      "japanese_text": "じかんが ありませんから、スポーツを しません。",
+      "reading": null,
+      "meaning_vi": "Vì không có thời gian nên không chơi thể thao.",
+      "display_order": 1
+    },
+    {
+      "id": 66,
+      "grammar_lesson_id": 53,
+      "japanese_text": "忙しいですから、朝ご飯を食べません。",
+      "reading": null,
+      "meaning_vi": "Vì bận nên tôi không ăn sáng.",
+      "display_order": 1
+    },
+    {
+      "id": 67,
+      "grammar_lesson_id": 54,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Cách nói vị trí cụ thể:.",
+      "display_order": 1
+    },
+    {
+      "id": 68,
+      "grammar_lesson_id": 55,
+      "japanese_text": "マイさんは にほんごの じしょが あります。",
+      "reading": null,
+      "meaning_vi": "Chị Mai có quyển từ điển tiếng Nhật. Tôi có con mèo màu trắng. Ở địa điểm ～ có cái gì? Ở địa điểm ～ có con gì? Ở địa điểm ～ có ai? Cách phủ định hoàn toàn:",
+      "display_order": 1
+    },
+    {
+      "id": 69,
+      "grammar_lesson_id": 55,
+      "japanese_text": "はこの なかに なにが ありますか。",
+      "reading": null,
+      "meaning_vi": "Ở trong hộp có cái gì đó ?",
+      "display_order": 2
+    },
+    {
+      "id": 70,
+      "grammar_lesson_id": 56,
+      "japanese_text": "やさいと くだものは れいぞうこに あります。",
+      "reading": null,
+      "meaning_vi": "Rau và hoa quả thì có ở trong tủ lạnh. • N (đồ vật) có ở đâu? • N (người, con vật) có ở đâu? Công viên thì có ở đâu ? Có ở phía sau trường học.",
+      "display_order": 1
+    },
+    {
+      "id": 71,
+      "grammar_lesson_id": 57,
+      "japanese_text": "日曜日は映画を見たり、本を読んだりします。",
+      "reading": null,
+      "meaning_vi": "Chủ nhật tôi xem phim, đọc sách...",
+      "display_order": 1
+    },
+    {
+      "id": 72,
+      "grammar_lesson_id": 58,
+      "japanese_text": "がっこうに にほんじんの せんせいが ひとりいます。",
+      "reading": null,
+      "meaning_vi": "Ở trường có 1 giáo viên người Nhật.",
+      "display_order": 1
+    },
+    {
+      "id": 73,
+      "grammar_lesson_id": 58,
+      "japanese_text": "ごはんを ２はい 食べます。",
+      "reading": null,
+      "meaning_vi": "Tôi ăn 2 bát cơm.",
+      "display_order": 2
+    },
+    {
+      "id": 74,
+      "grammar_lesson_id": 59,
+      "japanese_text": "を べんきょうしました。",
+      "reading": null,
+      "meaning_vi": "Tôi đã học tiếng Nhật trong khoảng 2 tháng. Làm V trong khoảng bao lâu? Trưa hôm qua cậu đã ngủ bao lâu. Tớ đã ngủ khoảng 2 tiếng.",
+      "display_order": 1
+    },
+    {
+      "id": 75,
+      "grammar_lesson_id": 60,
+      "japanese_text": "わたしは いちにちに ３かい ごはんを たべます。",
+      "reading": null,
+      "meaning_vi": "1 ngày tôi ăn cơm 3 lần. • Làm V bao nhiêu lần trong khoảng thời gian N: (khoảng thời gian)",
+      "display_order": 1
+    },
+    {
+      "id": 76,
+      "grammar_lesson_id": 60,
+      "japanese_text": "１しゅうかんに なんかい スーパーへ いきますか。",
+      "reading": null,
+      "meaning_vi": "1 tuần đi siêu thị mấy lần ?",
+      "display_order": 2
+    },
+    {
+      "id": 77,
+      "grammar_lesson_id": 61,
+      "japanese_text": "にく だけ たべます 。",
+      "reading": null,
+      "meaning_vi": "Tôi chỉ ăn thịt.",
+      "display_order": 1
+    },
+    {
+      "id": 78,
+      "grammar_lesson_id": 62,
+      "japanese_text": "おもしろかったです。",
+      "reading": null,
+      "meaning_vi": "Thú vị lắm.",
+      "display_order": 1
+    },
+    {
+      "id": 79,
+      "grammar_lesson_id": 63,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: N1 hơn N2:.",
+      "display_order": 1
+    },
+    {
+      "id": 80,
+      "grammar_lesson_id": 64,
+      "japanese_text": "あなたのかばんはどれですか。",
+      "reading": null,
+      "meaning_vi": "Cái cặp của bạn là cái nào?",
+      "display_order": 1
+    },
+    {
+      "id": 81,
+      "grammar_lesson_id": 65,
+      "japanese_text": "クラスのなかで ナムさんが いちばん ハンサムです。",
+      "reading": null,
+      "meaning_vi": "Trong lớp thì Nam đẹp trai nhất. • Trong N1 thì cái gì/ai/khi nào/ở đâu là ~ nhất?",
+      "display_order": 1
+    },
+    {
+      "id": 82,
+      "grammar_lesson_id": 65,
+      "japanese_text": "いちねんでいつがいちばんすずしいですか。",
+      "reading": null,
+      "meaning_vi": "Trong 1 năm thì khi nào là mát mẻ nhất?",
+      "display_order": 2
+    },
+    {
+      "id": 83,
+      "grammar_lesson_id": 66,
+      "japanese_text": "Ｑ： どんなＮが ほしいですか。",
+      "reading": null,
+      "meaning_vi": "Bạn thích 1 chiếc túi xách như thế nào? Tôi thích 1 chiếc túi xách màu vàng.",
+      "display_order": 1
+    },
+    {
+      "id": 84,
+      "grammar_lesson_id": 67,
+      "japanese_text": "こいびと と さんぽしたいです。",
+      "reading": null,
+      "meaning_vi": "Muốn đi dạo cùng người yêu . Chú ý: mong muốn của ngôi thứ 3.",
+      "display_order": 1
+    },
+    {
+      "id": 85,
+      "grammar_lesson_id": 67,
+      "japanese_text": "たなかさんは やきゅうを したがっています。",
+      "reading": null,
+      "meaning_vi": "Anh Tanaka muốn chơi bóng chày. • Có muốn làm V không? Bạn có muốn chụp ảnh không? Có, tôi muốn chụp ảnh. • Muốn làm gì? Chú ý: Tùy vào động từ sẽ có nghi vấn từ khác nhau",
+      "display_order": 2
+    },
+    {
+      "id": 86,
+      "grammar_lesson_id": 68,
+      "japanese_text": "スーパーへ やさいを かいに いきます。",
+      "reading": null,
+      "meaning_vi": "Tôi đi siêu thị để mua rau. • Đi/ đến/ về đâu để làm V: Hôm qua, bạn đi đâu để làm gì? Tôi đi quán cà phê để uống cà phê. • Đi đến đâu để học cái gì?",
+      "display_order": 1
+    },
+    {
+      "id": 87,
+      "grammar_lesson_id": 68,
+      "japanese_text": "いきますか。",
+      "reading": null,
+      "meaning_vi": "Cậu đến Mỹ để học gì? Tôi học tiếng Anh.",
+      "display_order": 2
+    },
+    {
+      "id": 88,
+      "grammar_lesson_id": 69,
+      "japanese_text": "はたらきます(làm việc) あそびます(chơi)",
+      "reading": null,
+      "meaning_vi": "• Động từ nhóm II: thuộc cột e.",
+      "display_order": 1
+    },
+    {
+      "id": 89,
+      "grammar_lesson_id": 69,
+      "japanese_text": "あげます(cho) むかえます(đón)",
+      "reading": null,
+      "meaning_vi": "là cột i vẫn được gọi là động từ nhóm 2.",
+      "display_order": 2
+    },
+    {
+      "id": 90,
+      "grammar_lesson_id": 70,
+      "japanese_text": "まちます(chờ) ⇒ まって",
+      "reading": null,
+      "meaning_vi": "Ø Cách chia 2:",
+      "display_order": 1
+    },
+    {
+      "id": 91,
+      "grammar_lesson_id": 70,
+      "japanese_text": "やすみます(nghỉ ngơi) ⇒ やすんで",
+      "reading": null,
+      "meaning_vi": "Ø Cách chia 3:",
+      "display_order": 2
+    },
+    {
+      "id": 92,
+      "grammar_lesson_id": 71,
+      "japanese_text": "すみませんが、タクシー を よんで ください。",
+      "reading": null,
+      "meaning_vi": "Xin lỗi, hãy gọi taxi giúp tôi.",
+      "display_order": 1
+    },
+    {
+      "id": 93,
+      "grammar_lesson_id": 72,
+      "japanese_text": "いま、ナムさんは プールで およいで います。",
+      "reading": null,
+      "meaning_vi": "Bây giờ anh Nam đang bơi ở trong bể bơi. • Bây giờ ～ đang ～ phải không? Bé Na đang đọc sách phải không? Ừ, bé Na đang đọc sách. • Bây giờ bạn đang làm gì?",
+      "display_order": 1
+    },
+    {
+      "id": 94,
+      "grammar_lesson_id": 72,
+      "japanese_text": "は なにをして いますか。",
+      "reading": null,
+      "meaning_vi": "Bây giờ thầy Minh đang làm gì thế? Thầy đang dạy tiếng Nhật.",
+      "display_order": 2
+    },
+    {
+      "id": 95,
+      "grammar_lesson_id": 73,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Để tôi làm ～ giúp bạn nhé：.",
+      "display_order": 1
+    },
+    {
+      "id": 96,
+      "grammar_lesson_id": 74,
+      "japanese_text": "すみません、ちょっと…(きんえんですから）",
+      "reading": null,
+      "meaning_vi": "Xin lỗi, không được….(vì bị cấm)",
+      "display_order": 1
+    },
+    {
+      "id": 97,
+      "grammar_lesson_id": 75,
+      "japanese_text": "すわっちゃだめです。",
+      "reading": null,
+      "meaning_vi": "Không được ngồi. • Làm V được không? Tôi đặt ở đây được không?",
+      "display_order": 1
+    },
+    {
+      "id": 98,
+      "grammar_lesson_id": 75,
+      "japanese_text": "いいえ、 おいてはいけません。",
+      "reading": null,
+      "meaning_vi": "Không, không được đặt.",
+      "display_order": 2
+    },
+    {
+      "id": 99,
+      "grammar_lesson_id": 76,
+      "japanese_text": "に すんでいます。",
+      "reading": null,
+      "meaning_vi": "Tôi đang sống ở Nhật. Chú ý:",
+      "display_order": 1
+    },
+    {
+      "id": 100,
+      "grammar_lesson_id": 76,
+      "japanese_text": "を しっていますか。",
+      "reading": null,
+      "meaning_vi": "Có biết sinh nhật của thầy giáo không?",
+      "display_order": 2
+    },
+    {
+      "id": 101,
+      "grammar_lesson_id": 77,
+      "japanese_text": "ともだちと ビールを のみに いきました。",
+      "reading": null,
+      "meaning_vi": "Hôm qua tôi làm xong việc, đi rút tiền, rồi đi uống bia với bạn.",
+      "display_order": 1
+    },
+    {
+      "id": 102,
+      "grammar_lesson_id": 78,
+      "japanese_text": "でんわを かけてから、ともだちの うちに いきます。",
+      "reading": null,
+      "meaning_vi": "Sau khi gọi điện thoại xong thì tôi đi đến nhà bạn.",
+      "display_order": 1
+    },
+    {
+      "id": 103,
+      "grammar_lesson_id": 79,
+      "japanese_text": "ナムさんは ハンサムで あたまがいいです。",
+      "reading": null,
+      "meaning_vi": "Nam thì đẹp trai và thông minh.",
+      "display_order": 1
+    },
+    {
+      "id": 104,
+      "grammar_lesson_id": 80,
+      "japanese_text": "にほんは すしが おいしいです。",
+      "reading": null,
+      "meaning_vi": "Sushi của Nhật Bản ngon.",
+      "display_order": 1
+    },
+    {
+      "id": 105,
+      "grammar_lesson_id": 81,
+      "japanese_text": "日本の生活はどうですか。",
+      "reading": null,
+      "meaning_vi": "Cuộc sống ở Nhật thế nào?",
+      "display_order": 1
+    },
+    {
+      "id": 106,
+      "grammar_lesson_id": 82,
+      "japanese_text": "でんわを かけてから、ともだちの うちに いきます。",
+      "reading": null,
+      "meaning_vi": "Sau khi gọi điện thoại xong thì tôi đi đến nhà bạn. Cách nối tính từ và danh từ: Cách dùng: Ø Dùng để nối 2 hay nhiều tính từ, danh từ với nhau. Ø Vì mang ý nghĩa “và” nên KHÔNG dùng để nối 2 câu có ý nghĩa trái ngược nhau.",
+      "display_order": 1
+    },
+    {
+      "id": 107,
+      "grammar_lesson_id": 82,
+      "japanese_text": "ナムさんは ハンサムで あたまがいいです。",
+      "reading": null,
+      "meaning_vi": "Nam thì đẹp trai và thông minh. N2 (của) N1 thì: Cách dùng: Ø Dùng để miêu tả đặc điểm, tính chất của N1. Ø N2 là thuộc tính, thành phần của N1.",
+      "display_order": 2
+    },
+    {
+      "id": 108,
+      "grammar_lesson_id": 83,
+      "japanese_text": "ここで写真を撮らないでください。",
+      "reading": null,
+      "meaning_vi": "Xin đừng chụp ảnh ở đây.",
+      "display_order": 1
+    },
+    {
+      "id": 109,
+      "grammar_lesson_id": 84,
+      "japanese_text": "べんきょうしないとだめです。",
+      "reading": null,
+      "meaning_vi": "Phải học.",
+      "display_order": 1
+    },
+    {
+      "id": 110,
+      "grammar_lesson_id": 85,
+      "japanese_text": "おかねを はらわなくてもいいです。",
+      "reading": null,
+      "meaning_vi": "Không cần trả tiền cũng được.",
+      "display_order": 1
+    },
+    {
+      "id": 111,
+      "grammar_lesson_id": 86,
+      "japanese_text": "までに、レポートを ださなければなりません。",
+      "reading": null,
+      "meaning_vi": "Cho đến thứ 6 phải nộp báo cáo.",
+      "display_order": 1
+    },
+    {
+      "id": 112,
+      "grammar_lesson_id": 87,
+      "japanese_text": "ここに くるまを とめないでください。",
+      "reading": null,
+      "meaning_vi": "Xin đừng đỗ xe ở đây.",
+      "display_order": 1
+    },
+    {
+      "id": 113,
+      "grammar_lesson_id": 87,
+      "japanese_text": "くるまは ここに とめないでください。",
+      "reading": null,
+      "meaning_vi": "Xe ô tô thì xin đừng đỗ ở đây.",
+      "display_order": 2
+    },
+    {
+      "id": 114,
+      "grammar_lesson_id": 88,
+      "japanese_text": "机の上に本があります。",
+      "reading": null,
+      "meaning_vi": "Trên bàn có sách.",
+      "display_order": 1
+    },
+    {
+      "id": 115,
+      "grammar_lesson_id": 89,
+      "japanese_text": "しゅみは なんですか。",
+      "reading": null,
+      "meaning_vi": "Q:",
+      "display_order": 1
+    },
+    {
+      "id": 116,
+      "grammar_lesson_id": 89,
+      "japanese_text": "しゅみは なんですか。",
+      "reading": null,
+      "meaning_vi": "Sở thích của bạn là gì? Sở thích của tôi là thể thao.",
+      "display_order": 2
+    },
+    {
+      "id": 117,
+      "grammar_lesson_id": 90,
+      "japanese_text": "ねる まえに、けいたいでんわを みます。",
+      "reading": null,
+      "meaning_vi": "Trước khi ngủ tôi xem điện thoại.",
+      "display_order": 1
+    },
+    {
+      "id": 118,
+      "grammar_lesson_id": 90,
+      "japanese_text": "かいぎの まえに、しりょうを コピーします。",
+      "reading": null,
+      "meaning_vi": "Trước khi diễn ra cuộc họp tôi copy tài liệu. • Cách đây, trước đây (trường hợp của lượng từ (thời gian)):",
+      "display_order": 2
+    },
+    {
+      "id": 119,
+      "grammar_lesson_id": 91,
+      "japanese_text": "が なかなかじょうずになりません。",
+      "reading": null,
+      "meaning_vi": "Tôi mãi mà không trở nên giỏi tiếng Nhật được.",
+      "display_order": 1
+    },
+    {
+      "id": 120,
+      "grammar_lesson_id": 92,
+      "japanese_text": "ぜひ、ふじさんに のぼりたいです。",
+      "reading": null,
+      "meaning_vi": "Tôi rất muốn leo núi Phú Sĩ.",
+      "display_order": 1
+    },
+    {
+      "id": 121,
+      "grammar_lesson_id": 93,
+      "japanese_text": "いっかい",
+      "reading": null,
+      "meaning_vi": "Tôi đã từng cưỡi ngựa. • Đã từng ～ chưa?：",
+      "display_order": 1
+    },
+    {
+      "id": 122,
+      "grammar_lesson_id": 93,
+      "japanese_text": "いいえ、いちども ありません。",
+      "reading": null,
+      "meaning_vi": "Bạn đã từng leo núi Phú Sĩ chưa.",
+      "display_order": 2
+    },
+    {
+      "id": 123,
+      "grammar_lesson_id": 94,
+      "japanese_text": "たり します。",
+      "reading": null,
+      "meaning_vi": "Chủ nhật tôi sẽ đọc sách, xem ti vi. • Bạn làm gì?",
+      "display_order": 1
+    },
+    {
+      "id": 124,
+      "grammar_lesson_id": 94,
+      "japanese_text": "は なにをしますか。",
+      "reading": null,
+      "meaning_vi": "Kì nghỉ bạn làm gì? Tôi trượt tuyết, đi tiệc với bạn.",
+      "display_order": 2
+    },
+    {
+      "id": 125,
+      "grammar_lesson_id": 95,
+      "japanese_text": "くらく なります。",
+      "reading": null,
+      "meaning_vi": "Trời trở nên tối. • Ước mơ làm nghề gì: Tương lai bạn muốn làm gì? Tôi muốn trở thành kỹ sư.",
+      "display_order": 1
+    },
+    {
+      "id": 126,
+      "grammar_lesson_id": 96,
+      "japanese_text": "⇒ まいにち6 じにおきる。",
+      "reading": null,
+      "meaning_vi": "Mỗi ngày tôi thức dậy lúc 6 giờ. • Dạng câu hỏi của động từ： cuối câu. Khi trả lời ở dạng câu hỏi có hoặc không: Em đã ăn sáng chưa? Chưa, em chưa ăn. Lưu ý: Ø Trong cách nói thông thường, ta thuờng lược bỏ cả những trợ từ khi câu văn đã rõ nghĩa. lược bỏ. Bạn đã ăn cơm chưa? Rồi, tôi ăn rồi. THỂ LỊCH SỰ THỂ THÔNG THƯỜNG",
+      "display_order": 1
+    },
+    {
+      "id": 127,
+      "grammar_lesson_id": 96,
+      "japanese_text": "⇒ きょうはさむいね。",
+      "reading": null,
+      "meaning_vi": "Hôm nay lạnh nhỉ. cuối câu. Cái máy tính đó mới phải không mẹ? Không, máy cũ mà. THỂ LỊCH SỰ THỂ THÔNG THƯỜNG",
+      "display_order": 2
+    },
+    {
+      "id": 128,
+      "grammar_lesson_id": 97,
+      "japanese_text": "この料理はおいしいですが、高いです。",
+      "reading": null,
+      "meaning_vi": "Món này ngon nhưng đắt.",
+      "display_order": 1
+    },
+    {
+      "id": 129,
+      "grammar_lesson_id": 98,
+      "japanese_text": "明日は雨が降ると思います。",
+      "reading": null,
+      "meaning_vi": "Tôi nghĩ ngày mai trời sẽ mưa.",
+      "display_order": 1
+    },
+    {
+      "id": 130,
+      "grammar_lesson_id": 99,
+      "japanese_text": "ねる まえに、「おやすみなさい」といいます。",
+      "reading": null,
+      "meaning_vi": "• Trích dẫn lời nói của người khác. Ø Trích dẫn lời nói trực tiếp:",
+      "display_order": 1
+    },
+    {
+      "id": 131,
+      "grammar_lesson_id": 99,
+      "japanese_text": "します」といいました。",
+      "reading": null,
+      "meaning_vi": "Hoa đã nói là “ Tháng sau sẽ kết hôn”. Ø Trích dẫn lời nói gián tiếp:",
+      "display_order": 2
+    },
+    {
+      "id": 132,
+      "grammar_lesson_id": 100,
+      "japanese_text": "かれは ハンサムでしょう。",
+      "reading": null,
+      "meaning_vi": "Anh ấy đẹp trai đúng không?",
+      "display_order": 1
+    },
+    {
+      "id": 133,
+      "grammar_lesson_id": 101,
+      "japanese_text": "しあいが あります。",
+      "reading": null,
+      "meaning_vi": "Ở Hà Nội có trận bóng đá giữa Việt Nam và Thái Lan. • 1 sự việc diễn ra ở 1 tình huống nào đó:",
+      "display_order": 1
+    },
+    {
+      "id": 134,
+      "grammar_lesson_id": 101,
+      "japanese_text": "かぎで いけんを いいました。",
+      "reading": null,
+      "meaning_vi": "Tôi đã nói lên ý kiến trong cuộc họp.",
+      "display_order": 2
+    },
+    {
+      "id": 135,
+      "grammar_lesson_id": 102,
+      "japanese_text": "もの ひと ところ",
+      "reading": null,
+      "meaning_vi": "Ø Tính từ bổ nghĩa cho danh từ: Hoa đẹp. • Mệnh đề bổ nghĩa cho danh từ bằng động từ hoặc 1 câu có động từ: V(thể thông thường) + N Cái bánh mẹ tôi làm.",
+      "display_order": 1
+    },
+    {
+      "id": 136,
+      "grammar_lesson_id": 103,
+      "japanese_text": "日本語を勉強します。",
+      "reading": null,
+      "meaning_vi": "Ví dụ minh họa cho mẫu: Mệnh đề bổ ngữ cho danh từ là vị ngữ:.",
+      "display_order": 1
+    },
+    {
+      "id": 137,
+      "grammar_lesson_id": 104,
+      "japanese_text": "めがねを かけている 人 はマイさんです。",
+      "reading": null,
+      "meaning_vi": "Người mà đang đeo kính là chị Mai.",
+      "display_order": 1
+    },
+    {
+      "id": 138,
+      "grammar_lesson_id": 105,
+      "japanese_text": "私は学生です。",
+      "reading": null,
+      "meaning_vi": "Tôi là học sinh.",
+      "display_order": 1
+    },
+    {
+      "id": 139,
+      "grammar_lesson_id": 106,
+      "japanese_text": "ユーモアが あるひと がすきです。",
+      "reading": null,
+      "meaning_vi": "Tôi thích người mà có tính hài hước.",
+      "display_order": 1
+    },
+    {
+      "id": 140,
+      "grammar_lesson_id": 107,
+      "japanese_text": "机の上に本があります。",
+      "reading": null,
+      "meaning_vi": "Trên bàn có sách.",
+      "display_order": 1
+    },
+    {
+      "id": 141,
+      "grammar_lesson_id": 108,
+      "japanese_text": "名前を書いてください。",
+      "reading": null,
+      "meaning_vi": "Hãy viết tên.",
+      "display_order": 1
+    },
+    {
+      "id": 142,
+      "grammar_lesson_id": 109,
+      "japanese_text": "暇なとき、本を読みます。",
+      "reading": null,
+      "meaning_vi": "Khi rảnh tôi đọc sách.",
+      "display_order": 1
+    },
+    {
+      "id": 143,
+      "grammar_lesson_id": 110,
+      "japanese_text": "ご飯を食べてから、勉強します。",
+      "reading": null,
+      "meaning_vi": "Sau khi ăn cơm, tôi học.",
+      "display_order": 1
+    },
+    {
+      "id": 144,
+      "grammar_lesson_id": 111,
+      "japanese_text": "はるになると、はなが さきます。",
+      "reading": null,
+      "meaning_vi": "Cứ xuân sang thì hoa sẽ nở. • Cách chỉ đường liên tiếp:",
+      "display_order": 1
+    },
+    {
+      "id": 145,
+      "grammar_lesson_id": 111,
+      "japanese_text": "に びょういんが あります。",
+      "reading": null,
+      "meaning_vi": "Cứ đi thẳng, qua cầu, rẽ phải thì sẽ có bệnh viện ở bên trái.",
+      "display_order": 2
+    },
+    {
+      "id": 146,
+      "grammar_lesson_id": 112,
+      "japanese_text": "わたしは おとうとに とけいを なおしてあげました。",
+      "reading": null,
+      "meaning_vi": "Tôi đã sửa đồng hồ cho em trai.",
+      "display_order": 1
+    },
+    {
+      "id": 147,
+      "grammar_lesson_id": 113,
+      "japanese_text": "わたしは むすこに えを かいてもらいました。",
+      "reading": null,
+      "meaning_vi": "Tôi được con trai vẽ tranh cho.",
+      "display_order": 1
+    },
+    {
+      "id": 148,
+      "grammar_lesson_id": 114,
+      "japanese_text": "けさ ははは「わたしに」おかねを くれました。",
+      "reading": null,
+      "meaning_vi": "Sáng nay mẹ đã cho tôi tiền.",
+      "display_order": 1
+    },
+    {
+      "id": 149,
+      "grammar_lesson_id": 115,
+      "japanese_text": "むすこは えを かいてくれました。",
+      "reading": null,
+      "meaning_vi": "Con trai đã vẽ tranh cho tôi.",
+      "display_order": 1
+    },
+    {
+      "id": 150,
+      "grammar_lesson_id": 116,
+      "japanese_text": "このりょうり は ははが つくってくれました。",
+      "reading": null,
+      "meaning_vi": "Món ăn này là mẹ nấu cho tôi.",
+      "display_order": 1
+    },
+    {
+      "id": 151,
+      "grammar_lesson_id": 117,
+      "japanese_text": "雨が降ったら、行きません。",
+      "reading": null,
+      "meaning_vi": "Nếu trời mưa thì tôi không đi.",
+      "display_order": 1
+    },
+    {
+      "id": 152,
+      "grammar_lesson_id": 118,
+      "japanese_text": "ご飯を食べてから、勉強します。",
+      "reading": null,
+      "meaning_vi": "Sau khi ăn cơm, tôi học.",
+      "display_order": 1
+    },
+    {
+      "id": 153,
+      "grammar_lesson_id": 119,
+      "japanese_text": "あめが ふっても、ジョギングを します。",
+      "reading": null,
+      "meaning_vi": "Dù mưa thì vẫn chạy bộ.",
+      "display_order": 1
+    }
+  ]
+}
