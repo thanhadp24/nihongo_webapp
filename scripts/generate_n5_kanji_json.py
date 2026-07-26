@@ -1,459 +1,325 @@
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
+import requests
+
 
 OUTPUT = Path("database/import/jlpt_n5_kanji_by_topic_db_import.json")
+KANJI_API_CACHE = Path("tmp/cache/kanjiapi_n5.json")
+ENRICH_KANJI_API = os.environ.get("ENRICH_KANJI_API", "1") != "0"
+
 
 TOPICS = [
-    {
-        "id": 1,
-        "jlpt_level_id": 1,
-        "name": "お名前は?",
-        "name_vi": "Tên và giới thiệu bản thân",
-        "description": "Bài kanji/vocabulary về tên, người, quốc tịch, trường học và giới thiệu cơ bản.",
-        "source_week": 1,
-        "source_day": 1,
-        "source_page_start": 16,
-    },
-    {
-        "id": 2,
-        "jlpt_level_id": 1,
-        "name": "それは何ですか。",
-        "name_vi": "Đây là gì?",
-        "description": "Bài kanji/vocabulary về thời gian, ngày tháng, tuần và câu hỏi với 何.",
-        "source_week": 1,
-        "source_day": 2,
-        "source_page_start": 18,
-    },
-    {
-        "id": 3,
-        "jlpt_level_id": 1,
-        "name": "大きい ↔ 小さい",
-        "name_vi": "Lớn và nhỏ",
-        "description": "Bài kanji/vocabulary về tính chất, kích thước, mức độ và màu sắc cơ bản.",
-        "source_week": 1,
-        "source_day": 3,
-        "source_page_start": 20,
-    },
-    {
-        "id": 4,
-        "jlpt_level_id": 1,
-        "name": "どこですか。",
-        "name_vi": "Ở đâu?",
-        "description": "Bài kanji/vocabulary về địa điểm, lối ra vào, vị trí và phương hướng.",
-        "source_week": 1,
-        "source_day": 4,
-        "source_page_start": 22,
-    },
-    {
-        "id": 5,
-        "jlpt_level_id": 1,
-        "name": "何をしていますか。",
-        "name_vi": "Đang làm gì?",
-        "description": "Bài kanji/vocabulary về các hoạt động sinh hoạt thường gặp.",
-        "source_week": 1,
-        "source_day": 5,
-        "source_page_start": 24,
-    },
-    {
-        "id": 6,
-        "jlpt_level_id": 1,
-        "name": "手と足",
-        "name_vi": "Tay và chân",
-        "description": "Bài kanji/vocabulary về cơ thể, tay chân, sức lực và nghỉ ngơi.",
-        "source_week": 1,
-        "source_day": 6,
-        "source_page_start": 26,
-    },
-    {
-        "id": 7,
-        "jlpt_level_id": 1,
-        "name": "つめたい飲みもの",
-        "name_vi": "Đồ uống lạnh",
-        "description": "Bài kanji/vocabulary về tự nhiên, thời tiết, cảm giác và các sự vật quen thuộc.",
-        "source_week": 2,
-        "source_day": 1,
-        "source_page_start": 32,
-    },
-    {
-        "id": 8,
-        "jlpt_level_id": 1,
-        "name": "はたらいています",
-        "name_vi": "Đang làm việc",
-        "description": "Bài kanji/vocabulary về trường học, công ty, nhân viên và việc dạy học.",
-        "source_week": 2,
-        "source_day": 2,
-        "source_page_start": 34,
-    },
-    {
-        "id": 9,
-        "jlpt_level_id": 1,
-        "name": "どのぐらい?",
-        "name_vi": "Bao nhiêu, bao lâu?",
-        "description": "Bài kanji/vocabulary về số đếm, lượng, tiền và khoảng thời gian.",
-        "source_week": 2,
-        "source_day": 3,
-        "source_page_start": 36,
-    },
-    {
-        "id": 10,
-        "jlpt_level_id": 1,
-        "name": "ちょっと...",
-        "name_vi": "Một chút...",
-        "description": "Bài kanji/vocabulary về đi lại, mua sắm, cửa hàng, phương tiện và đồ vật.",
-        "source_week": 2,
-        "source_day": 4,
-        "source_page_start": 38,
-    },
-    {
-        "id": 11,
-        "jlpt_level_id": 1,
-        "name": "かぞく",
-        "name_vi": "Gia đình",
-        "description": "Bài kanji/vocabulary về cha mẹ và các cách gọi người thân ở trình độ N5.",
-        "source_week": 2,
-        "source_day": 5,
-        "source_page_start": 40,
-    },
-    {
-        "id": 12,
-        "jlpt_level_id": 1,
-        "name": "すきなもの・ほしいもの",
-        "name_vi": "Điều thích và điều muốn có",
-        "description": "Bài kanji/vocabulary về sở thích, đồ vật, đồ ăn uống và những thứ muốn mua.",
-        "source_week": 2,
-        "source_day": 6,
-        "source_page_start": 42,
-    },
+    (1, "すうじ", "すうじ", "Số đếm", 11, "一二三四五六七八九十百千万円"),
+    (2, "カレンダー", "カレンダー", "Lịch và ngày tháng", 23, "月火水木金土日年"),
+    (3, "人", "ひと", "Con người và cơ thể", 31, "人口目耳手足力"),
+    (4, "しぜん - 1", "しぜん いち", "Tự nhiên 1", 39, "山川田石花竹雨"),
+    (5, "ばしょ", "ばしょ", "Vị trí và nơi chốn", 47, "上下左右外内中"),
+    (6, "学校 - 1", "がっこう いち", "Trường học 1", 57, "学校先生名字本体"),
+    (7, "学校 - 2", "がっこう に", "Trường học 2", 65, "大小高友入出門"),
+    (8, "かぞく", "かぞく", "Gia đình", 73, "父母子男女犬鳥"),
+    (9, "どうし - 1", "どうし いち", "Động từ 1", 81, "立休見聞行来帰"),
+    (10, "たべもの", "たべもの", "Đồ ăn", 89, "米茶牛肉魚貝好物"),
+    (11, "しぜん - 2", "しぜん に", "Tự nhiên 2", 99, "林森畑岩音明暗"),
+    (12, "どうし - 2", "どうし に", "Động từ 2", 107, "言書読話食飲買"),
+    (13, "町", "まち", "Thị trấn và phương hướng", 115, "町寺電車東西南北"),
+    (14, "時間", "じかん", "Thời gian", 123, "時間半分今何夕方"),
+    (15, "けいようし", "けいようし", "Tính từ và trạng thái", 131, "新古長安多少元気"),
 ]
 
-TOPIC_BY_KANJI = {
-    "先": 1,
-    "生": 1,
-    "学": 1,
-    "人": 1,
-    "国": 1,
-    "男": 1,
-    "女": 1,
-    "子": 1,
-    "友": 1,
-    "名": 1,
-    "語": 1,
-    "何": 2,
-    "時": 2,
-    "分": 2,
-    "間": 2,
-    "半": 2,
-    "午": 2,
-    "前": 2,
-    "後": 2,
-    "今": 2,
-    "週": 2,
-    "毎": 2,
-    "日": 2,
-    "月": 2,
-    "年": 2,
-    "曜": 2,
-    "少": 3,
-    "多": 3,
-    "小": 3,
-    "大": 3,
-    "安": 3,
-    "高": 3,
-    "新": 3,
-    "古": 3,
-    "早": 3,
-    "長": 3,
-    "白": 3,
-    "黒": 3,
-    "赤": 3,
-    "青": 3,
-    "駅": 4,
-    "口": 4,
-    "出": 4,
-    "入": 4,
-    "東": 4,
-    "西": 4,
-    "南": 4,
-    "北": 4,
-    "上": 4,
-    "下": 4,
-    "左": 4,
-    "右": 4,
-    "中": 4,
-    "外": 4,
-    "食": 5,
-    "飲": 5,
-    "見": 5,
-    "書": 5,
-    "読": 5,
-    "聞": 5,
-    "話": 5,
-    "立": 5,
-    "体": 6,
-    "目": 6,
-    "耳": 6,
-    "手": 6,
-    "足": 6,
-    "力": 6,
-    "休": 6,
-    "火": 7,
-    "水": 7,
-    "木": 7,
-    "金": 7,
-    "土": 7,
-    "雨": 7,
-    "天": 7,
-    "空": 7,
-    "山": 7,
-    "川": 7,
-    "田": 7,
-    "花": 7,
-    "校": 8,
-    "会": 8,
-    "社": 8,
-    "員": 8,
-    "教": 8,
-    "一": 9,
-    "二": 9,
-    "三": 9,
-    "四": 9,
-    "五": 9,
-    "六": 9,
-    "七": 9,
-    "八": 9,
-    "九": 9,
-    "十": 9,
-    "百": 9,
-    "千": 9,
-    "万": 9,
-    "円": 9,
-    "行": 10,
-    "来": 10,
-    "帰": 10,
-    "車": 10,
-    "電": 10,
-    "店": 10,
-    "買": 10,
-    "気": 10,
-    "本": 10,
-    "父": 11,
-    "母": 11,
-    "好": 12,
-    "物": 12,
-    "私": 12,
-    "家": 12,
+
+KANJI_DATA = {
+    "一": ("nhất", "một", [("一つ", "ひとつ", "một cái"), ("一人", "ひとり", "một người")]),
+    "二": ("nhị", "hai", [("二つ", "ふたつ", "hai cái"), ("二人", "ふたり", "hai người")]),
+    "三": ("tam", "ba", [("三つ", "みっつ", "ba cái"), ("三日", "みっか", "ngày mùng ba, ba ngày")]),
+    "四": ("tứ", "bốn", [("四つ", "よっつ", "bốn cái"), ("四日", "よっか", "ngày mùng bốn, bốn ngày")]),
+    "五": ("ngũ", "năm", [("五つ", "いつつ", "năm cái"), ("五日", "いつか", "ngày mùng năm, năm ngày")]),
+    "六": ("lục", "sáu", [("六つ", "むっつ", "sáu cái"), ("六日", "むいか", "ngày mùng sáu, sáu ngày")]),
+    "七": ("thất", "bảy", [("七つ", "ななつ", "bảy cái"), ("七日", "なのか", "ngày mùng bảy, bảy ngày")]),
+    "八": ("bát", "tám", [("八つ", "やっつ", "tám cái"), ("八日", "ようか", "ngày mùng tám, tám ngày")]),
+    "九": ("cửu", "chín", [("九つ", "ここのつ", "chín cái"), ("九日", "ここのか", "ngày mùng chín, chín ngày")]),
+    "十": ("thập", "mười", [("十", "とお", "mười"), ("十日", "とおか", "ngày mùng mười, mười ngày")]),
+    "百": ("bách", "trăm", [("百", "ひゃく", "một trăm"), ("三百", "さんびゃく", "ba trăm")]),
+    "千": ("thiên", "nghìn", [("千", "せん", "một nghìn"), ("千円", "せんえん", "một nghìn yên")]),
+    "万": ("vạn", "mười nghìn", [("一万", "いちまん", "mười nghìn"), ("万年筆", "まんねんひつ", "bút máy")]),
+    "円": ("viên", "yên, hình tròn", [("円", "えん", "yên"), ("百円", "ひゃくえん", "một trăm yên")]),
+    "月": ("nguyệt", "mặt trăng, tháng", [("月", "つき", "mặt trăng"), ("月曜日", "げつようび", "thứ Hai")]),
+    "火": ("hỏa", "lửa", [("火", "ひ", "lửa"), ("火曜日", "かようび", "thứ Ba")]),
+    "水": ("thủy", "nước", [("水", "みず", "nước"), ("水曜日", "すいようび", "thứ Tư")]),
+    "木": ("mộc", "cây, gỗ", [("木", "き", "cây"), ("木曜日", "もくようび", "thứ Năm")]),
+    "金": ("kim", "vàng, tiền", [("お金", "おかね", "tiền"), ("金曜日", "きんようび", "thứ Sáu")]),
+    "土": ("thổ", "đất", [("土", "つち", "đất"), ("土曜日", "どようび", "thứ Bảy")]),
+    "日": ("nhật", "mặt trời, ngày", [("日", "ひ", "ngày, mặt trời"), ("日曜日", "にちようび", "Chủ nhật")]),
+    "年": ("niên", "năm", [("年", "とし", "năm, tuổi"), ("今年", "ことし", "năm nay")]),
+    "人": ("nhân", "người", [("人", "ひと", "người"), ("日本人", "にほんじん", "người Nhật")]),
+    "口": ("khẩu", "miệng, cửa", [("口", "くち", "miệng"), ("入口", "いりぐち", "lối vào")]),
+    "目": ("mục", "mắt", [("目", "め", "mắt"), ("一目", "ひとめ", "một cái nhìn")]),
+    "耳": ("nhĩ", "tai", [("耳", "みみ", "tai"), ("耳元", "みみもと", "bên tai")]),
+    "手": ("thủ", "tay", [("手", "て", "tay"), ("上手", "じょうず", "giỏi, khéo")]),
+    "足": ("túc", "chân, đủ", [("足", "あし", "chân"), ("足りる", "たりる", "đủ")]),
+    "力": ("lực", "sức mạnh", [("力", "ちから", "sức mạnh"), ("力持ち", "ちからもち", "người khỏe")]),
+    "山": ("sơn", "núi", [("山", "やま", "núi"), ("富士山", "ふじさん", "núi Phú Sĩ")]),
+    "川": ("xuyên", "sông", [("川", "かわ", "sông"), ("小川", "おがわ", "suối nhỏ")]),
+    "田": ("điền", "ruộng", [("田んぼ", "たんぼ", "ruộng lúa"), ("山田", "やまだ", "Yamada")]),
+    "石": ("thạch", "đá", [("石", "いし", "đá"), ("宝石", "ほうせき", "đá quý")]),
+    "花": ("hoa", "hoa", [("花", "はな", "hoa"), ("花見", "はなみ", "ngắm hoa")]),
+    "竹": ("trúc", "tre", [("竹", "たけ", "tre"), ("竹林", "ちくりん", "rừng tre")]),
+    "雨": ("vũ", "mưa", [("雨", "あめ", "mưa"), ("大雨", "おおあめ", "mưa lớn")]),
+    "上": ("thượng", "trên", [("上", "うえ", "trên"), ("上手", "じょうず", "giỏi, khéo")]),
+    "下": ("hạ", "dưới", [("下", "した", "dưới"), ("下手", "へた", "kém, vụng")]),
+    "左": ("tả", "trái", [("左", "ひだり", "bên trái"), ("左手", "ひだりて", "tay trái")]),
+    "右": ("hữu", "phải", [("右", "みぎ", "bên phải"), ("右手", "みぎて", "tay phải")]),
+    "外": ("ngoại", "ngoài", [("外", "そと", "bên ngoài"), ("外国", "がいこく", "nước ngoài")]),
+    "内": ("nội", "trong", [("内", "うち", "bên trong, nhà mình"), ("案内", "あんない", "hướng dẫn")]),
+    "中": ("trung", "giữa, trong", [("中", "なか", "bên trong"), ("一日中", "いちにちじゅう", "suốt cả ngày")]),
+    "学": ("học", "học", [("学生", "がくせい", "học sinh, sinh viên"), ("学校", "がっこう", "trường học")]),
+    "校": ("hiệu", "trường học", [("学校", "がっこう", "trường học"), ("校長", "こうちょう", "hiệu trưởng")]),
+    "先": ("tiên", "trước", [("先生", "せんせい", "giáo viên"), ("先月", "せんげつ", "tháng trước")]),
+    "生": ("sinh", "sinh, sống", [("学生", "がくせい", "học sinh, sinh viên"), ("生まれる", "うまれる", "được sinh ra")]),
+    "名": ("danh", "tên", [("名前", "なまえ", "tên"), ("有名", "ゆうめい", "nổi tiếng")]),
+    "字": ("tự", "chữ", [("漢字", "かんじ", "chữ Hán"), ("文字", "もじ", "chữ, ký tự")]),
+    "本": ("bản", "sách, gốc", [("本", "ほん", "sách"), ("日本", "にほん", "Nhật Bản")]),
+    "体": ("thể", "cơ thể", [("体", "からだ", "cơ thể"), ("体育", "たいいく", "thể dục")]),
+    "大": ("đại", "to, lớn", [("大きい", "おおきい", "to, lớn"), ("大学", "だいがく", "đại học")]),
+    "小": ("tiểu", "nhỏ", [("小さい", "ちいさい", "nhỏ"), ("小学校", "しょうがっこう", "trường tiểu học")]),
+    "高": ("cao", "cao, đắt", [("高い", "たかい", "cao, đắt"), ("高校", "こうこう", "trường cấp ba")]),
+    "友": ("hữu", "bạn", [("友だち", "ともだち", "bạn bè"), ("友人", "ゆうじん", "bạn bè")]),
+    "入": ("nhập", "vào", [("入る", "はいる", "đi vào"), ("入口", "いりぐち", "lối vào")]),
+    "出": ("xuất", "ra", [("出る", "でる", "đi ra"), ("出口", "でぐち", "lối ra")]),
+    "門": ("môn", "cổng", [("門", "もん", "cổng"), ("専門", "せんもん", "chuyên môn")]),
+    "父": ("phụ", "cha", [("父", "ちち", "cha tôi"), ("お父さん", "おとうさん", "bố")]),
+    "母": ("mẫu", "mẹ", [("母", "はは", "mẹ tôi"), ("お母さん", "おかあさん", "mẹ")]),
+    "子": ("tử", "con", [("子ども", "こども", "trẻ em"), ("女の子", "おんなのこ", "bé gái")]),
+    "男": ("nam", "nam giới", [("男", "おとこ", "nam, đàn ông"), ("男の子", "おとこのこ", "bé trai")]),
+    "女": ("nữ", "nữ giới", [("女", "おんな", "nữ, phụ nữ"), ("女の人", "おんなのひと", "người phụ nữ")]),
+    "犬": ("khuyển", "chó", [("犬", "いぬ", "chó"), ("子犬", "こいぬ", "chó con")]),
+    "鳥": ("điểu", "chim", [("鳥", "とり", "chim"), ("小鳥", "ことり", "chim nhỏ")]),
+    "立": ("lập", "đứng", [("立つ", "たつ", "đứng"), ("立てる", "たてる", "dựng lên")]),
+    "休": ("hưu", "nghỉ", [("休む", "やすむ", "nghỉ"), ("休日", "きゅうじつ", "ngày nghỉ")]),
+    "見": ("kiến", "nhìn", [("見る", "みる", "nhìn, xem"), ("見せる", "みせる", "cho xem")]),
+    "聞": ("văn", "nghe, hỏi", [("聞く", "きく", "nghe, hỏi"), ("新聞", "しんぶん", "báo")]),
+    "行": ("hành", "đi", [("行く", "いく", "đi"), ("銀行", "ぎんこう", "ngân hàng")]),
+    "来": ("lai", "đến", [("来る", "くる", "đến"), ("来年", "らいねん", "năm sau")]),
+    "帰": ("quy", "trở về", [("帰る", "かえる", "trở về"), ("帰国", "きこく", "về nước")]),
+    "米": ("mễ", "gạo", [("米", "こめ", "gạo"), ("米国", "べいこく", "Hoa Kỳ")]),
+    "茶": ("trà", "trà", [("お茶", "おちゃ", "trà"), ("茶色", "ちゃいろ", "màu nâu")]),
+    "牛": ("ngưu", "bò", [("牛", "うし", "bò"), ("牛肉", "ぎゅうにく", "thịt bò")]),
+    "肉": ("nhục", "thịt", [("肉", "にく", "thịt"), ("牛肉", "ぎゅうにく", "thịt bò")]),
+    "魚": ("ngư", "cá", [("魚", "さかな", "cá"), ("金魚", "きんぎょ", "cá vàng")]),
+    "貝": ("bối", "sò, vỏ sò", [("貝", "かい", "sò, vỏ sò"), ("貝殻", "かいがら", "vỏ sò")]),
+    "好": ("hảo", "thích, tốt", [("好き", "すき", "thích"), ("大好き", "だいすき", "rất thích")]),
+    "物": ("vật", "đồ vật", [("物", "もの", "đồ vật"), ("食べ物", "たべもの", "đồ ăn")]),
+    "林": ("lâm", "rừng thưa", [("林", "はやし", "rừng thưa"), ("山林", "さんりん", "rừng núi")]),
+    "森": ("sâm", "rừng rậm", [("森", "もり", "rừng"), ("森林", "しんりん", "rừng rậm")]),
+    "畑": ("điền Nhật", "ruộng, vườn", [("畑", "はたけ", "ruộng, vườn"), ("花畑", "はなばたけ", "vườn hoa")]),
+    "岩": ("nham", "đá lớn", [("岩", "いわ", "đá lớn"), ("岩山", "いわやま", "núi đá")]),
+    "音": ("âm", "âm thanh", [("音", "おと", "âm thanh"), ("音楽", "おんがく", "âm nhạc")]),
+    "明": ("minh", "sáng", [("明るい", "あかるい", "sáng sủa"), ("明日", "あした", "ngày mai")]),
+    "暗": ("ám", "tối", [("暗い", "くらい", "tối"), ("暗記", "あんき", "học thuộc lòng")]),
+    "言": ("ngôn", "nói", [("言う", "いう", "nói"), ("言葉", "ことば", "từ ngữ")]),
+    "書": ("thư", "viết, sách", [("書く", "かく", "viết"), ("図書館", "としょかん", "thư viện")]),
+    "読": ("độc", "đọc", [("読む", "よむ", "đọc"), ("読書", "どくしょ", "việc đọc sách")]),
+    "話": ("thoại", "nói chuyện", [("話す", "はなす", "nói chuyện"), ("電話", "でんわ", "điện thoại")]),
+    "食": ("thực", "ăn", [("食べる", "たべる", "ăn"), ("食べ物", "たべもの", "đồ ăn")]),
+    "飲": ("ẩm", "uống", [("飲む", "のむ", "uống"), ("飲み物", "のみもの", "đồ uống")]),
+    "買": ("mãi", "mua", [("買う", "かう", "mua"), ("買い物", "かいもの", "mua sắm")]),
+    "町": ("đinh", "thị trấn", [("町", "まち", "thị trấn"), ("町内", "ちょうない", "trong khu phố")]),
+    "寺": ("tự", "chùa", [("寺", "てら", "chùa"), ("お寺", "おてら", "ngôi chùa")]),
+    "電": ("điện", "điện", [("電気", "でんき", "điện"), ("電話", "でんわ", "điện thoại")]),
+    "車": ("xa", "xe", [("車", "くるま", "xe ô tô"), ("電車", "でんしゃ", "tàu điện")]),
+    "東": ("đông", "phía đông", [("東", "ひがし", "phía đông"), ("東京", "とうきょう", "Tokyo")]),
+    "西": ("tây", "phía tây", [("西", "にし", "phía tây"), ("関西", "かんさい", "vùng Kansai")]),
+    "南": ("nam", "phía nam", [("南", "みなみ", "phía nam"), ("南口", "みなみぐち", "cửa nam")]),
+    "北": ("bắc", "phía bắc", [("北", "きた", "phía bắc"), ("北口", "きたぐち", "cửa bắc")]),
+    "時": ("thời", "thời gian, giờ", [("時", "とき", "thời điểm"), ("時間", "じかん", "thời gian")]),
+    "間": ("gian", "khoảng, giữa", [("間", "あいだ", "khoảng giữa"), ("時間", "じかん", "thời gian")]),
+    "半": ("bán", "nửa", [("半分", "はんぶん", "một nửa"), ("半年", "はんとし", "nửa năm")]),
+    "分": ("phân", "phút, phần", [("分かる", "わかる", "hiểu"), ("自分", "じぶん", "bản thân")]),
+    "今": ("kim", "bây giờ", [("今", "いま", "bây giờ"), ("今日", "きょう", "hôm nay")]),
+    "何": ("hà", "cái gì", [("何", "なに", "cái gì"), ("何人", "なんにん", "mấy người")]),
+    "夕": ("tịch", "chiều tối", [("夕方", "ゆうがた", "chiều tối"), ("夕日", "ゆうひ", "nắng chiều")]),
+    "方": ("phương", "phương hướng, cách", [("方", "かた", "người, cách"), ("夕方", "ゆうがた", "chiều tối")]),
+    "新": ("tân", "mới", [("新しい", "あたらしい", "mới"), ("新聞", "しんぶん", "báo")]),
+    "古": ("cổ", "cũ", [("古い", "ふるい", "cũ"), ("中古", "ちゅうこ", "đồ cũ")]),
+    "長": ("trường", "dài, trưởng", [("長い", "ながい", "dài"), ("校長", "こうちょう", "hiệu trưởng")]),
+    "安": ("an", "rẻ, yên ổn", [("安い", "やすい", "rẻ"), ("安心", "あんしん", "yên tâm")]),
+    "多": ("đa", "nhiều", [("多い", "おおい", "nhiều"), ("多分", "たぶん", "có lẽ")]),
+    "少": ("thiếu", "ít", [("少ない", "すくない", "ít"), ("少し", "すこし", "một chút")]),
+    "元": ("nguyên", "gốc, khỏe khoắn", [("元気", "げんき", "khỏe mạnh"), ("元日", "がんじつ", "ngày đầu năm")]),
+    "気": ("khí", "khí, tinh thần", [("元気", "げんき", "khỏe mạnh"), ("天気", "てんき", "thời tiết")]),
 }
 
 
-# topic_id|kanji|han_viet|onyomi|kunyomi|meaning_vi|stroke_count|word:reading:meaning_vi;...
-RAW_DATA = """
-1|先|tiên|セン|さき|trước, trước tiên|6|先生:せんせい:giáo viên, thầy cô;先月:せんげつ:tháng trước;お先に:おさきに:trước
-1|生|sinh|セイ,ショウ|い(きる),う(まれる)|sinh, sống|5|学生:がくせい:học sinh, sinh viên;生活:せいかつ:cuộc sống, sinh hoạt;誕生日:たんじょうび:sinh nhật
-1|学|học|ガク|まな(ぶ)|học|8|学生:がくせい:học sinh, sinh viên;学校:がっこう:trường học;大学:だいがく:đại học
-1|人|nhân|ジン,ニン|ひと|người|2|日本人:にほんじん:người Nhật;外国人:がいこくじん:người nước ngoài;一人:ひとり:một người
-1|国|quốc|コク|くに|nước, quốc gia|8|外国:がいこく:nước ngoài;中国:ちゅうごく:Trung Quốc;国:くに:đất nước
-1|男|nam|ダン,ナン|おとこ|nam, đàn ông|7|男の人:おとこのひと:người đàn ông;男の子:おとこのこ:bé trai;男性:だんせい:nam giới
-1|女|nữ|ジョ,ニョ|おんな|nữ, phụ nữ|3|女の人:おんなのひと:người phụ nữ;女の子:おんなのこ:bé gái;彼女:かのじょ:cô ấy, bạn gái
-1|子|tử|シ,ス|こ|con, trẻ em|3|子ども:こども:trẻ em;男の子:おとこのこ:bé trai;女の子:おんなのこ:bé gái
-1|友|hữu|ユウ|とも|bạn|4|友だち:ともだち:bạn bè;友人:ゆうじん:bạn hữu;親友:しんゆう:bạn thân
-1|父|phụ|フ|ちち|cha, bố|4|父:ちち:cha tôi;お父さん:おとうさん:bố, cha;父母:ふぼ:cha mẹ
-1|母|mẫu|ボ|はは|mẹ|5|母:はは:mẹ tôi;お母さん:おかあさん:mẹ;父母:ふぼ:cha mẹ
-1|名|danh|メイ,ミョウ|な|tên, danh tiếng|6|名前:なまえ:tên;有名な:ゆうめいな:nổi tiếng;名刺:めいし:danh thiếp
-1|語|ngữ|ゴ|かた(る)|ngôn ngữ, lời nói|14|日本語:にほんご:tiếng Nhật;英語:えいご:tiếng Anh;何語:なんご:tiếng gì
-2|日|nhật|ニチ,ジツ|ひ,か|ngày, mặt trời|4|日本:にほん:Nhật Bản;日曜日:にちようび:Chủ nhật;今日:きょう:hôm nay
-2|月|nguyệt|ゲツ,ガツ|つき|tháng, mặt trăng|4|月曜日:げつようび:thứ Hai;今月:こんげつ:tháng này;一月:いちがつ:tháng Một
-2|火|hỏa|カ|ひ|lửa|4|火曜日:かようび:thứ Ba;火:ひ:lửa;花火:はなび:pháo hoa
-2|水|thủy|スイ|みず|nước|4|水曜日:すいようび:thứ Tư;水:みず:nước;水道:すいどう:nước máy
-2|木|mộc|モク,ボク|き|cây, gỗ|4|木曜日:もくようび:thứ Năm;木:き:cây;木村:きむら:tên họ Kimura
-2|金|kim|キン,コン|かね|vàng, tiền, kim loại|8|金曜日:きんようび:thứ Sáu;お金:おかね:tiền;料金:りょうきん:phí
-2|土|thổ|ド,ト|つち|đất|3|土曜日:どようび:thứ Bảy;土:つち:đất;土地:とち:đất đai
-2|曜|diệu|ヨウ||ngày trong tuần|18|曜日:ようび:thứ trong tuần;日曜日:にちようび:Chủ nhật;何曜日:なんようび:thứ mấy
-2|年|niên|ネン|とし|năm, tuổi|6|今年:ことし:năm nay;来年:らいねん:năm sau;一年:いちねん:một năm
-2|時|thời|ジ|とき|giờ, thời gian|10|時間:じかん:thời gian;時計:とけい:đồng hồ;一時:いちじ:một giờ
-2|分|phân|フン,ブン,ブ|わ(かる)|phút, phần, hiểu|4|五分:ごふん:năm phút;半分:はんぶん:một nửa;分かる:わかる:hiểu
-2|間|gian|カン,ケン|あいだ,ま|khoảng, giữa|12|時間:じかん:thời gian;一週間:いっしゅうかん:một tuần;間に合う:まにあう:kịp giờ
-2|半|bán|ハン|なか(ば)|một nửa|5|半分:はんぶん:một nửa;七時半:しちじはん:bảy giờ rưỡi;一年半:いちねんはん:một năm rưỡi
-2|午|ngọ|ゴ||buổi trưa|4|午前:ごぜん:buổi sáng;午後:ごご:buổi chiều;正午:しょうご:chính ngọ
-2|前|tiền|ゼン|まえ|trước|9|午前:ごぜん:buổi sáng;名前:なまえ:tên;前:まえ:phía trước
-2|後|hậu|ゴ,コウ|あと,うし(ろ),のち|sau|9|午後:ごご:buổi chiều;後で:あとで:lát nữa;後ろ:うしろ:phía sau
-2|今|kim|コン,キン|いま|bây giờ, hiện tại|4|今:いま:bây giờ;今日:きょう:hôm nay;今週:こんしゅう:tuần này
-2|週|chu|シュウ||tuần|11|今週:こんしゅう:tuần này;先週:せんしゅう:tuần trước;来週:らいしゅう:tuần sau
-2|毎|mỗi|マイ|ごと|mỗi, hằng|6|毎日:まいにち:hằng ngày;毎週:まいしゅう:hằng tuần;毎朝:まいあさ:mỗi sáng
-2|何|hà|カ|なに,なん|cái gì, bao nhiêu|7|何:なに:cái gì;何時:なんじ:mấy giờ;何人:なんにん:mấy người
-3|一|nhất|イチ,イツ|ひと(つ)|một|1|一つ:ひとつ:một cái;一日:いちにち:một ngày;一人:ひとり:một người
-3|二|nhị|ニ|ふた(つ)|hai|2|二つ:ふたつ:hai cái;二日:ふつか:ngày mùng hai, hai ngày;二人:ふたり:hai người
-3|三|tam|サン|み(つ)|ba|3|三つ:みっつ:ba cái;三日:みっか:ngày mùng ba, ba ngày;三月:さんがつ:tháng Ba
-3|四|tứ|シ|よん,よ,よっ(つ)|bốn|5|四つ:よっつ:bốn cái;四月:しがつ:tháng Tư;四人:よにん:bốn người
-3|五|ngũ|ゴ|いつ(つ)|năm|4|五つ:いつつ:năm cái;五月:ごがつ:tháng Năm;五分:ごふん:năm phút
-3|六|lục|ロク|むっ(つ)|sáu|4|六つ:むっつ:sáu cái;六月:ろくがつ:tháng Sáu;六日:むいか:ngày mùng sáu, sáu ngày
-3|七|thất|シチ|なな(つ),なの|bảy|2|七つ:ななつ:bảy cái;七月:しちがつ:tháng Bảy;七日:なのか:ngày mùng bảy, bảy ngày
-3|八|bát|ハチ|やっ(つ)|tám|2|八つ:やっつ:tám cái;八月:はちがつ:tháng Tám;八日:ようか:ngày mùng tám, tám ngày
-3|九|cửu|キュウ,ク|ここの(つ)|chín|2|九つ:ここのつ:chín cái;九月:くがつ:tháng Chín;九日:ここのか:ngày mùng chín, chín ngày
-3|十|thập|ジュウ,ジッ|とお|mười|2|十:じゅう:mười;十日:とおか:ngày mùng mười, mười ngày;十分:じゅっぷん:mười phút
-3|百|bách|ヒャク||trăm|6|百:ひゃく:một trăm;三百:さんびゃく:ba trăm;百円:ひゃくえん:một trăm yên
-3|千|thiên|セン|ち|nghìn|3|千:せん:một nghìn;三千:さんぜん:ba nghìn;千円:せんえん:một nghìn yên
-3|万|vạn|マン,バン||mười nghìn|3|一万:いちまん:mười nghìn;万円:まんえん:mười nghìn yên;万年筆:まんねんひつ:bút máy
-3|円|viên|エン|まる(い)|yên, hình tròn|4|円:えん:yên;百円:ひゃくえん:một trăm yên;円い:まるい:tròn
-4|少|thiểu|ショウ|すく(ない),すこ(し)|ít, một chút|4|少し:すこし:một chút;少ない:すくない:ít;少年:しょうねん:thiếu niên
-4|多|đa|タ|おお(い)|nhiều|6|多い:おおい:nhiều;多少:たしょう:ít nhiều;多分:たぶん:có lẽ
-4|小|tiểu|ショウ|ちい(さい),こ,お|nhỏ|3|小さい:ちいさい:nhỏ;小学校:しょうがっこう:trường tiểu học;小さな:ちいさな:nhỏ
-4|大|đại|ダイ,タイ|おお(きい)|to, lớn|3|大きい:おおきい:to, lớn;大学:だいがく:đại học;大切な:たいせつな:quan trọng
-4|安|an|アン|やす(い)|rẻ, yên ổn|6|安い:やすい:rẻ;安全な:あんぜんな:an toàn;安心する:あんしんする:yên tâm
-4|高|cao|コウ|たか(い)|cao, đắt|10|高い:たかい:cao, đắt;高校:こうこう:trường cấp ba;高山:こうざん:núi cao
-4|新|tân|シン|あたら(しい),あら(た)|mới|13|新しい:あたらしい:mới;新聞:しんぶん:báo;新年:しんねん:năm mới
-4|古|cổ|コ|ふる(い)|cũ, cổ|5|古い:ふるい:cũ;中古:ちゅうこ:đồ cũ;古本:ふるほん:sách cũ
-4|早|tảo|ソウ|はや(い)|sớm, nhanh|6|早い:はやい:sớm, nhanh;早く:はやく:sớm lên;早朝:そうちょう:sáng sớm
-4|長|trường|チョウ|なが(い)|dài, trưởng|8|長い:ながい:dài;社長:しゃちょう:giám đốc công ty;校長:こうちょう:hiệu trưởng
-4|白|bạch|ハク,ビャク|しろ,しろ(い)|trắng|5|白い:しろい:trắng;白:しろ:màu trắng;白紙:はくし:giấy trắng
-4|黒|hắc|コク|くろ,くろ(い)|đen|11|黒い:くろい:đen;黒:くろ:màu đen;黒板:こくばん:bảng đen
-4|赤|xích|セキ|あか,あか(い)|đỏ|7|赤い:あかい:đỏ;赤:あか:màu đỏ;赤ちゃん:あかちゃん:em bé
-4|青|thanh|セイ,ショウ|あお,あお(い)|xanh lam, xanh|8|青い:あおい:xanh;青:あお:màu xanh;青年:せいねん:thanh niên
-5|駅|dịch|エキ||nhà ga|14|駅:えき:nhà ga;駅前:えきまえ:trước ga;東京駅:とうきょうえき:ga Tokyo
-5|口|khẩu|コウ,ク|くち|miệng, cửa|3|口:くち:miệng;入口:いりぐち:lối vào;出口:でぐち:lối ra
-5|出|xuất|シュツ,スイ|で(る),だ(す)|ra, đưa ra|5|出る:でる:ra, xuất hiện;出す:だす:đưa ra, nộp;出口:でぐち:lối ra
-5|入|nhập|ニュウ|はい(る),い(る),い(れる)|vào, cho vào|2|入る:はいる:vào;入れる:いれる:cho vào;入口:いりぐち:lối vào
-5|東|đông|トウ|ひがし|phía đông|8|東:ひがし:phía đông;東京:とうきょう:Tokyo;東口:ひがしぐち:cửa đông
-5|西|tây|セイ,サイ|にし|phía tây|6|西:にし:phía tây;西口:にしぐち:cửa tây;関西:かんさい:vùng Kansai
-5|南|nam|ナン|みなみ|phía nam|9|南:みなみ:phía nam;南口:みなみぐち:cửa nam;東南:とうなん:đông nam
-5|北|bắc|ホク|きた|phía bắc|5|北:きた:phía bắc;北口:きたぐち:cửa bắc;北海道:ほっかいどう:Hokkaido
-5|上|thượng|ジョウ,ショウ|うえ,うわ,あ(げる),のぼ(る)|trên, lên|3|上:うえ:phía trên;上手な:じょうずな:giỏi;上着:うわぎ:áo khoác
-5|下|hạ|カ,ゲ|した,しも,さ(げる),くだ(る)|dưới, xuống|3|下:した:phía dưới;地下鉄:ちかてつ:tàu điện ngầm;下手な:へたな:kém
-5|左|tả|サ|ひだり|bên trái|5|左:ひだり:bên trái;左手:ひだりて:tay trái;左側:ひだりがわ:phía bên trái
-5|右|hữu|ウ,ユウ|みぎ|bên phải|5|右:みぎ:bên phải;右手:みぎて:tay phải;右側:みぎがわ:phía bên phải
-5|中|trung|チュウ|なか|trong, giữa|4|中:なか:bên trong;中国:ちゅうごく:Trung Quốc;一日中:いちにちじゅう:cả ngày
-5|外|ngoại|ガイ,ゲ|そと,ほか,はず(す)|ngoài|5|外:そと:bên ngoài;外国:がいこく:nước ngoài;外す:はずす:tháo ra
-6|山|sơn|サン|やま|núi|3|山:やま:núi;火山:かざん:núi lửa;富士山:ふじさん:núi Phú Sĩ
-6|川|xuyên|セン|かわ|sông|3|川:かわ:sông;小川:おがわ:suối nhỏ;川口:かわぐち:cửa sông, họ Kawaguchi
-6|田|điền|デン|た|ruộng|5|田:た:ruộng;田中:たなか:họ Tanaka;水田:すいでん:ruộng nước
-6|雨|vũ|ウ|あめ,あま|mưa|8|雨:あめ:mưa;大雨:おおあめ:mưa to;雨天:うてん:trời mưa
-6|天|thiên|テン|あま,あめ|trời|4|天気:てんき:thời tiết;天:てん:trời;雨天:うてん:trời mưa
-6|空|không|クウ|そら,あ(く),から|bầu trời, trống|8|空:そら:bầu trời;空気:くうき:không khí;空港:くうこう:sân bay
-6|花|hoa|カ|はな|hoa|7|花:はな:hoa;花見:はなみ:ngắm hoa;花火:はなび:pháo hoa
-6|本|bản|ホン|もと|sách, gốc, cái dài|5|本:ほん:sách;日本:にほん:Nhật Bản;一本:いっぽん:một cây, một chiếc dài
-6|休|hưu|キュウ|やす(む)|nghỉ|6|休む:やすむ:nghỉ;休み:やすみ:ngày nghỉ;休日:きゅうじつ:ngày nghỉ
-6|体|thể|タイ,テイ|からだ|cơ thể|7|体:からだ:cơ thể;体育:たいいく:thể dục;体力:たいりょく:thể lực
-6|目|mục|モク,ボク|め|mắt, mục|5|目:め:mắt;一日目:いちにちめ:ngày thứ nhất;目的:もくてき:mục đích
-6|耳|nhĩ|ジ|みみ|tai|6|耳:みみ:tai;耳鼻科:じびか:khoa tai mũi;耳元:みみもと:gần tai
-6|手|thủ|シュ|て|tay|4|手:て:tay;上手な:じょうずな:giỏi;手紙:てがみ:thư
-6|足|túc|ソク|あし,た(りる)|chân, đủ|7|足:あし:chân;足りる:たりる:đủ;一足:いっそく:một đôi giày
-6|力|lực|リョク,リキ|ちから|sức mạnh|2|力:ちから:sức mạnh;体力:たいりょく:thể lực;力学:りきがく:cơ học
-7|校|hiệu|コウ||trường học|10|学校:がっこう:trường học;小学校:しょうがっこう:trường tiểu học;校長:こうちょう:hiệu trưởng
-7|会|hội|カイ,エ|あ(う)|gặp, hội|6|会う:あう:gặp;会社:かいしゃ:công ty;会話:かいわ:hội thoại
-7|社|xã|シャ|やしろ|công ty, đền|7|会社:かいしゃ:công ty;社長:しゃちょう:giám đốc;神社:じんじゃ:đền Thần đạo
-7|員|viên|イン||nhân viên, thành viên|10|会社員:かいしゃいん:nhân viên công ty;店員:てんいん:nhân viên cửa hàng;銀行員:ぎんこういん:nhân viên ngân hàng
-7|店|điếm|テン|みせ|cửa hàng|8|店:みせ:cửa hàng;店員:てんいん:nhân viên cửa hàng;本店:ほんてん:cửa hàng chính
-7|車|xa|シャ|くるま|xe|7|車:くるま:xe hơi;電車:でんしゃ:tàu điện;自転車:じてんしゃ:xe đạp
-7|電|điện|デン||điện|13|電車:でんしゃ:tàu điện;電話:でんわ:điện thoại;電気:でんき:điện, đèn điện
-7|気|khí|キ,ケ||khí, tinh thần|6|天気:てんき:thời tiết;元気な:げんきな:khỏe mạnh;電気:でんき:điện
-8|食|thực|ショク,ジキ|た(べる),く(う)|ăn, thức ăn|9|食べる:たべる:ăn;食べ物:たべもの:đồ ăn;食堂:しょくどう:nhà ăn
-8|飲|ẩm|イン|の(む)|uống|12|飲む:のむ:uống;飲み物:のみもの:đồ uống;飲食:いんしょく:ăn uống
-8|見|kiến|ケン|み(る),み(える),み(せる)|nhìn, xem|7|見る:みる:xem, nhìn;見える:みえる:nhìn thấy;花見:はなみ:ngắm hoa
-8|行|hành|コウ,ギョウ|い(く),おこな(う)|đi, thực hiện|6|行く:いく:đi;旅行:りょこう:du lịch;銀行:ぎんこう:ngân hàng
-8|来|lai|ライ|く(る),きた(る)|đến|7|来る:くる:đến;来週:らいしゅう:tuần sau;来年:らいねん:năm sau
-8|帰|quy|キ|かえ(る)|trở về|10|帰る:かえる:trở về;帰国:きこく:về nước;お帰り:おかえり:mừng về nhà
-8|書|thư|ショ|か(く)|viết, sách|10|書く:かく:viết;辞書:じしょ:từ điển;図書館:としょかん:thư viện
-8|読|độc|ドク,トク|よ(む)|đọc|14|読む:よむ:đọc;読書:どくしょ:đọc sách;読み方:よみかた:cách đọc
-8|聞|văn|ブン,モン|き(く),き(こえる)|nghe, hỏi|14|聞く:きく:nghe, hỏi;新聞:しんぶん:báo;聞こえる:きこえる:nghe thấy
-8|話|thoại|ワ|はな(す),はなし|nói, câu chuyện|13|話す:はなす:nói;電話:でんわ:điện thoại;会話:かいわ:hội thoại
-8|買|mãi|バイ|か(う)|mua|12|買う:かう:mua;買い物:かいもの:mua sắm;売買:ばいばい:mua bán
-8|教|giáo|キョウ|おし(える),おそ(わる)|dạy, học từ ai|11|教える:おしえる:dạy, chỉ cho;教室:きょうしつ:lớp học;教師:きょうし:giáo viên
-8|立|lập|リツ,リュウ|た(つ),た(てる)|đứng, dựng lên|5|立つ:たつ:đứng;立てる:たてる:dựng lên;国立:こくりつ:quốc lập
-12|好|hiếu|コウ|す(き),この(む)|thích, tốt|6|好きな:すきな:yêu thích;大好きな:だいすきな:rất thích;好む:このむ:ưa thích
-12|物|vật|ブツ,モツ|もの|đồ vật|8|物:もの:đồ vật;食べ物:たべもの:đồ ăn;飲み物:のみもの:đồ uống
-12|私|tư|シ|わたし,わたくし|tôi, riêng tư|7|私:わたし:tôi;私たち:わたしたち:chúng tôi;私立:しりつ:tư lập
-12|家|gia|カ,ケ|いえ,や|nhà, gia đình|10|家:いえ:nhà;家族:かぞく:gia đình;大家:おおや:chủ nhà
-""".strip()
+READING_FALLBACKS = {
+    "校": {"kunyomi": "なし"},
+    "茶": {"kunyomi": "なし"},
+    "畑": {"onyomi": "なし"},
+    "電": {"kunyomi": "なし"},
+}
 
 
-def split_nullable(value: str) -> str | None:
-    value = value.strip()
-    return value or None
+def load_kanji_api_cache() -> dict:
+    if KANJI_API_CACHE.exists():
+        return json.loads(KANJI_API_CACHE.read_text(encoding="utf-8"))
+    return {}
+
+
+def save_kanji_api_cache(cache: dict) -> None:
+    KANJI_API_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    KANJI_API_CACHE.write_text(
+        json.dumps(cache, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def fetch_kanji_api(character: str, cache: dict) -> dict:
+    if not ENRICH_KANJI_API:
+        return {}
+    if character in cache:
+        return cache[character]
+
+    response = requests.get(
+        f"https://kanjiapi.dev/v1/kanji/{character}",
+        headers={"User-Agent": "Mozilla/5.0"},
+        timeout=20,
+    )
+    response.raise_for_status()
+    cache[character] = response.json()
+    return cache[character]
+
+
+def join_readings(values: list[str] | None) -> str | None:
+    if not values:
+        return None
+    return "・".join(values)
+
+
+def build_word_example(word: str, reading: str, meaning_vi: str) -> tuple[str, str, str]:
+    return (
+        f"この言葉は「{word}」です。",
+        f"このことばは「{reading}」です。",
+        f"Từ này là '{word}' ({meaning_vi}).",
+    )
 
 
 def build_data() -> dict:
+    kanji_cache = load_kanji_api_cache()
     topics = []
-    for order, topic in enumerate(TOPICS, start=1):
-        row = dict(topic)
-        row.setdefault("source_book", "Soumatome N5")
-        row.update({"display_order": order, "is_published": True, "version": 1})
-        topics.append(row)
-
     characters = []
     words = []
     character_id = 1
     word_id = 1
-    order_by_topic: dict[int, int] = {}
 
-    for raw_line in RAW_DATA.splitlines():
-        parts = raw_line.split("|")
-        if len(parts) != 8:
-            raise ValueError(f"Invalid row: {raw_line}")
+    for topic_id, name, name_reading, name_vi, page_start, character_values in TOPICS:
+        topics.append(
+            {
+                "id": topic_id,
+                "jlpt_level_id": 1,
+                "name": name,
+                "name_reading": name_reading,
+                "name_vi": name_vi,
+                "description": (
+                    f"Kanji Master N5 - Chương {topic_id}: {name} ({name_vi})."
+                ),
+                "source_book": "Kanji Master N5",
+                "source_week": topic_id,
+                "source_week_title": name,
+                "source_week_title_vi": name_vi,
+                "source_day": None,
+                "source_page_start": page_start,
+                "source_url": "plan/kanji/N5 - Kanji master Bản nét.pdf",
+                "display_order": topic_id,
+                "is_published": True,
+                "version": 1,
+            }
+        )
 
-        topic_id = TOPIC_BY_KANJI.get(parts[1], int(parts[0]))
-        order_by_topic[topic_id] = order_by_topic.get(topic_id, 0) + 1
-
-        character = {
-            "id": character_id,
-            "kanji_topic_id": topic_id,
-            "character_value": parts[1],
-            "han_viet": split_nullable(parts[2]),
-            "onyomi": split_nullable(parts[3]),
-            "kunyomi": split_nullable(parts[4]),
-            "meaning_vi": parts[5],
-            "stroke_count": int(parts[6]),
-            "mnemonic_vi": None,
-            "display_order": order_by_topic[topic_id],
-            "is_published": True,
-            "version": 1,
-        }
-        characters.append(character)
-
-        for word_order, word_raw in enumerate(parts[7].split(";"), start=1):
-            word, reading, meaning = word_raw.split(":", 2)
-            example_sentence, example_reading, example_meaning = build_word_example(
-                word, reading, meaning
-            )
-            words.append(
+        for display_order, character_value in enumerate(character_values, start=1):
+            han_viet, meaning_vi, word_rows = KANJI_DATA[character_value]
+            api_data = fetch_kanji_api(character_value, kanji_cache)
+            fallback = READING_FALLBACKS.get(character_value, {})
+            onyomi = join_readings(api_data.get("on_readings")) or fallback.get("onyomi")
+            kunyomi = join_readings(api_data.get("kun_readings")) or fallback.get("kunyomi")
+            characters.append(
                 {
-                    "id": word_id,
-                    "kanji_character_id": character_id,
-                    "word": word,
-                    "reading": split_nullable(reading),
-                    "meaning_vi": meaning,
-                    "example_sentence": example_sentence,
-                    "example_reading": example_reading,
-                    "example_meaning_vi": example_meaning,
-                    "display_order": word_order,
+                    "id": character_id,
+                    "kanji_topic_id": topic_id,
+                    "character_value": character_value,
+                    "han_viet": han_viet,
+                    "onyomi": onyomi,
+                    "kunyomi": kunyomi,
+                    "meaning_vi": meaning_vi,
+                    "stroke_count": api_data.get("stroke_count"),
+                    "mnemonic_vi": (
+                        f"Ghi nhớ chữ {character_value} theo nghĩa '{meaning_vi}' "
+                        f"qua các từ như {word_rows[0][0]}."
+                    ),
+                    "display_order": display_order,
                     "is_published": True,
                     "version": 1,
                 }
             )
-            word_id += 1
 
-        character_id += 1
+            for word_display_order, (word, reading, word_meaning_vi) in enumerate(
+                word_rows,
+                start=1,
+            ):
+                example_sentence, example_reading, example_meaning_vi = build_word_example(
+                    word,
+                    reading,
+                    word_meaning_vi,
+                )
+                words.append(
+                    {
+                        "id": word_id,
+                        "kanji_character_id": character_id,
+                        "word": word,
+                        "reading": reading,
+                        "meaning_vi": word_meaning_vi,
+                        "example_sentence": example_sentence,
+                        "example_reading": example_reading,
+                        "example_meaning_vi": example_meaning_vi,
+                        "display_order": word_display_order,
+                        "is_published": True,
+                        "version": 1,
+                    }
+                )
+                word_id += 1
+
+            character_id += 1
+
+    if ENRICH_KANJI_API:
+        save_kanji_api_cache(kanji_cache)
 
     return {
         "metadata": {
-            "name": "JLPT N5 kanji import data",
+            "name": "JLPT N5 kanji import data by Kanji Master N5",
+            "status": "ready_for_review_database_import",
             "jlpt_level_code": "N5",
             "jlpt_level_id_assumption": 1,
-            "source_file": "plan/kanji/[Nihongopro.net]-N5-soumatome-tieng-viet.pdf",
-            "source_note": "PDF is image-based; text extraction only exposes watermark text. Data was normalized from the visible Soumatome N5 kanji structure and completed with standard N5 kanji readings, Sino-Vietnamese readings, meanings, stroke counts, and vocabulary examples.",
+            "source_file": "plan/kanji/N5 - Kanji master Bản nét.pdf",
+            "source_note": (
+                "Topic/chapter structure and the 118 index kanji follow the scanned "
+                "Kanji Master N5 textbook. The PDF has no text layer, so vocabulary "
+                "and Vietnamese examples were prepared as learning data."
+            ),
+            "enrichment_source": (
+                "https://kanjiapi.dev/ for stroke counts and on/kun readings"
+                if ENRICH_KANJI_API
+                else None
+            ),
             "generated_at": datetime.now(timezone.utc).isoformat(),
-            "import_order": [
+            "import_order_when_completed": [
                 "kanji_topics",
                 "kanji_characters",
                 "kanji_words",
             ],
             "notes": [
-                "The JSON follows the simple UI flow: jlpt_levels -> kanji_topics -> kanji_characters -> kanji_words.",
-                "kanji_topics.name is Japanese-first. kanji_topics.name_vi is a Vietnamese subtitle for the UI.",
-                "source_week, source_day, and source_page_start preserve the Soumatome-style lesson origin.",
-                "han_viet stores the Sino-Vietnamese reading.",
-                "word uses kanji where applicable; reading stores kana/furigana reading.",
-                "example_* fields are generated learning examples for every kanji word.",
+                "kanji_topics.name is Japanese-first; kanji_topics.name_vi is the Vietnamese subtitle.",
+                "No note field is generated.",
+                "Each kanji has at least two learning words and generated example_* fields.",
             ],
         },
         "kanji_topics": topics,
@@ -463,52 +329,59 @@ def build_data() -> dict:
 
 
 def validate(data: dict) -> None:
+    if len(data["kanji_topics"]) != 15:
+        raise ValueError(f"Expected 15 topics, got {len(data['kanji_topics'])}")
+    if len(data["kanji_characters"]) != 118:
+        raise ValueError(
+            f"Expected 118 kanji characters, got {len(data['kanji_characters'])}"
+        )
+
     topic_ids = {topic["id"] for topic in data["kanji_topics"]}
     character_ids = {char["id"] for char in data["kanji_characters"]}
-    seen_chars: set[str] = set()
+    for group in ("kanji_topics", "kanji_characters", "kanji_words"):
+        for item in data[group]:
+            if "note" in item:
+                raise ValueError(f"Unexpected note field in {group}: {item}")
+
+    for topic in data["kanji_topics"]:
+        if not topic["name"] or not topic["name_vi"]:
+            raise ValueError(f"Missing topic text: {topic}")
 
     for char in data["kanji_characters"]:
         if char["kanji_topic_id"] not in topic_ids:
-            raise ValueError(f"Missing topic for kanji {char['character_value']}")
-        if char["character_value"] in seen_chars:
-            raise ValueError(f"Duplicate kanji: {char['character_value']}")
-        seen_chars.add(char["character_value"])
-        for key in ("character_value", "han_viet", "meaning_vi", "display_order"):
-            if char[key] in (None, ""):
-                raise ValueError(f"Missing {key} for {char['character_value']}")
+            raise ValueError(f"Invalid kanji_topic_id: {char}")
+        for key in ("character_value", "han_viet", "meaning_vi", "mnemonic_vi"):
+            if not char.get(key):
+                raise ValueError(f"Missing {key}: {char}")
 
     for word in data["kanji_words"]:
         if word["kanji_character_id"] not in character_ids:
-            raise ValueError(f"Missing kanji for word {word['word']}")
-        for key in ("word", "reading", "meaning_vi", "display_order"):
-            if word[key] in (None, ""):
-                raise ValueError(f"Missing {key} for word id={word['id']}")
-        for key in ("example_sentence", "example_reading", "example_meaning_vi"):
-            if word[key] in (None, ""):
-                raise ValueError(f"Missing {key} for word id={word['id']}")
-
-    empty_topics = [
-        topic["id"]
-        for topic in data["kanji_topics"]
-        if not any(char["kanji_topic_id"] == topic["id"] for char in data["kanji_characters"])
-    ]
-    if empty_topics:
-        raise ValueError(f"Topics without kanji: {empty_topics}")
+            raise ValueError(f"Invalid kanji_character_id: {word}")
+        for key in (
+            "word",
+            "reading",
+            "meaning_vi",
+            "example_sentence",
+            "example_reading",
+            "example_meaning_vi",
+        ):
+            if not word.get(key):
+                raise ValueError(f"Missing {key}: {word}")
 
 
-def build_word_example(word: str, reading: str, meaning_vi: str) -> tuple[str, str, str]:
-    sentence = f"「{word}」をもう一度読みます。"
-    sentence_reading = f"「{reading}」をもういちどよみます。"
-    sentence_meaning = f"Tôi đọc lại từ '{word}' ({meaning_vi})."
-    return sentence, sentence_reading, sentence_meaning
-
-
-if __name__ == "__main__":
+def main() -> None:
     data = build_data()
     validate(data)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
     print(f"Wrote {OUTPUT}")
     print(f"topics={len(data['kanji_topics'])}")
     print(f"kanji_characters={len(data['kanji_characters'])}")
     print(f"kanji_words={len(data['kanji_words'])}")
+
+
+if __name__ == "__main__":
+    main()
