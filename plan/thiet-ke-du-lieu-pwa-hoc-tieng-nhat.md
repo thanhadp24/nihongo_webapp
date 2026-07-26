@@ -291,7 +291,7 @@ CREATE TABLE jlpt_levels (
     code VARCHAR(10) NOT NULL,
     name VARCHAR(50) NOT NULL,
     description TEXT,
-    display_order INT DEFAULT 0,
+    display_order INT NOT NULL DEFAULT 0,
     is_active BOOLEAN DEFAULT TRUE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -312,7 +312,7 @@ INSERT INTO jlpt_levels (code, name, display_order) VALUES
 ('N1', 'JLPT N1', 5);
 ```
 
-Các bảng nội dung như `vocabularies`, `grammar_lessons`, `reading_lessons`, `picture_lessons`, `exercise_sets` nên tham chiếu đến `jlpt_levels.id` qua cột `jlpt_level_id`.
+Các bảng nội dung gắn trực tiếp với cấp độ như `vocabularies`, `grammar_lessons`, `picture_lessons`, `exercise_sets` nên tham chiếu đến `jlpt_levels.id` qua cột `jlpt_level_id`. Riêng `reading_lessons` có thể không cần `jlpt_level_id` nếu là bộ đọc độc lập như `999 lá thư gửi cho chính mình`.
 
 ---
 
@@ -346,7 +346,7 @@ CREATE TABLE chapters (
     jlpt_level_id BIGINT NOT NULL,
     name VARCHAR(150) NOT NULL,
     description TEXT,
-    display_order INT DEFAULT 0,
+    display_order INT NOT NULL DEFAULT 0,
     is_published BOOLEAN DEFAULT TRUE,
     version INT NOT NULL DEFAULT 1,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -527,27 +527,310 @@ Ví dụ dữ liệu:
 
 ---
 
-## 6. Thiết kế chức năng luyện đọc qua tranh
+## 5.3. Thiết kế chức năng Kanji theo topic
 
-Các bảng đề xuất:
+Với chức năng Kanji, luồng học nên đơn giản:
 
 ```text
-reading_lessons
-reading_pages
-reading_vocabulary_notes
-reading_questions
-reading_answers
+Chọn JLPT level
+  ↓
+Chọn tab Kanji
+  ↓
+Danh sách topic Kanji thuộc level đó
+  ↓
+Chọn topic
+  ↓
+Học các chữ Kanji và từ Kanji trong topic
 ```
 
-### 6.1. Bảng bài đọc
+Với Kanji lấy theo sách như Soumatome, không nên gom quá rộng kiểu `Con người`, `Thời gian`, `Môi trường`.
+Mỗi tuần trong sách có nhiều bài nhỏ, nên `kanji_topics` nên bám theo bài/ngày của sách.
+
+Ví dụ N5:
+
+```text
+Week 1 Day 1 - お名前は?
+Week 1 Day 2 - それは何ですか。
+Week 1 Day 3 - 大きい ↔ 小さい
+Week 1 Day 4 - どこですか。
+Week 1 Day 5 - 何をしていますか。
+Week 1 Day 6 - 手と足
+Week 2 Day 1 - つめたい飲みもの
+Week 2 Day 2 - はたらいています
+Week 2 Day 3 - どのぐらい?
+Week 2 Day 4 - ちょっと...
+Week 2 Day 5 - かぞく
+Week 2 Day 6 - すきなもの・ほしいもの
+```
+
+UI nên ưu tiên tiếng Nhật:
+
+```text
+お名前は?
+Tên và giới thiệu bản thân
+```
+
+Vì vậy `kanji_topics.name` lưu tên tiếng Nhật chính, còn `kanji_topics.name_vi` lưu phụ đề tiếng Việt.
+Các trường `source_week`, `source_day`, `source_page_start` giúp biết topic này đến từ phần nào của sách, nhưng frontend vẫn chỉ cần render theo `level -> topic -> kanji`.
+
+Quan hệ dữ liệu:
+
+```text
+jlpt_levels
+  1-n kanji_topics
+        1-n kanji_characters
+              1-n kanji_words
+```
+
+### 5.3.1. Bảng topic Kanji
 
 ```sql
-CREATE TABLE reading_lessons (
+CREATE TABLE kanji_topics (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    jlpt_level_id BIGINT NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    name_vi VARCHAR(150),
+    description TEXT,
+    source_book VARCHAR(150),
+    source_week INT,
+    source_day INT,
+    source_page_start INT,
+    display_order INT NOT NULL DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE KEY uk_kanji_topics_level_order (
+        jlpt_level_id,
+        display_order
+    ),
+
+    INDEX idx_kanji_topics_level (
+        jlpt_level_id
+    ),
+
+    FOREIGN KEY (jlpt_level_id)
+        REFERENCES jlpt_levels(id)
+);
+```
+
+Ví dụ topic:
+
+```json
+{
+  "id": 1,
+  "jlptLevelId": 1,
+  "name": "お名前は?",
+  "nameVi": "Tên và giới thiệu bản thân",
+  "description": "Bài kanji/vocabulary về tên, người, quốc tịch, trường học và giới thiệu cơ bản.",
+  "sourceBook": "Soumatome N5",
+  "sourceWeek": 1,
+  "sourceDay": 1,
+  "sourcePageStart": 16,
+  "displayOrder": 1
+}
+```
+
+### 5.3.2. Bảng chữ Kanji
+
+`han_viet` lưu âm Hán Việt của chữ Kanji. Ví dụ:
+
+```text
+森 -> sâm
+林 -> lâm
+水 -> thủy
+火 -> hỏa
+```
+
+```sql
+CREATE TABLE kanji_characters (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    kanji_topic_id BIGINT NOT NULL,
+
+    character_value VARCHAR(10) NOT NULL,
+    han_viet VARCHAR(100),
+    onyomi VARCHAR(255),
+    kunyomi VARCHAR(255),
+    meaning_vi VARCHAR(500) NOT NULL,
+    stroke_count INT,
+
+    note TEXT,
+    mnemonic_vi TEXT,
+
+    display_order INT NOT NULL DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE KEY uk_kanji_characters_topic_value (
+        kanji_topic_id,
+        character_value
+    ),
+
+    UNIQUE KEY uk_kanji_characters_topic_order (
+        kanji_topic_id,
+        display_order
+    ),
+
+    INDEX idx_kanji_characters_topic_order (
+        kanji_topic_id,
+        display_order
+    ),
+
+    FOREIGN KEY (kanji_topic_id)
+        REFERENCES kanji_topics(id)
+);
+```
+
+Ví dụ:
+
+```json
+{
+  "id": 1,
+  "kanjiTopicId": 1,
+  "characterValue": "森",
+  "hanViet": "sâm",
+  "onyomi": "シン",
+  "kunyomi": "もり",
+  "meaningVi": "rừng",
+  "strokeCount": 12,
+  "displayOrder": 1
+}
+```
+
+### 5.3.3. Bảng từ Kanji
+
+Một chữ Kanji có thể có nhiều từ ví dụ. Bảng này dùng để hiển thị danh sách từ khi người học click vào một Kanji.
+`word` là tiếng Nhật chính, `reading` là cách đọc kana/furigana, `meaning_vi` và `example_meaning_vi` là nội dung phụ bên dưới cho người học Việt Nam.
+
+```sql
+CREATE TABLE kanji_words (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    kanji_character_id BIGINT NOT NULL,
+
+    word VARCHAR(100) NOT NULL,
+    reading VARCHAR(150),
+    meaning_vi VARCHAR(500) NOT NULL,
+    example_sentence TEXT,
+    example_reading TEXT,
+    example_meaning_vi TEXT,
+
+    display_order INT NOT NULL DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE KEY uk_kanji_words_character_order (
+        kanji_character_id,
+        display_order
+    ),
+
+    INDEX idx_kanji_words_character (
+        kanji_character_id
+    ),
+
+    FOREIGN KEY (kanji_character_id)
+        REFERENCES kanji_characters(id)
+);
+```
+
+Ví dụ:
+
+```json
+{
+  "id": 1,
+  "kanjiCharacterId": 1,
+  "word": "先生",
+  "reading": "せんせい",
+  "meaningVi": "giáo viên, thầy cô",
+  "exampleSentence": "「先生」をもう一度読みます。",
+  "exampleReading": "「せんせい」をもういちどよみます。",
+  "exampleMeaningVi": "Tôi đọc lại từ '先生' (giáo viên, thầy cô)."
+}
+```
+
+API đề xuất:
+
+```http
+GET /api/jlpt-levels/{levelId}/kanji-topics
+GET /api/kanji-topics/{topicId}/kanji
+GET /api/kanji/{kanjiId}/words
+```
+
+Response ví dụ:
+
+```json
+{
+  "topic": {
+    "id": 1,
+    "name": "お名前は?",
+    "nameVi": "Tên và giới thiệu bản thân",
+    "sourceWeek": 1,
+    "sourceDay": 1,
+    "sourcePageStart": 16,
+    "jlptLevel": "N5"
+  },
+  "kanji": [
+    {
+      "id": 1,
+      "characterValue": "先",
+      "hanViet": "tiên",
+      "onyomi": "セン",
+      "kunyomi": "さき",
+      "meaningVi": "trước, trước tiên",
+      "strokeCount": 6,
+      "words": [
+        {
+          "word": "先生",
+          "reading": "せんせい",
+          "meaningVi": "giáo viên, thầy cô",
+          "exampleSentence": "「先生」をもう一度読みます。",
+          "exampleReading": "「せんせい」をもういちどよみます。",
+          "exampleMeaningVi": "Tôi đọc lại từ '先生' (giáo viên, thầy cô)."
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 6. Thiết kế chức năng luyện đọc qua ảnh
+
+Với bộ `999 lá thư gửi cho chính mình`, mỗi hình ảnh là một bài đọc độc lập. Mỗi bài có thể có một audio riêng, hoặc `NULL` nếu audio chưa chuẩn bị.
+
+Vì vậy không nên gộp nhiều ảnh thành một PDF làm dữ liệu chính. PDF có thể để làm file tải xuống phụ, nhưng UI học nên render theo từng bài ảnh độc lập để dễ next bài, phát audio, lưu tiến độ và đánh dấu yêu thích.
+
+Quan hệ dữ liệu nên là:
+
+```text
+reading_collections
+  1-n reading_lessons
+```
+
+Ý nghĩa:
+
+- `reading_collections` là bộ bài đọc, ví dụ `999 lá thư gửi cho chính mình`.
+- `reading_lessons` là từng lá thư/bài đọc độc lập.
+- Một bài đọc trong collection hiện tại tương ứng với một ảnh và một audio riêng.
+- Thứ tự hiển thị và nút trước/sau của từng lá thư dựa vào `display_order`.
+
+### 6.1. Bảng bộ bài đọc
+
+```sql
+CREATE TABLE reading_collections (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
+    slug VARCHAR(180) NOT NULL,
     description TEXT,
-    jlpt_level_id BIGINT,
-    thumbnail_url VARCHAR(500),
+    cover_image_url VARCHAR(500),
     display_order INT DEFAULT 0,
     is_published BOOLEAN DEFAULT TRUE,
     version INT NOT NULL DEFAULT 1,
@@ -555,57 +838,152 @@ CREATE TABLE reading_lessons (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (jlpt_level_id)
-        REFERENCES jlpt_levels(id)
+    UNIQUE KEY uk_reading_collections_slug (slug)
 );
 ```
 
-### 6.2. Bảng trang bài đọc
+Ví dụ:
 
-Một bài đọc có thể gồm nhiều trang hoặc nhiều bức tranh.
+```json
+{
+  "id": 1,
+  "title": "999 Lá Thư Gửi Cho Chính Mình",
+  "slug": "999-la-thu-gui-cho-chinh-minh",
+  "description": "Bộ bài đọc truyền động lực luyện dokkai bằng hình ảnh.",
+  "coverImageUrl": "/media/readings/999_letters/001.png"
+}
+```
+
+### 6.2. Bảng bài đọc
 
 ```sql
-CREATE TABLE reading_pages (
+CREATE TABLE reading_lessons (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    reading_collection_id BIGINT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    image_url VARCHAR(500) NOT NULL,
+    audio_url VARCHAR(500),
+    display_order INT NOT NULL DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE KEY uk_reading_lessons_collection_order (
+        reading_collection_id,
+        display_order
+    ),
+
+    INDEX idx_reading_lessons_collection_order (
+        reading_collection_id,
+        display_order
+    ),
+
+    FOREIGN KEY (reading_collection_id)
+        REFERENCES reading_collections(id)
+);
+```
+
+Ví dụ một bài:
+
+```json
+{
+  "id": 1,
+  "readingCollectionId": 1,
+  "title": "Lá thư 001",
+  "imageUrl": "/media/readings/999_letters/001.png",
+  "audioUrl": "/media/readings/999_letters/audio/001.mp3",
+  "displayOrder": 1
+}
+```
+
+Nếu audio chưa có:
+
+```json
+{
+  "id": 2,
+  "readingCollectionId": 1,
+  "title": "Lá thư 002",
+  "imageUrl": "/media/readings/999_letters/002.png",
+  "audioUrl": null,
+  "displayOrder": 2
+}
+```
+
+Luồng UI:
+
+```text
+Danh sách bộ bài đọc
+  ↓ click "999 Lá Thư Gửi Cho Chính Mình"
+Danh sách lá thư
+  ↓ click một lá thư
+Màn đọc:
+  - ảnh bài đọc
+  - audio player nếu audio_url != null
+  - nút Trước / Tiếp theo
+  - trạng thái đã đọc / yêu thích
+```
+
+API trả về một bài đọc:
+
+```json
+{
+  "id": 1,
+  "title": "Lá thư 001",
+  "imageUrl": "/media/readings/999_letters/001.png",
+  "audioUrl": "/media/readings/999_letters/audio/001.mp3",
+  "displayOrder": 1,
+  "nextLessonId": 2,
+  "previousLessonId": null
+}
+```
+
+### 6.3. Bảng tiến độ đọc
+
+Khi có tài khoản, nên lưu trạng thái đọc của từng user theo từng bài.
+
+```sql
+CREATE TABLE user_reading_progress (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
     reading_lesson_id BIGINT NOT NULL,
-    page_number INT NOT NULL,
-    image_url VARCHAR(500),
-    japanese_content TEXT NOT NULL,
-    reading_content TEXT,
-    meaning_vi TEXT,
+    is_favorite BOOLEAN NOT NULL DEFAULT FALSE,
+    is_completed BOOLEAN NOT NULL DEFAULT FALSE,
+    last_read_at DATETIME,
+    completed_at DATETIME,
+    version INT NOT NULL DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE KEY uk_user_reading_progress (
+        user_id,
+        reading_lesson_id
+    ),
+
+    INDEX idx_user_reading_progress_lesson (reading_lesson_id),
 
     FOREIGN KEY (reading_lesson_id)
         REFERENCES reading_lessons(id)
 );
 ```
 
-### 6.3. Bảng ghi chú từ vựng trong bài đọc
+Ở giai đoạn chưa có user, bảng này có thể tạo sẵn nhưng chưa dùng.
 
-```sql
-CREATE TABLE reading_vocabulary_notes (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    reading_page_id BIGINT NOT NULL,
-    vocabulary_id BIGINT,
-    word VARCHAR(100) NOT NULL,
-    reading VARCHAR(150),
-    meaning_vi VARCHAR(500),
-    display_order INT DEFAULT 0,
+### 6.4. Khi nào cần bảng trang đọc?
 
-    FOREIGN KEY (reading_page_id)
-        REFERENCES reading_pages(id),
+Chỉ cần thêm bảng `reading_pages` nếu sau này có loại bài đọc mà một bài gồm nhiều trang ảnh.
 
-    FOREIGN KEY (vocabulary_id)
-        REFERENCES vocabularies(id)
-);
+Ví dụ:
+
+```text
+Một bài đọc dài gồm 5 trang scan
+Một manga/story gồm nhiều khung ảnh
+Một PDF được tách thành nhiều page ảnh để đọc offline
 ```
 
-Bảng này hỗ trợ hiển thị:
-
-- Từ mới trong bài đọc.
-- Cách đọc.
-- Nghĩa tiếng Việt.
-- Liên kết sang màn hình học từ vựng.
-- Lưu từ vào danh sách yêu thích.
+Với `999 lá thư gửi cho chính mình`, hiện tại không cần `reading_pages` vì mỗi ảnh đã là một bài độc lập.
 
 ---
 
