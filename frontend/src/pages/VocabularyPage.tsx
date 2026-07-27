@@ -1,16 +1,16 @@
 import { useMemo, useState } from "react";
-import { Link, Navigate, useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
-import { EmptyState } from "../components/common/StateViews";
+import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
 import { FilterChips } from "../components/common/FilterChips";
 import { PageHeader } from "../components/common/PageHeader";
 import { SearchInput } from "../components/common/SearchInput";
 import { VocabularyCard } from "../components/vocabulary/VocabularyCard";
-import { learningService } from "../services/learningService";
+import { apiLearningService } from "../services/apiLearningService";
 
 const filters = [
   { label: "Tất cả", value: "ALL" },
-  { label: "Đã học", value: "COMPLETED" },
   { label: "Cần ôn tập", value: "REVIEW_REQUIRED" },
   { label: "Đã lưu", value: "SAVED" }
 ];
@@ -19,35 +19,43 @@ export function VocabularyPage() {
   const { chapterId = "", levelId = "", topicId = "" } = useParams();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("ALL");
-  const level = learningService.getLevel(levelId);
-  const chapter = learningService.getChapter(chapterId);
-  const topic = learningService.getTopic(topicId);
-  const words = learningService.getTopicVocabulary(topicId);
+
+  const pageQuery = useQuery({
+    queryKey: ["learning-vocabulary-page", levelId, chapterId, topicId],
+    queryFn: () => apiLearningService.getTopicContext(levelId, chapterId, topicId),
+    enabled: Boolean(levelId && chapterId && topicId)
+  });
+  const wordsQuery = useQuery({
+    queryKey: ["learning-vocabulary", levelId, chapterId, topicId, query],
+    queryFn: () => apiLearningService.getTopicVocabulary(levelId, chapterId, topicId, query),
+    enabled: Boolean(levelId && chapterId && topicId)
+  });
+
+  const level = pageQuery.data?.level;
+  const chapter = pageQuery.data?.chapter;
+  const topic = pageQuery.data?.topic;
+  const words = wordsQuery.data ?? [];
 
   const visibleWords = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
     return words.filter((word) => {
-      const matchesQuery =
-        !normalized ||
-        [word.word, word.reading, word.romaji, word.meaning].some((value) =>
-          value.toLowerCase().includes(normalized)
-        );
-      const matchesFilter =
-        filter === "ALL" ||
-        (filter === "SAVED" ? word.saved : word.status === filter);
-      return matchesQuery && matchesFilter;
+      if (filter === "ALL") return true;
+      if (filter === "SAVED") return word.saved;
+      return word.status === filter;
     });
-  }, [filter, query, words]);
+  }, [filter, words]);
 
-  if (!level || !chapter || !topic) return <Navigate to="/jlpt" replace />;
+  if (pageQuery.data && (!level || !chapter || !topic)) return <Navigate to="/jlpt" replace />;
 
   return (
     <div className="page-stack">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
-          { label: level.name, to: `/jlpt/${level.id}` },
-          { label: topic.title, to: `/jlpt/${level.id}/chapters/${chapter.id}/topics/${topic.id}` },
+          { label: level?.name ?? levelId.toUpperCase(), to: `/jlpt/${levelId}` },
+          {
+            label: topic?.title ?? "Chủ đề",
+            to: `/jlpt/${levelId}/chapters/${chapterId}/topics/${topicId}`
+          },
           { label: "Từ vựng" }
         ]}
       />
@@ -58,18 +66,25 @@ export function VocabularyPage() {
             <button className="primary-button" type="button">Học bằng Flashcard</button>
           </>
         }
-        eyebrow={topic.title}
-        subtitle="Tìm kiếm, lưu từ và đánh dấu tiến độ học trong từng chủ đề."
+        eyebrow={topic?.title ?? "Chủ đề"}
+        subtitle="Từ vựng được lấy trực tiếp từ CSDL theo level, chapter và topic."
         title="Danh sách từ vựng"
       />
       <section className="toolbar">
         <SearchInput
           onChange={setQuery}
-          placeholder="Tìm từ vựng, cách đọc, romaji hoặc nghĩa..."
+          placeholder="Tìm từ vựng, cách đọc hoặc nghĩa..."
           value={query}
         />
         <FilterChips active={filter} items={filters} onChange={setFilter} />
       </section>
+      {pageQuery.isLoading || wordsQuery.isLoading ? <SkeletonCard count={6} /> : null}
+      {pageQuery.isError || wordsQuery.isError ? (
+        <ErrorState onRetry={() => {
+          pageQuery.refetch();
+          wordsQuery.refetch();
+        }} />
+      ) : null}
       {visibleWords.length > 0 ? (
         <section className="vocabulary-grid-cards">
           {visibleWords.map((word) => (
@@ -77,15 +92,17 @@ export function VocabularyPage() {
           ))}
         </section>
       ) : (
-        <EmptyState
-          actionLabel="Xóa bộ lọc"
-          onAction={() => {
-            setFilter("ALL");
-            setQuery("");
-          }}
-          text="Hãy thử từ khóa khác hoặc xóa bộ lọc."
-          title="Không tìm thấy nội dung phù hợp."
-        />
+        !wordsQuery.isLoading && (
+          <EmptyState
+            actionLabel="Xóa bộ lọc"
+            onAction={() => {
+              setFilter("ALL");
+              setQuery("");
+            }}
+            text="Hãy thử từ khóa khác hoặc xóa bộ lọc."
+            title="Không tìm thấy nội dung phù hợp."
+          />
+        )
       )}
     </div>
   );

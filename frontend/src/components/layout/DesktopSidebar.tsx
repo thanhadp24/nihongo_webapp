@@ -11,33 +11,113 @@ import {
   Repeat,
   ScrollText
 } from "lucide-react";
-import { NavLink } from "react-router";
+import { Link, useLocation } from "react-router";
 import { ProgressBar } from "../common/ProgressBar";
 
-const sidebarItems = [
-  { to: "/", label: "Trang chủ", icon: Home },
-  { to: "/jlpt", label: "Lộ trình JLPT", icon: GraduationCap },
-  { to: "/jlpt/n5/chapters/n5-c1/topics/n5-c1-t1/vocabulary", label: "Từ vựng", icon: LibraryBig },
-  { to: "/jlpt/n5/chapters/n5-c1/topics/n5-c1-t1/lessons", label: "Ngữ pháp", icon: PenTool },
-  { to: "/jlpt/n5/chapters/n5-c1/topics/n5-c1-t1", label: "Kanji", icon: Languages },
-  { to: "/review", label: "Luyện đọc", icon: ScrollText },
-  { to: "/review", label: "Luyện nghe", icon: Headphones },
-  { to: "/review", label: "Ôn tập", icon: Repeat },
-  { to: "/favorites", label: "Nội dung đã lưu", icon: Bookmark },
-  { to: "/progress", label: "Tiến độ học", icon: BarChart3 }
+type SidebarItem = {
+  id: string;
+  to: string;
+  label: string;
+  icon: typeof Home;
+  isActive: (pathname: string) => boolean;
+};
+
+const sidebarItems: SidebarItem[] = [
+  {
+    id: "home",
+    to: "/",
+    label: "Trang chủ",
+    icon: Home,
+    isActive: (pathname) => pathname === "/"
+  },
+  {
+    id: "jlpt",
+    to: "/jlpt",
+    label: "Lộ trình JLPT",
+    icon: GraduationCap,
+    isActive: (pathname) =>
+      pathname === "/jlpt" ||
+      /^\/jlpt\/[^/]+$/.test(pathname) ||
+      /^\/jlpt\/[^/]+\/chapters\/[^/]+$/.test(pathname)
+  },
+  {
+    id: "vocabulary",
+    to: "/jlpt/n2/chapters/30/topics/147/vocabulary",
+    label: "Từ vựng",
+    icon: LibraryBig,
+    isActive: (pathname) => pathname.endsWith("/vocabulary")
+  },
+  {
+    id: "grammar",
+    to: "/jlpt/n2/chapters/30/topics/147/lessons",
+    label: "Ngữ pháp",
+    icon: PenTool,
+    isActive: (pathname) => pathname.endsWith("/lessons") || pathname.startsWith("/lessons/")
+  },
+  {
+    id: "kanji",
+    to: "/jlpt/n2/chapters/30/topics/147",
+    label: "Kanji",
+    icon: Languages,
+    isActive: (pathname) => /^\/jlpt\/[^/]+\/chapters\/[^/]+\/topics\/[^/]+$/.test(pathname)
+  },
+  {
+    id: "reading",
+    to: "/reading",
+    label: "Luyện đọc",
+    icon: ScrollText,
+    isActive: (pathname) => pathname === "/reading"
+  },
+  {
+    id: "listening",
+    to: "/listening",
+    label: "Luyện nghe",
+    icon: Headphones,
+    isActive: (pathname) => pathname === "/listening"
+  },
+  {
+    id: "review",
+    to: "/review",
+    label: "Ôn tập",
+    icon: Repeat,
+    isActive: (pathname) => pathname === "/review"
+  },
+  {
+    id: "favorites",
+    to: "/favorites",
+    label: "Nội dung đã lưu",
+    icon: Bookmark,
+    isActive: (pathname) => pathname === "/favorites"
+  },
+  {
+    id: "progress",
+    to: "/progress",
+    label: "Tiến độ học",
+    icon: BarChart3,
+    isActive: (pathname) => pathname === "/progress"
+  }
 ];
 
 export function DesktopSidebar({ compact = false }: { compact?: boolean }) {
+  const { pathname } = useLocation();
+
   return (
     <aside className={compact ? "desktop-sidebar compact" : "desktop-sidebar"}>
       <nav aria-label="Điều hướng chính">
         {sidebarItems.map((item) => {
           const Icon = item.icon;
+          const isActive = item.isActive(pathname);
+
           return (
-            <NavLink className="sidebar-link" key={`${item.to}-${item.label}`} to={item.to}>
+            <Link
+              aria-current={isActive ? "page" : undefined}
+              className={isActive ? "sidebar-link active" : "sidebar-link"}
+              key={item.id}
+              to={item.to}
+            >
               <Icon aria-hidden="true" />
               <span>{item.label}</span>
-            </NavLink>
+            </Link>
           );
         })}
       </nav>

@@ -58,7 +58,7 @@ export const levels: JLPTLevel[] = [
     lessonCount: 108,
     progress: 0,
     completedChapters: 0,
-    status: "LOCKED",
+    status: "REVIEW_REQUIRED",
     tone: "n2"
   },
   {
@@ -73,7 +73,7 @@ export const levels: JLPTLevel[] = [
     lessonCount: 120,
     progress: 0,
     completedChapters: 0,
-    status: "LOCKED",
+    status: "NOT_STARTED",
     tone: "n1"
   }
 ];

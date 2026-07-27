@@ -64,11 +64,12 @@ export const api = {
     }),
   kanjiDetail: (id: number) => request<KanjiDetail>(`/kanji/characters/${id}`),
   grammarChapters: (level: string) => request<GrammarChapter[]>("/grammar/chapters", { level }),
-  grammarLessons: (params: { level: string; chapterId?: number | null; search?: string }) =>
+  grammarLessons: (params: { level: string; chapterId?: number | null; search?: string; limit?: number }) =>
     request<GrammarLesson[]>("/grammar/lessons", {
       level: params.level,
       chapter_id: params.chapterId,
-      search: params.search
+      search: params.search,
+      limit: params.limit
     }),
   grammarDetail: (id: number) => request<GrammarDetail>(`/grammar/lessons/${id}`)
 };

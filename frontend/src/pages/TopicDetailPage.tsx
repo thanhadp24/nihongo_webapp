@@ -1,58 +1,84 @@
+import { useQuery } from "@tanstack/react-query";
 import { BookOpen, Dumbbell, LibraryBig } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { PageHeader } from "../components/common/PageHeader";
 import { ProgressBar } from "../components/common/ProgressBar";
-import { learningService } from "../services/learningService";
+import { ErrorState, SkeletonCard } from "../components/common/StateViews";
+import { apiLearningService } from "../services/apiLearningService";
 
 export function TopicDetailPage() {
   const { chapterId = "", levelId = "", topicId = "" } = useParams();
-  const level = learningService.getLevel(levelId);
-  const chapter = learningService.getChapter(chapterId);
-  const topic = learningService.getTopic(topicId);
-  const topicVocabulary = learningService.getTopicVocabulary(topicId);
-  const topicLessons = learningService.getTopicLessons(topicId);
+  const topicQuery = useQuery({
+    queryKey: ["learning-topic-detail", levelId, chapterId, topicId],
+    queryFn: async () => {
+      const [context, vocabulary, lessons] = await Promise.all([
+        apiLearningService.getTopicContext(levelId, chapterId, topicId),
+        apiLearningService.getTopicVocabulary(levelId, chapterId, topicId),
+        apiLearningService.getLessons(levelId)
+      ]);
 
-  if (!level || !chapter || !topic) return <Navigate to="/jlpt" replace />;
+      return { ...context, vocabulary, lessons };
+    },
+    enabled: Boolean(levelId && chapterId && topicId)
+  });
+
+  if (topicQuery.data && (!topicQuery.data.level || !topicQuery.data.chapter || !topicQuery.data.topic)) {
+    return <Navigate to="/jlpt" replace />;
+  }
+
+  const level = topicQuery.data?.level;
+  const chapter = topicQuery.data?.chapter;
+  const topic = topicQuery.data?.topic;
+  const topicVocabulary = topicQuery.data?.vocabulary ?? [];
+  const topicLessons = topicQuery.data?.lessons ?? [];
 
   return (
     <div className="page-stack">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
-          { label: level.name, to: `/jlpt/${level.id}` },
-          { label: `Chapter ${chapter.chapterNumber}`, to: `/jlpt/${level.id}/chapters/${chapter.id}` },
-          { label: topic.title }
+          { label: level?.name ?? levelId.toUpperCase(), to: `/jlpt/${levelId}` },
+          {
+            label: chapter ? `Chapter ${chapter.chapterNumber}` : "Chapter",
+            to: `/jlpt/${levelId}/chapters/${chapterId}`
+          },
+          { label: topic?.title ?? "Chủ đề" }
         ]}
       />
       <PageHeader
         actions={
-          <Link className="primary-button" to={`/jlpt/${level.id}/chapters/${chapter.id}/topics/${topic.id}/vocabulary`}>
-            Bắt đầu học
-          </Link>
+          topic ? (
+            <Link className="primary-button" to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}/vocabulary`}>
+              Ôn tập từ vựng
+            </Link>
+          ) : null
         }
-        eyebrow={`${level.name} • Chapter ${chapter.chapterNumber}`}
-        subtitle={topic.description}
-        title={topic.title}
+        eyebrow={`${level?.name ?? "JLPT"} • ${chapter ? `Chapter ${chapter.chapterNumber}` : "Chapter"}`}
+        subtitle={topic?.description ?? "Đang tải dữ liệu chủ đề từ CSDL."}
+        title={topic?.title ?? "Đang tải chủ đề"}
       />
-      <section className="topic-overview">
-        <div className="overview-main">
-          <p className="japanese-title-small">{topic.japaneseTitle}</p>
-          <div className="stat-row roomy">
-            <span><LibraryBig aria-hidden="true" /> {topicVocabulary.length} từ vựng</span>
-            <span><BookOpen aria-hidden="true" /> {topicLessons.length} bài học</span>
-            <span><Dumbbell aria-hidden="true" /> {topic.exerciseCount} luyện tập</span>
+      {topicQuery.isLoading ? <SkeletonCard count={2} /> : null}
+      {topicQuery.isError ? <ErrorState onRetry={() => topicQuery.refetch()} /> : null}
+      {topic ? (
+        <section className="topic-overview">
+          <div className="overview-main">
+            <p className="japanese-title-small">{topic.japaneseTitle}</p>
+            <div className="stat-row roomy">
+              <span><LibraryBig aria-hidden="true" /> {topicVocabulary.length} từ vựng</span>
+              <span><BookOpen aria-hidden="true" /> {topicLessons.length} bài ngữ pháp</span>
+              <span><Dumbbell aria-hidden="true" /> Ôn tập mở</span>
+            </div>
+            <ProgressBar label="Tiến độ ôn tập chủ đề" value={topic.progress} />
           </div>
-          <ProgressBar label="Tiến độ chủ đề" value={topic.progress} />
-        </div>
-        <div className="content-tabs">
-          <Link to={`/jlpt/${level.id}/chapters/${chapter.id}/topics/${topic.id}`}>Tổng quan</Link>
-          <Link to={`/jlpt/${level.id}/chapters/${chapter.id}/topics/${topic.id}/vocabulary`}>Từ vựng</Link>
-          <Link to={`/jlpt/${level.id}/chapters/${chapter.id}/topics/${topic.id}/lessons`}>Bài học</Link>
-          <Link to={`/jlpt/${level.id}/chapters/${chapter.id}/topics/${topic.id}/lessons`}>Ngữ pháp</Link>
-          <Link to="/review">Luyện tập</Link>
-        </div>
-      </section>
+          <div className="content-tabs">
+            <Link to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}`}>Tổng quan</Link>
+            <Link to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}/vocabulary`}>Từ vựng</Link>
+            <Link to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}/lessons`}>Ngữ pháp</Link>
+            <Link to="/review">Ôn tập</Link>
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

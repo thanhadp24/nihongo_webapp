@@ -31,6 +31,8 @@ function App() {
           path="/jlpt/:levelId/chapters/:chapterId/topics/:topicId/lessons"
         />
         <Route element={<LessonDetailPage />} path="/lessons/:lessonId" />
+        <Route element={<PlaceholderPage title="Luyện đọc" />} path="/reading" />
+        <Route element={<PlaceholderPage title="Luyện nghe" />} path="/listening" />
         <Route element={<PlaceholderPage title="Ôn tập" />} path="/review" />
         <Route element={<PlaceholderPage title="Nội dung đã lưu" />} path="/favorites" />
         <Route element={<PlaceholderPage title="Tiến độ học tập" />} path="/progress" />

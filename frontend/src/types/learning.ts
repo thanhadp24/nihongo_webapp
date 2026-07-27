@@ -69,6 +69,8 @@ export type Vocabulary = {
 export type Lesson = {
   id: string;
   topicId: string;
+  levelId?: string;
+  chapterId?: string;
   lessonNumber: number;
   title: string;
   japaneseTitle: string;

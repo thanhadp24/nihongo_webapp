@@ -1,54 +1,64 @@
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router";
 import { JLPTLevelCard } from "../components/jlpt/JLPTLevelCard";
 import { PageHeader } from "../components/common/PageHeader";
-import { learningService } from "../services/learningService";
+import { ErrorState, SkeletonCard } from "../components/common/StateViews";
+import { apiLearningService } from "../services/apiLearningService";
 
 export function HomePage() {
-  const levels = learningService.getLevels();
-  const continueLesson = learningService.getContinueLesson();
+  const levelsQuery = useQuery({
+    queryKey: ["learning-levels"],
+    queryFn: apiLearningService.getLevelSummaries
+  });
+  const n2Level = levelsQuery.data?.find((level) => level.code === "N2");
+  const firstReviewLevel = n2Level ?? levelsQuery.data?.[0];
 
   return (
     <div className="page-stack">
       <section className="hero-panel">
         <div>
-          <p className="eyebrow">Tiếp tục hành trình học tập</p>
-          <h1>Bạn đang học JLPT N5 - Chapter 1</h1>
-          <p>Nội dung nổi bật hôm nay: chào hỏi, giới thiệu bản thân và ôn lại từ cần nhớ.</p>
+          <p className="eyebrow">Chế độ ôn tập</p>
+          <h1>Ôn lại JLPT theo dữ liệu trong CSDL</h1>
+          <p>
+            Bạn đã học tới N2, nên app mở toàn bộ N5-N1. Không còn khóa cấp độ theo tiến độ.
+          </p>
         </div>
         <div className="hero-progress">
-          <span>Tiến độ hiện tại</span>
-          <strong>62%</strong>
-          <Link className="primary-button" to="/jlpt/n5/chapters/n5-c1/topics/n5-c1-t1">
+          <span>Cấp độ ưu tiên</span>
+          <strong>{firstReviewLevel?.code ?? "N2"}</strong>
+          <Link className="primary-button" to={`/jlpt/${firstReviewLevel?.id ?? "n2"}`}>
             <Play aria-hidden="true" />
-            Tiếp tục học
+            Bắt đầu ôn tập
           </Link>
         </div>
       </section>
 
       <section className="recent-card">
         <div>
-          <p className="eyebrow">Bài gần nhất</p>
-          <h2>{continueLesson?.title ?? "Chưa có bài học gần nhất"}</h2>
-          <p>{continueLesson?.japaneseTitle ?? "Hãy chọn một cấp độ để bắt đầu."}</p>
+          <p className="eyebrow">Dữ liệu thật</p>
+          <h2>{levelsQuery.data ? `${levelsQuery.data.length} cấp độ JLPT đang khả dụng` : "Đang tải dữ liệu"}</h2>
+          <p>Chapter, chủ đề, từ vựng và ngữ pháp được đọc qua backend API.</p>
         </div>
-        {continueLesson ? (
-          <Link className="secondary-button" to={`/lessons/${continueLesson.id}`}>
-            Mở bài học
-            <ArrowRight aria-hidden="true" />
-          </Link>
-        ) : null}
+        <Link className="secondary-button" to="/jlpt">
+          Xem lộ trình
+          <ArrowRight aria-hidden="true" />
+        </Link>
       </section>
 
       <PageHeader
         title="Lộ trình học JLPT"
-        subtitle="Chọn cấp độ phù hợp để bắt đầu học tiếng Nhật."
+        subtitle="Chọn cấp độ để vào danh sách chapter và bắt đầu ôn tập."
       />
-      <section className="level-grid">
-        {levels.map((level) => (
-          <JLPTLevelCard key={level.id} level={level} />
-        ))}
-      </section>
+      {levelsQuery.isLoading ? <SkeletonCard count={5} /> : null}
+      {levelsQuery.isError ? <ErrorState onRetry={() => levelsQuery.refetch()} /> : null}
+      {levelsQuery.data ? (
+        <section className="level-grid">
+          {levelsQuery.data.map((level) => (
+            <JLPTLevelCard key={level.id} level={level} />
+          ))}
+        </section>
+      ) : null}
     </div>
   );
 }

@@ -25,6 +25,7 @@ yarn-error.log*
 pnpm-debug.log*
 frontend/dist/
 frontend/.vite/
+frontend/*.tsbuildinfo
 
 # Database and media runtime data
 *.sqlite

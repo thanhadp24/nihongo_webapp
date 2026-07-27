@@ -1,4 +1,4 @@
-import { Lock, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { Link } from "react-router";
 import type { JLPTLevel } from "../../types/learning";
 import { actionLabel } from "../../utils/learning";
@@ -6,8 +6,6 @@ import { ProgressBar } from "../common/ProgressBar";
 import { StatusBadge } from "../common/StatusBadge";
 
 export function JLPTLevelCard({ level }: { level: JLPTLevel }) {
-  const isLocked = level.status === "LOCKED";
-
   const content = (
     <>
       <div className="level-card-top">
@@ -25,16 +23,12 @@ export function JLPTLevelCard({ level }: { level: JLPTLevel }) {
         <span>{level.vocabularyCount} Từ vựng</span>
       </div>
       <ProgressBar label="Tiến độ" value={level.progress} />
-      <span className={isLocked ? "primary-button disabled" : "primary-button"}>
-        {isLocked ? <Lock aria-hidden="true" /> : <Play aria-hidden="true" />}
-        {isLocked ? "Hoàn thành N3 để mở khóa" : actionLabel(level.status)}
+      <span className="primary-button">
+        <Play aria-hidden="true" />
+        {actionLabel(level.status)}
       </span>
     </>
   );
-
-  if (isLocked) {
-    return <article className="level-card locked">{content}</article>;
-  }
 
   return (
     <Link className="level-card" to={`/jlpt/${level.id}`}>
