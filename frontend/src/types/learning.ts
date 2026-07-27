@@ -82,6 +82,20 @@ export type Kanji = {
   saved: boolean;
 };
 
+export type SavedContentType = "vocabulary" | "kanji";
+
+export type SavedContentItem = {
+  key: string;
+  type: SavedContentType;
+  id: string;
+  title: string;
+  subtitle?: string;
+  meaning: string;
+  detail?: string;
+  href: string;
+  savedAt: string;
+};
+
 export type KanjiTopicSummary = {
   id: string;
   title: string;

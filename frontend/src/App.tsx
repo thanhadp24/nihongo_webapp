@@ -1,10 +1,12 @@
 import { Navigate, Route, Routes } from "react-router";
 import { MainLayout } from "./layouts/MainLayout";
 import { ChaptersPage } from "./pages/ChaptersPage";
+import { FavoritesPage } from "./pages/FavoritesPage";
 import { GrammarFlashcardsPage } from "./pages/GrammarFlashcardsPage";
 import { GrammarPage } from "./pages/GrammarPage";
 import { HomePage } from "./pages/HomePage";
 import { JLPTLevelsPage } from "./pages/JLPTLevelsPage";
+import { KanjiDetailPage } from "./pages/KanjiDetailPage";
 import { KanjiFlashcardsPage } from "./pages/KanjiFlashcardsPage";
 import { KanjiPage } from "./pages/KanjiPage";
 import { LevelVocabularyPage } from "./pages/LevelVocabularyPage";
@@ -29,6 +31,7 @@ function App() {
         <Route element={<GrammarFlashcardsPage />} path="/jlpt/:levelId/grammar/flashcards" />
         <Route element={<KanjiPage />} path="/jlpt/:levelId/kanji" />
         <Route element={<KanjiFlashcardsPage />} path="/jlpt/:levelId/kanji/flashcards" />
+        <Route element={<KanjiDetailPage />} path="/kanji/:kanjiId" />
         <Route element={<TopicsPage />} path="/jlpt/:levelId/chapters/:chapterId" />
         <Route
           element={<TopicDetailPage />}
@@ -50,7 +53,7 @@ function App() {
         <Route element={<PlaceholderPage title="Luyện đọc" />} path="/reading" />
         <Route element={<PlaceholderPage title="Luyện nghe" />} path="/listening" />
         <Route element={<PlaceholderPage title="Ôn tập" />} path="/review" />
-        <Route element={<PlaceholderPage title="Nội dung đã lưu" />} path="/favorites" />
+        <Route element={<FavoritesPage />} path="/favorites" />
         <Route element={<PlaceholderPage title="Tiến độ học tập" />} path="/progress" />
         <Route element={<PlaceholderPage title="Tài khoản" />} path="/profile" />
         <Route element={<Navigate to="/" replace />} path="*" />

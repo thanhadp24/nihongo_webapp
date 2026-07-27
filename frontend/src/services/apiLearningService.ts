@@ -4,6 +4,7 @@ import type {
   GrammarLesson,
   JlptLevel,
   KanjiCharacter,
+  KanjiDetail,
   KanjiTopic,
   VocabularyChapter,
   VocabularyItem,
@@ -442,6 +443,15 @@ export const apiLearningService = {
     return items.map(kanjiFlashcard);
   },
 
+  async getKanjiDetail(kanjiId: string) {
+    const detail = await api.kanjiDetail(Number(kanjiId));
+
+    return {
+      kanji: mapKanjiDetail(detail),
+      detail
+    };
+  },
+
   async getLessonDetail(lessonId: string) {
     const detail = await api.grammarDetail(Number(lessonId));
 
@@ -451,6 +461,10 @@ export const apiLearningService = {
     };
   }
 };
+
+function mapKanjiDetail(detail: KanjiDetail): Kanji {
+  return mapKanji(detail);
+}
 
 function mapGrammarDetail(detail: GrammarDetail): Lesson {
   return {

@@ -9,13 +9,14 @@ import { PageHeader } from "../components/common/PageHeader";
 import { Pagination } from "../components/common/Pagination";
 import { SearchInput } from "../components/common/SearchInput";
 import { VocabularyCard } from "../components/vocabulary/VocabularyCard";
+import { useSavedContent } from "../hooks/useSavedContent";
 import { apiLearningService } from "../services/apiLearningService";
+import { savedContentService } from "../services/savedContentService";
 
 const pageSize = 24;
 
 const filters = [
   { label: "Tất cả", value: "ALL" },
-  { label: "Cần ôn tập", value: "REVIEW_REQUIRED" },
   { label: "Đã lưu", value: "SAVED" }
 ];
 
@@ -24,6 +25,7 @@ export function VocabularyPage() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("ALL");
   const [page, setPage] = useState(1);
+  const savedItems = useSavedContent();
 
   useEffect(() => {
     setPage(1);
@@ -54,10 +56,9 @@ export function VocabularyPage() {
   const visibleWords = useMemo(() => {
     return words.filter((word) => {
       if (filter === "ALL") return true;
-      if (filter === "SAVED") return word.saved;
-      return word.status === filter;
+      return savedItems.some((item) => item.key === savedContentService.makeKey("vocabulary", word.id));
     });
-  }, [filter, words]);
+  }, [filter, savedItems, words]);
 
   if (pageQuery.data && (!level || !chapter || !topic)) return <Navigate to="/jlpt" replace />;
 

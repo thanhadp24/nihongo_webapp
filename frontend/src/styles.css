@@ -829,6 +829,107 @@ svg {
   gap: var(--space-5);
 }
 
+.kanji-detail-panel {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.kanji-detail-symbol {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-family: "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  font-size: clamp(5rem, 14vw, 8rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.kanji-word-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.kanji-word-row {
+  display: grid;
+  grid-template-columns: 44px minmax(160px, 0.5fr) minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+}
+
+.kanji-word-row strong {
+  display: block;
+  font-family: "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  font-size: 1.1rem;
+}
+
+.kanji-word-row span,
+.kanji-word-row p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.back-button {
+  justify-self: start;
+}
+
+.saved-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.saved-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.saved-card-mark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  color: #be123c;
+  background: #ffe4e6;
+}
+
+.saved-card h2 {
+  margin: var(--space-1) 0;
+  font-family: "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+}
+
+.saved-card strong,
+.saved-card span {
+  display: block;
+}
+
+.saved-card span {
+  margin-top: var(--space-1);
+  color: var(--text-secondary);
+}
+
+.saved-card-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
 .chapter-card,
 .lesson-card {
   display: grid;
@@ -1421,6 +1522,7 @@ svg {
   .page-header,
   .toolbar,
   .topic-overview,
+  .kanji-detail-panel,
   .learning-layout {
     grid-template-columns: 1fr;
   }
@@ -1537,6 +1639,7 @@ svg {
   .recent-card,
   .toolbar,
   .topic-overview,
+  .kanji-detail-panel,
   .learning-layout {
     grid-template-columns: 1fr;
   }
@@ -1572,6 +1675,16 @@ svg {
   .lesson-card {
     grid-template-columns: 1fr;
     padding: var(--space-4);
+  }
+
+  .kanji-word-row,
+  .saved-card {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-card-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .chapter-icon,

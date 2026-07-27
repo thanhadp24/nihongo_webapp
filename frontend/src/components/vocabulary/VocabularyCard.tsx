@@ -1,9 +1,15 @@
 import { Check, Heart, Volume2 } from "lucide-react";
+import { useLocation } from "react-router";
+import { useSavedState } from "../../hooks/useSavedContent";
+import { savedContentService } from "../../services/savedContentService";
 import type { Vocabulary } from "../../types/learning";
 import { speakJapanese } from "../../utils/speech";
 import { StatusBadge } from "../common/StatusBadge";
 
 export function VocabularyCard({ item }: { item: Vocabulary }) {
+  const { pathname } = useLocation();
+  const saved = useSavedState("vocabulary", item.id);
+
   return (
     <article className="vocabulary-card">
       <div className="vocab-actions">
@@ -16,8 +22,19 @@ export function VocabularyCard({ item }: { item: Vocabulary }) {
           <Volume2 aria-hidden="true" />
         </button>
         <button
-          aria-label={item.saved ? "Bỏ lưu từ vựng" : "Lưu từ vựng"}
-          className={item.saved ? "icon-button active" : "icon-button"}
+          aria-label={saved ? "Bỏ lưu từ vựng" : "Lưu từ vựng"}
+          className={saved ? "icon-button active" : "icon-button"}
+          onClick={() =>
+            savedContentService.toggle({
+              type: "vocabulary",
+              id: item.id,
+              title: item.word,
+              subtitle: item.reading,
+              meaning: item.meaning,
+              detail: item.partOfSpeech,
+              href: pathname
+            })
+          }
           type="button"
         >
           <Heart aria-hidden="true" />
