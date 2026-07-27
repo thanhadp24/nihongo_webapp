@@ -1,11 +1,20 @@
-import { BookMarked, Heart } from "lucide-react";
+import { BookMarked, Heart, Volume2 } from "lucide-react";
 import type { Kanji } from "../../types/learning";
+import { speakJapanese } from "../../utils/speech";
 import { StatusBadge } from "../common/StatusBadge";
 
 export function KanjiCard({ item }: { item: Kanji }) {
   return (
     <article className="kanji-card">
       <div className="vocab-actions">
+        <button
+          aria-label="Nghe Kanji"
+          className="icon-button"
+          onClick={() => speakJapanese(item.character)}
+          type="button"
+        >
+          <Volume2 aria-hidden="true" />
+        </button>
         <button
           aria-label={item.saved ? "Bỏ lưu Kanji" : "Lưu Kanji"}
           className={item.saved ? "icon-button active" : "icon-button"}

@@ -103,6 +103,9 @@ export type GrammarLesson = {
   meaning_vi: string | null;
   explanation: string | null;
   formation: string | null;
+  example_japanese?: string | null;
+  example_reading?: string | null;
+  example_meaning_vi?: string | null;
   chapter_id: number;
   chapter_name: string;
   chapter_number: number;

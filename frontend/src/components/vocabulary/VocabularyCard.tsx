@@ -1,12 +1,18 @@
 import { Check, Heart, Volume2 } from "lucide-react";
 import type { Vocabulary } from "../../types/learning";
+import { speakJapanese } from "../../utils/speech";
 import { StatusBadge } from "../common/StatusBadge";
 
 export function VocabularyCard({ item }: { item: Vocabulary }) {
   return (
     <article className="vocabulary-card">
       <div className="vocab-actions">
-        <button aria-label="Nghe phát âm" className="icon-button" type="button">
+        <button
+          aria-label="Nghe phát âm"
+          className="icon-button"
+          onClick={() => speakJapanese(item.word)}
+          type="button"
+        >
           <Volume2 aria-hidden="true" />
         </button>
         <button
@@ -30,11 +36,13 @@ export function VocabularyCard({ item }: { item: Vocabulary }) {
         <span className="soft-badge">{item.partOfSpeech}</span>
         <StatusBadge status={item.status} />
       </div>
-      <div className="example-box">
-        <span>Ví dụ</span>
-        <p className="example-jp">{item.example}</p>
-        <p>{item.exampleMeaning}</p>
-      </div>
+      {item.example ? (
+        <div className="example-box">
+          <span>Ví dụ</span>
+          <p className="example-jp">{item.example}</p>
+          <p>{item.exampleMeaning}</p>
+        </div>
+      ) : null}
     </article>
   );
 }

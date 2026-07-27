@@ -7,7 +7,7 @@ import { PageHeader } from "../components/common/PageHeader";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
 import { Pagination } from "../components/common/Pagination";
 import { SearchInput } from "../components/common/SearchInput";
-import { LessonCard } from "../components/lesson/LessonCard";
+import { GrammarTable } from "../components/grammar/GrammarTable";
 import { apiLearningService } from "../services/apiLearningService";
 
 const pageSize = 20;
@@ -83,11 +83,7 @@ export function LessonsPage() {
       ) : null}
       {lessons.length > 0 ? (
         <>
-          <section className="lesson-list">
-            {lessons.map((lesson) => (
-              <LessonCard key={lesson.id} lesson={lesson} />
-            ))}
-          </section>
+          <GrammarTable lessons={lessons} />
           <Pagination onPageChange={setPage} page={page} pageSize={pageSize} total={total} />
         </>
       ) : (

@@ -1,6 +1,7 @@
-import { RotateCcw, Shuffle } from "lucide-react";
+import { RotateCcw, Shuffle, Volume2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { FlashcardItem } from "../../types/learning";
+import { speakJapanese } from "../../utils/speech";
 import { Pagination } from "../common/Pagination";
 
 export function FlashcardDeck({ items }: { items: FlashcardItem[] }) {
@@ -29,6 +30,14 @@ export function FlashcardDeck({ items }: { items: FlashcardItem[] }) {
       <div className="flashcard-toolbar">
         <span>{card.tag ?? "Flashcard"}</span>
         <div>
+          <button
+            className="secondary-button"
+            onClick={() => speakJapanese(card.front)}
+            type="button"
+          >
+            <Volume2 aria-hidden="true" />
+            Nghe
+          </button>
           <button
             className="secondary-button"
             onClick={() => {

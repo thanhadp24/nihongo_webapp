@@ -88,6 +88,8 @@ export type KanjiTopicSummary = {
   reading: string;
   meaning: string;
   description: string;
+  sourceWeek: number | null;
+  sourceDay: number | null;
   characterCount: number;
 };
 
@@ -113,6 +115,12 @@ export type Lesson = {
   durationMinutes: number;
   vocabularyCount: number;
   patternCount: number;
+  meaning?: string;
+  formation?: string;
+  explanation?: string;
+  example?: string;
+  exampleReading?: string;
+  exampleMeaning?: string;
   progress: number;
   status: LearningStatus;
 };

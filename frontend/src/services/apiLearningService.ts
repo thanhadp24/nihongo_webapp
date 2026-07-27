@@ -181,6 +181,8 @@ function mapKanjiTopic(topic: KanjiTopic): KanjiTopicSummary {
     reading: topic.name_reading || "",
     meaning: topic.name_vi || "",
     description: topic.description || "",
+    sourceWeek: topic.source_week,
+    sourceDay: topic.source_day,
     characterCount: topic.character_count
   };
 }
@@ -196,6 +198,12 @@ function mapGrammarLesson(lesson: GrammarLesson): Lesson {
     durationMinutes: 8,
     vocabularyCount: 0,
     patternCount: 1,
+    meaning: lesson.meaning_vi || "",
+    formation: lesson.formation || "",
+    explanation: lesson.explanation || "",
+    example: lesson.example_japanese || "",
+    exampleReading: lesson.example_reading || "",
+    exampleMeaning: lesson.example_meaning_vi || "",
     progress: 0,
     status: "REVIEW_REQUIRED",
     levelId: undefined,
@@ -455,6 +463,12 @@ function mapGrammarDetail(detail: GrammarDetail): Lesson {
     durationMinutes: 8,
     vocabularyCount: detail.examples?.length ?? 0,
     patternCount: 1,
+    meaning: detail.meaning_vi || "",
+    formation: detail.formation || "",
+    explanation: detail.explanation || "",
+    example: detail.examples?.[0]?.japanese_text || "",
+    exampleReading: detail.examples?.[0]?.reading || "",
+    exampleMeaning: detail.examples?.[0]?.meaning_vi || "",
     progress: 0,
     status: "REVIEW_REQUIRED",
     chapterId: String(detail.chapter_id)

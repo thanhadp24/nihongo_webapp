@@ -495,6 +495,27 @@ def list_grammar_lessons(
                     gl.meaning_vi,
                     gl.explanation,
                     gl.formation,
+                    (
+                        SELECT ge.japanese_text
+                        FROM grammar_examples ge
+                        WHERE ge.grammar_lesson_id = gl.id
+                        ORDER BY ge.display_order, ge.id
+                        LIMIT 1
+                    ) AS example_japanese,
+                    (
+                        SELECT ge.reading
+                        FROM grammar_examples ge
+                        WHERE ge.grammar_lesson_id = gl.id
+                        ORDER BY ge.display_order, ge.id
+                        LIMIT 1
+                    ) AS example_reading,
+                    (
+                        SELECT ge.meaning_vi
+                        FROM grammar_examples ge
+                        WHERE ge.grammar_lesson_id = gl.id
+                        ORDER BY ge.display_order, ge.id
+                        LIMIT 1
+                    ) AS example_meaning_vi,
                     gc.id AS chapter_id,
                     gc.name AS chapter_name,
                     gc.chapter_number

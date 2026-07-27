@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ArrowRight, CheckCircle2, ListTree, Volume2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Volume2 } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { PageHeader } from "../components/common/PageHeader";
-import { ProgressBar } from "../components/common/ProgressBar";
 import { ErrorState, SkeletonCard } from "../components/common/StateViews";
 import { apiLearningService } from "../services/apiLearningService";
+import { speakJapanese } from "../utils/speech";
 
 export function LessonDetailPage() {
   const { lessonId = "" } = useParams();
@@ -21,68 +21,91 @@ export function LessonDetailPage() {
   const examples = detail?.examples ?? [];
 
   return (
-    <div className="learning-layout">
-      <aside className="lesson-outline">
-        <strong>Nội dung bài học</strong>
-        {["Mẫu câu", "Cấu trúc", "Giải thích", "Ví dụ", "Ôn tập"].map((item, index) => (
-          <a className={index === 0 ? "active" : ""} href={`#section-${index + 1}`} key={item}>
-            {index + 1}. {item}
-          </a>
-        ))}
-      </aside>
-      <article className="lesson-reader">
-        {lessonQuery.isLoading ? <SkeletonCard count={2} /> : null}
-        {lessonQuery.isError ? <ErrorState onRetry={() => lessonQuery.refetch()} /> : null}
-        {lesson ? (
-          <>
-            <PageHeader
-              eyebrow={detail?.chapter_name ?? "Ngữ pháp"}
-              progress={{ label: "Tiến độ ôn tập", value: lesson.progress }}
-              subtitle={lesson.japaneseTitle}
-              title={lesson.title}
-            />
-            <section className="study-focus-card" id="section-1">
-              <button className="secondary-button" type="button">
+    <div className="page-stack">
+      {lessonQuery.isLoading ? <SkeletonCard count={2} /> : null}
+      {lessonQuery.isError ? <ErrorState onRetry={() => lessonQuery.refetch()} /> : null}
+      {lesson ? (
+        <>
+          <PageHeader
+            actions={
+              <button
+                className="secondary-button"
+                onClick={() => speakJapanese(detail?.pattern ?? lesson.japaneseTitle)}
+                type="button"
+              >
                 <Volume2 aria-hidden="true" />
-                Nghe phát âm
+                Nghe mẫu
               </button>
-              <h2>{detail?.pattern ?? lesson.japaneseTitle}</h2>
-              <p className="japanese-caption">{detail?.meaning_vi ?? lesson.title}</p>
-              {detail?.formation ? <p id="section-2">{detail.formation}</p> : null}
-              {detail?.explanation ? <p id="section-3">{detail.explanation}</p> : null}
-            </section>
-            {examples.length > 0 ? (
-              <section className="example-box large" id="section-4">
-                <span>Ví dụ</span>
-                {examples.map((example) => (
-                  <div key={example.id}>
+            }
+            eyebrow={detail?.chapter_name ?? "Ngữ pháp"}
+            progress={{ label: "Tiến độ ôn tập", value: lesson.progress }}
+            subtitle={detail?.meaning_vi ?? lesson.meaning}
+            title={detail?.pattern ?? lesson.japaneseTitle}
+          />
+
+          <section className="grammar-detail-table-wrap">
+            <table className="grammar-detail-table">
+              <tbody>
+                <tr>
+                  <th>Mẫu</th>
+                  <td>{detail?.pattern ?? lesson.japaneseTitle}</td>
+                </tr>
+                <tr>
+                  <th>Nghĩa</th>
+                  <td>{detail?.meaning_vi ?? lesson.meaning}</td>
+                </tr>
+                <tr>
+                  <th>Cấu trúc</th>
+                  <td>{detail?.formation || lesson.formation || "Chưa có dữ liệu cấu trúc."}</td>
+                </tr>
+                <tr>
+                  <th>Giải thích</th>
+                  <td>{detail?.explanation || lesson.explanation || "Chưa có dữ liệu giải thích."}</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          {examples.length > 0 ? (
+            <section className="grammar-examples-panel">
+              <div className="card-title-row">
+                <div>
+                  <p className="eyebrow">Ví dụ</p>
+                  <h2>Câu mẫu trong CSDL</h2>
+                </div>
+              </div>
+              {examples.map((example) => (
+                <article className="grammar-example-row" key={example.id}>
+                  <button
+                    aria-label="Nghe ví dụ"
+                    className="icon-button"
+                    onClick={() => speakJapanese(example.japanese_text)}
+                    type="button"
+                  >
+                    <Volume2 aria-hidden="true" />
+                  </button>
+                  <div>
                     <p className="example-jp">{example.japanese_text}</p>
                     {example.reading ? <p>{example.reading}</p> : null}
                     {example.meaning_vi ? <p>{example.meaning_vi}</p> : null}
                   </div>
-                ))}
-              </section>
-            ) : null}
-            <div className="lesson-bottom-actions">
-              <Link className="secondary-button" to="/jlpt">
-                <ArrowLeft aria-hidden="true" />
-                Về lộ trình
-              </Link>
-              <button className="primary-button" type="button">
-                <CheckCircle2 aria-hidden="true" />
-                Hoàn thành ôn tập
-                <ArrowRight aria-hidden="true" />
-              </button>
-            </div>
-          </>
-        ) : null}
-      </article>
-      <aside className="lesson-note-panel">
-        <ListTree aria-hidden="true" />
-        <strong>Ghi chú nhanh</strong>
-        <p>Dữ liệu bài học đang đọc từ endpoint ngữ pháp chi tiết của backend.</p>
-        <ProgressBar value={lesson?.progress ?? 0} />
-      </aside>
+                </article>
+              ))}
+            </section>
+          ) : null}
+
+          <div className="lesson-bottom-actions">
+            <Link className="secondary-button" to="/jlpt">
+              <ArrowLeft aria-hidden="true" />
+              Về lộ trình
+            </Link>
+            <button className="primary-button" type="button">
+              <CheckCircle2 aria-hidden="true" />
+              Hoàn thành ôn tập
+            </button>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }

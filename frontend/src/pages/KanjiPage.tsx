@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CreditCard } from "lucide-react";
+import { ArrowLeft, CreditCard } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
-import { FilterChips } from "../components/common/FilterChips";
 import { LevelSelector } from "../components/common/LevelSelector";
 import { PageHeader } from "../components/common/PageHeader";
 import { Pagination } from "../components/common/Pagination";
 import { SearchInput } from "../components/common/SearchInput";
 import { KanjiCard } from "../components/kanji/KanjiCard";
+import { KanjiTopicTable } from "../components/kanji/KanjiTopicTable";
 import { apiLearningService } from "../services/apiLearningService";
 
 const pageSize = 24;
@@ -17,12 +17,17 @@ const pageSize = 24;
 export function KanjiPage() {
   const { levelId = "n2" } = useParams();
   const [query, setQuery] = useState("");
-  const [topicId, setTopicId] = useState("ALL");
+  const [topicId, setTopicId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     setPage(1);
-  }, [levelId, query, topicId]);
+    setTopicId(null);
+  }, [levelId]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query, topicId]);
 
   const levelQuery = useQuery({
     queryKey: ["learning-level", levelId],
@@ -36,23 +41,23 @@ export function KanjiPage() {
   });
   const kanjiQuery = useQuery({
     queryKey: ["learning-kanji-page", levelId, topicId, query, page],
-    queryFn: () => apiLearningService.getKanjiPage(levelId, { page, pageSize, search: query, topicId }),
-    enabled: Boolean(levelId)
+    queryFn: () =>
+      apiLearningService.getKanjiPage(levelId, {
+        page,
+        pageSize,
+        search: query,
+        topicId: topicId ?? undefined
+      }),
+    enabled: Boolean(levelId && (topicId || query))
   });
 
   const level = levelQuery.data;
   const topics = topicsQuery.data ?? [];
   const kanji = kanjiQuery.data?.items ?? [];
   const total = kanjiQuery.data?.total ?? 0;
-  const topicFilters = useMemo(
-    () => [
-      { label: "Tất cả", value: "ALL" },
-      ...topics.map((topic) => ({
-        label: topic.meaning || topic.title,
-        value: topic.id
-      }))
-    ],
-    [topics]
+  const selectedTopic = useMemo(
+    () => topics.find((topic) => topic.id === topicId),
+    [topicId, topics]
   );
 
   if (levelQuery.data === undefined && levelQuery.isSuccess) return <Navigate to="/jlpt" replace />;
@@ -72,7 +77,7 @@ export function KanjiPage() {
             <LevelSelector value={levelId} toForLevel={(nextLevel) => `/jlpt/${nextLevel}/kanji`} />
             <Link
               className="primary-button"
-              to={`/jlpt/${levelId}/kanji/flashcards${topicId === "ALL" ? "" : `?topicId=${topicId}`}`}
+              to={`/jlpt/${levelId}/kanji/flashcards${topicId ? `?topicId=${topicId}` : ""}`}
             >
               <CreditCard aria-hidden="true" />
               Flashcard
@@ -80,14 +85,17 @@ export function KanjiPage() {
           </>
         }
         eyebrow={level?.name ?? "JLPT"}
-        subtitle="Chọn level và chủ đề Kanji để tải đúng dữ liệu ôn tập từ CSDL."
-        title="Kanji theo level"
+        subtitle="Kanji được chia theo tuần/ngày. Chọn một chủ đề để tải danh sách Kanji của topic đó."
+        title="Kanji theo tuần"
       />
-      <section className="toolbar">
-        <SearchInput onChange={setQuery} placeholder="Tìm Kanji, âm đọc, Hán Việt hoặc nghĩa..." value={query} />
-        <FilterChips active={topicId} items={topicFilters} onChange={setTopicId} />
+      <section className="toolbar single">
+        <SearchInput
+          onChange={setQuery}
+          placeholder="Tìm Kanji, âm đọc, Hán Việt hoặc nghĩa..."
+          value={query}
+        />
       </section>
-      {levelQuery.isLoading || topicsQuery.isLoading || kanjiQuery.isLoading ? <SkeletonCard count={6} /> : null}
+      {levelQuery.isLoading || topicsQuery.isLoading ? <SkeletonCard count={6} /> : null}
       {levelQuery.isError || topicsQuery.isError || kanjiQuery.isError ? (
         <ErrorState
           onRetry={() => {
@@ -97,28 +105,51 @@ export function KanjiPage() {
           }}
         />
       ) : null}
-      {kanji.length > 0 ? (
+
+      {!topicId && !query && topics.length > 0 ? (
+        <KanjiTopicTable levelId={levelId} topics={topics} onSelect={setTopicId} />
+      ) : null}
+
+      {topicId || query ? (
         <>
-          <section className="kanji-grid">
-            {kanji.map((item) => (
-              <KanjiCard item={item} key={item.id} />
-            ))}
-          </section>
-          <Pagination onPageChange={setPage} page={page} pageSize={pageSize} total={total} />
-        </>
-      ) : (
-        !kanjiQuery.isLoading && (
-          <EmptyState
-            actionLabel="Xóa tìm kiếm"
-            onAction={() => {
+          <div className="card-title-row">
+            <div>
+              <p className="eyebrow">{selectedTopic?.sourceWeek ? `Tuần ${selectedTopic.sourceWeek}` : "Danh sách Kanji"}</p>
+              <h2>{selectedTopic?.meaning || selectedTopic?.title || "Kết quả tìm kiếm"}</h2>
+            </div>
+            <button className="secondary-button" onClick={() => {
+              setTopicId(null);
               setQuery("");
-              setTopicId("ALL");
-            }}
-            text="Không có Kanji phù hợp với bộ lọc hiện tại."
-            title="Không tìm thấy Kanji"
-          />
-        )
-      )}
+            }} type="button">
+              <ArrowLeft aria-hidden="true" />
+              Về bảng tuần
+            </button>
+          </div>
+          {kanjiQuery.isLoading ? <SkeletonCard count={6} /> : null}
+          {kanji.length > 0 ? (
+            <>
+              <section className="kanji-grid">
+                {kanji.map((item) => (
+                  <KanjiCard item={item} key={item.id} />
+                ))}
+              </section>
+              <Pagination onPageChange={setPage} page={page} pageSize={pageSize} total={total} />
+            </>
+          ) : (
+            !kanjiQuery.isLoading && (
+              <EmptyState
+                actionLabel="Về bảng tuần"
+                onAction={() => {
+                  setQuery("");
+                  setTopicId(null);
+                }}
+                text="Không có Kanji phù hợp với bộ lọc hiện tại."
+                title="Không tìm thấy Kanji"
+              />
+            )
+          )}
+        </>
+      ) : null}
     </div>
   );
 }
