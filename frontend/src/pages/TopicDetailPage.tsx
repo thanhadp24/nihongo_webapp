@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { BookOpen, Dumbbell, LibraryBig } from "lucide-react";
+import { BookOpen, Dumbbell, Languages, LibraryBig } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { PageHeader } from "../components/common/PageHeader";
@@ -54,7 +54,7 @@ export function TopicDetailPage() {
             </Link>
           ) : null
         }
-        eyebrow={`${level?.name ?? "JLPT"} • ${chapter ? `Chapter ${chapter.chapterNumber}` : "Chapter"}`}
+        eyebrow={`${level?.name ?? "JLPT"} - ${chapter ? `Chapter ${chapter.chapterNumber}` : "Chapter"}`}
         subtitle={topic?.description ?? "Đang tải dữ liệu chủ đề từ CSDL."}
         title={topic?.title ?? "Đang tải chủ đề"}
       />
@@ -67,6 +67,7 @@ export function TopicDetailPage() {
             <div className="stat-row roomy">
               <span><LibraryBig aria-hidden="true" /> {topicVocabulary.length} từ vựng</span>
               <span><BookOpen aria-hidden="true" /> {topicLessons.length} bài ngữ pháp</span>
+              <span><Languages aria-hidden="true" /> Kanji theo level</span>
               <span><Dumbbell aria-hidden="true" /> Ôn tập mở</span>
             </div>
             <ProgressBar label="Tiến độ ôn tập chủ đề" value={topic.progress} />
@@ -74,8 +75,8 @@ export function TopicDetailPage() {
           <div className="content-tabs">
             <Link to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}`}>Tổng quan</Link>
             <Link to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}/vocabulary`}>Từ vựng</Link>
-            <Link to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}/lessons`}>Ngữ pháp</Link>
-            <Link to="/review">Ôn tập</Link>
+            <Link to={`/jlpt/${levelId}/grammar`}>Ngữ pháp</Link>
+            <Link to={`/jlpt/${levelId}/kanji`}>Kanji</Link>
           </div>
         </section>
       ) : null}

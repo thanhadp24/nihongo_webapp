@@ -1,13 +1,17 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Navigate, useParams } from "react-router";
+import { CreditCard } from "lucide-react";
+import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
 import { FilterChips } from "../components/common/FilterChips";
 import { PageHeader } from "../components/common/PageHeader";
+import { Pagination } from "../components/common/Pagination";
 import { SearchInput } from "../components/common/SearchInput";
 import { VocabularyCard } from "../components/vocabulary/VocabularyCard";
 import { apiLearningService } from "../services/apiLearningService";
+
+const pageSize = 24;
 
 const filters = [
   { label: "Tất cả", value: "ALL" },
@@ -19,6 +23,11 @@ export function VocabularyPage() {
   const { chapterId = "", levelId = "", topicId = "" } = useParams();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("ALL");
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setPage(1);
+  }, [levelId, chapterId, topicId, query, filter]);
 
   const pageQuery = useQuery({
     queryKey: ["learning-vocabulary-page", levelId, chapterId, topicId],
@@ -26,15 +35,21 @@ export function VocabularyPage() {
     enabled: Boolean(levelId && chapterId && topicId)
   });
   const wordsQuery = useQuery({
-    queryKey: ["learning-vocabulary", levelId, chapterId, topicId, query],
-    queryFn: () => apiLearningService.getTopicVocabulary(levelId, chapterId, topicId, query),
+    queryKey: ["learning-vocabulary", levelId, chapterId, topicId, query, page],
+    queryFn: () =>
+      apiLearningService.getTopicVocabularyPage(levelId, chapterId, topicId, {
+        page,
+        pageSize,
+        search: query
+      }),
     enabled: Boolean(levelId && chapterId && topicId)
   });
 
   const level = pageQuery.data?.level;
   const chapter = pageQuery.data?.chapter;
   const topic = pageQuery.data?.topic;
-  const words = wordsQuery.data ?? [];
+  const words = wordsQuery.data?.items ?? [];
+  const total = wordsQuery.data?.total ?? 0;
 
   const visibleWords = useMemo(() => {
     return words.filter((word) => {
@@ -62,8 +77,16 @@ export function VocabularyPage() {
       <PageHeader
         actions={
           <>
-            <button className="secondary-button" type="button">Ôn tập</button>
-            <button className="primary-button" type="button">Học bằng Flashcard</button>
+            <Link className="secondary-button" to={`/jlpt/${levelId}/vocabulary`}>
+              Xem cả level
+            </Link>
+            <Link
+              className="primary-button"
+              to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topicId}/vocabulary/flashcards`}
+            >
+              <CreditCard aria-hidden="true" />
+              Học bằng Flashcard
+            </Link>
           </>
         }
         eyebrow={topic?.title ?? "Chủ đề"}
@@ -80,17 +103,22 @@ export function VocabularyPage() {
       </section>
       {pageQuery.isLoading || wordsQuery.isLoading ? <SkeletonCard count={6} /> : null}
       {pageQuery.isError || wordsQuery.isError ? (
-        <ErrorState onRetry={() => {
-          pageQuery.refetch();
-          wordsQuery.refetch();
-        }} />
+        <ErrorState
+          onRetry={() => {
+            pageQuery.refetch();
+            wordsQuery.refetch();
+          }}
+        />
       ) : null}
       {visibleWords.length > 0 ? (
-        <section className="vocabulary-grid-cards">
-          {visibleWords.map((word) => (
-            <VocabularyCard item={word} key={word.id} />
-          ))}
-        </section>
+        <>
+          <section className="vocabulary-grid-cards">
+            {visibleWords.map((word) => (
+              <VocabularyCard item={word} key={word.id} />
+            ))}
+          </section>
+          <Pagination onPageChange={setPage} page={page} pageSize={pageSize} total={total} />
+        </>
       ) : (
         !wordsQuery.isLoading && (
           <EmptyState

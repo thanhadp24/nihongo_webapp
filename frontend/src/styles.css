@@ -79,6 +79,11 @@ select:focus-visible {
   outline-offset: 2px;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
 svg {
   width: 18px;
   height: 18px;
@@ -789,6 +794,35 @@ svg {
   gap: var(--space-4);
 }
 
+.toolbar.single {
+  grid-template-columns: minmax(260px, 560px);
+}
+
+.level-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-weight: 800;
+}
+
+.level-selector span {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.level-selector select {
+  min-width: 76px;
+  border: 0;
+  color: var(--primary);
+  background: transparent;
+  font-weight: 900;
+}
+
 .search-input {
   display: flex;
   flex-direction: column;
@@ -872,6 +906,30 @@ svg {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.kanji-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.kanji-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.kanji-symbol {
+  font-family: "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  font-size: clamp(3.2rem, 9vw, 4.75rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
 .vocabulary-card h2 {
   margin: 0;
   font-size: clamp(1.8rem, 4vw, 2.25rem);
@@ -933,6 +991,103 @@ svg {
   grid-template-columns: 220px minmax(0, 1fr) 260px;
   gap: var(--space-5);
   align-items: start;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.pagination > span {
+  color: var(--text-secondary);
+  font-weight: 800;
+}
+
+.pagination > div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pagination strong {
+  min-width: 76px;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.flashcard-stage {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.flashcard-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.flashcard-toolbar > span {
+  color: var(--text-secondary);
+  font-weight: 850;
+}
+
+.flashcard-toolbar > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.flashcard {
+  display: grid;
+  place-items: center;
+  gap: var(--space-4);
+  min-height: min(58vh, 460px);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.flashcard:hover {
+  border-color: var(--primary);
+}
+
+.flashcard > span {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.flashcard strong {
+  max-width: 860px;
+  font-family: "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  line-height: 1.12;
+}
+
+.flashcard.flipped strong {
+  font-family: inherit;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+}
+
+.flashcard p,
+.flashcard small {
+  max-width: 720px;
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  white-space: pre-line;
 }
 
 .lesson-outline,
@@ -1098,11 +1253,16 @@ svg {
   .vocabulary-grid-cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .kanji-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1160px) {
   .level-grid,
   .topic-grid,
+  .kanji-grid,
   .skeleton-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1252,6 +1412,7 @@ svg {
   .level-grid,
   .topic-grid,
   .vocabulary-grid-cards,
+  .kanji-grid,
   .skeleton-grid {
     grid-template-columns: 1fr;
   }
@@ -1416,5 +1577,22 @@ svg {
   .primary-button,
   .secondary-button {
     width: 100%;
+  }
+
+  .level-selector,
+  .pagination,
+  .flashcard-toolbar {
+    width: 100%;
+  }
+
+  .pagination,
+  .flashcard-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pagination > div,
+  .flashcard-toolbar > div {
+    justify-content: space-between;
   }
 }

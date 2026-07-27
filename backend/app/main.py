@@ -1,7 +1,7 @@
 import os
 from typing import Any
 
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Connection
@@ -18,6 +18,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Total-Count"],
 )
 
 DATABASE_URL = os.environ.get(
@@ -157,15 +158,17 @@ def list_vocabulary_chapters(
 
 @app.get("/api/vocabularies")
 def list_vocabularies(
+    response: Response,
     level: str = Query("N5"),
     chapter_id: int | None = None,
     topic_id: int | None = None,
     search: str | None = None,
     limit: int = Query(250, ge=1, le=500),
+    offset: int = Query(0, ge=0),
     connection: Connection = Depends(get_connection),
 ) -> list[dict[str, Any]]:
     filters = ["jl.code = :level", "v.is_published = TRUE"]
-    params: dict[str, Any] = {"level": level.upper(), "limit": limit}
+    params: dict[str, Any] = {"level": level.upper(), "limit": limit, "offset": offset}
 
     if chapter_id:
         filters.append("c.id = :chapter_id")
@@ -187,6 +190,19 @@ def list_vocabularies(
         params["search"] = f"%{search.strip()}%"
 
     try:
+        total = connection.execute(
+            text(
+                f"""
+                SELECT COUNT(*) AS total
+                FROM vocabularies v
+                JOIN topics t ON t.id = v.topic_id
+                JOIN chapters c ON c.id = t.chapter_id
+                JOIN jlpt_levels jl ON jl.id = c.jlpt_level_id
+                WHERE {" AND ".join(filters)}
+                """
+            ),
+            params,
+        ).scalar_one()
         rows = connection.execute(
             text(
                 f"""
@@ -209,7 +225,7 @@ def list_vocabularies(
                 JOIN jlpt_levels jl ON jl.id = c.jlpt_level_id
                 WHERE {" AND ".join(filters)}
                 ORDER BY c.display_order, t.display_order, v.display_order, v.id
-                LIMIT :limit
+                LIMIT :limit OFFSET :offset
                 """
             ),
             params,
@@ -217,6 +233,7 @@ def list_vocabularies(
     except SQLAlchemyError as exc:
         raise HTTPException(status_code=503, detail="Database is unavailable") from exc
 
+    response.headers["X-Total-Count"] = str(total)
     return rows_to_dicts(rows)
 
 
@@ -260,14 +277,16 @@ def list_kanji_topics(
 
 @app.get("/api/kanji/characters")
 def list_kanji_characters(
+    response: Response,
     level: str = Query("N5"),
     topic_id: int | None = None,
     search: str | None = None,
     limit: int = Query(250, ge=1, le=500),
+    offset: int = Query(0, ge=0),
     connection: Connection = Depends(get_connection),
 ) -> list[dict[str, Any]]:
     filters = ["jl.code = :level", "kc.is_published = TRUE"]
-    params: dict[str, Any] = {"level": level.upper(), "limit": limit}
+    params: dict[str, Any] = {"level": level.upper(), "limit": limit, "offset": offset}
 
     if topic_id:
         filters.append("kt.id = :topic_id")
@@ -287,6 +306,18 @@ def list_kanji_characters(
         params["search"] = f"%{search.strip()}%"
 
     try:
+        total = connection.execute(
+            text(
+                f"""
+                SELECT COUNT(*) AS total
+                FROM kanji_characters kc
+                JOIN kanji_topics kt ON kt.id = kc.kanji_topic_id
+                JOIN jlpt_levels jl ON jl.id = kt.jlpt_level_id
+                WHERE {" AND ".join(filters)}
+                """
+            ),
+            params,
+        ).scalar_one()
         rows = connection.execute(
             text(
                 f"""
@@ -307,7 +338,7 @@ def list_kanji_characters(
                 JOIN jlpt_levels jl ON jl.id = kt.jlpt_level_id
                 WHERE {" AND ".join(filters)}
                 ORDER BY kt.display_order, kc.display_order, kc.id
-                LIMIT :limit
+                LIMIT :limit OFFSET :offset
                 """
             ),
             params,
@@ -315,6 +346,7 @@ def list_kanji_characters(
     except SQLAlchemyError as exc:
         raise HTTPException(status_code=503, detail="Database is unavailable") from exc
 
+    response.headers["X-Total-Count"] = str(total)
     return rows_to_dicts(rows)
 
 
@@ -413,14 +445,16 @@ def list_grammar_chapters(
 
 @app.get("/api/grammar/lessons")
 def list_grammar_lessons(
+    response: Response,
     level: str = Query("N5"),
     chapter_id: int | None = None,
     search: str | None = None,
     limit: int = Query(250, ge=1, le=500),
+    offset: int = Query(0, ge=0),
     connection: Connection = Depends(get_connection),
 ) -> list[dict[str, Any]]:
     filters = ["jl.code = :level", "gl.is_published = TRUE"]
-    params: dict[str, Any] = {"level": level.upper(), "limit": limit}
+    params: dict[str, Any] = {"level": level.upper(), "limit": limit, "offset": offset}
 
     if chapter_id:
         filters.append("gc.id = :chapter_id")
@@ -439,6 +473,18 @@ def list_grammar_lessons(
         params["search"] = f"%{search.strip()}%"
 
     try:
+        total = connection.execute(
+            text(
+                f"""
+                SELECT COUNT(*) AS total
+                FROM grammar_lessons gl
+                JOIN grammar_chapters gc ON gc.id = gl.grammar_chapter_id
+                JOIN jlpt_levels jl ON jl.id = gl.jlpt_level_id
+                WHERE {" AND ".join(filters)}
+                """
+            ),
+            params,
+        ).scalar_one()
         rows = connection.execute(
             text(
                 f"""
@@ -457,7 +503,7 @@ def list_grammar_lessons(
                 JOIN jlpt_levels jl ON jl.id = gl.jlpt_level_id
                 WHERE {" AND ".join(filters)}
                 ORDER BY gc.display_order, gl.display_order, gl.id
-                LIMIT :limit
+                LIMIT :limit OFFSET :offset
                 """
             ),
             params,
@@ -465,6 +511,7 @@ def list_grammar_lessons(
     except SQLAlchemyError as exc:
         raise HTTPException(status_code=503, detail="Database is unavailable") from exc
 
+    response.headers["X-Total-Count"] = str(total)
     return rows_to_dicts(rows)
 
 

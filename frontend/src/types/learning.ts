@@ -66,6 +66,41 @@ export type Vocabulary = {
   saved: boolean;
 };
 
+export type Kanji = {
+  id: string;
+  topicId: string;
+  character: string;
+  hanViet: string;
+  onyomi: string;
+  kunyomi: string;
+  meaning: string;
+  strokeCount: number | null;
+  mnemonic: string;
+  topicName: string;
+  topicMeaning: string;
+  status: LearningStatus;
+  saved: boolean;
+};
+
+export type KanjiTopicSummary = {
+  id: string;
+  title: string;
+  reading: string;
+  meaning: string;
+  description: string;
+  characterCount: number;
+};
+
+export type FlashcardItem = {
+  id: string;
+  front: string;
+  frontSubtext?: string;
+  back: string;
+  backSubtext?: string;
+  tag?: string;
+  example?: string;
+};
+
 export type Lesson = {
   id: string;
   topicId: string;

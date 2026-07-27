@@ -1,13 +1,19 @@
 import { Navigate, Route, Routes } from "react-router";
 import { MainLayout } from "./layouts/MainLayout";
 import { ChaptersPage } from "./pages/ChaptersPage";
+import { GrammarFlashcardsPage } from "./pages/GrammarFlashcardsPage";
+import { GrammarPage } from "./pages/GrammarPage";
 import { HomePage } from "./pages/HomePage";
 import { JLPTLevelsPage } from "./pages/JLPTLevelsPage";
+import { KanjiFlashcardsPage } from "./pages/KanjiFlashcardsPage";
+import { KanjiPage } from "./pages/KanjiPage";
+import { LevelVocabularyPage } from "./pages/LevelVocabularyPage";
 import { LessonDetailPage } from "./pages/LessonDetailPage";
 import { LessonsPage } from "./pages/LessonsPage";
 import { PlaceholderPage } from "./pages/PlaceholderPage";
 import { TopicDetailPage } from "./pages/TopicDetailPage";
 import { TopicsPage } from "./pages/TopicsPage";
+import { VocabularyFlashcardsPage } from "./pages/VocabularyFlashcardsPage";
 import { VocabularyPage } from "./pages/VocabularyPage";
 
 function App() {
@@ -17,6 +23,12 @@ function App() {
         <Route element={<HomePage />} path="/" />
         <Route element={<JLPTLevelsPage />} path="/jlpt" />
         <Route element={<ChaptersPage />} path="/jlpt/:levelId" />
+        <Route element={<LevelVocabularyPage />} path="/jlpt/:levelId/vocabulary" />
+        <Route element={<VocabularyFlashcardsPage />} path="/jlpt/:levelId/vocabulary/flashcards" />
+        <Route element={<GrammarPage />} path="/jlpt/:levelId/grammar" />
+        <Route element={<GrammarFlashcardsPage />} path="/jlpt/:levelId/grammar/flashcards" />
+        <Route element={<KanjiPage />} path="/jlpt/:levelId/kanji" />
+        <Route element={<KanjiFlashcardsPage />} path="/jlpt/:levelId/kanji/flashcards" />
         <Route element={<TopicsPage />} path="/jlpt/:levelId/chapters/:chapterId" />
         <Route
           element={<TopicDetailPage />}
@@ -25,6 +37,10 @@ function App() {
         <Route
           element={<VocabularyPage />}
           path="/jlpt/:levelId/chapters/:chapterId/topics/:topicId/vocabulary"
+        />
+        <Route
+          element={<VocabularyFlashcardsPage />}
+          path="/jlpt/:levelId/chapters/:chapterId/topics/:topicId/vocabulary/flashcards"
         />
         <Route
           element={<LessonsPage />}
