@@ -1,7 +1,7 @@
 import { BookOpen, CheckCircle2, Volume2 } from "lucide-react";
 import { Link } from "react-router";
 import type { Lesson } from "../../types/learning";
-import { speakJapanese } from "../../utils/speech";
+import { speakJapanese, speakJapaneseSequence } from "../../utils/speech";
 
 function compactText(value?: string, fallback = "Chưa có dữ liệu") {
   if (!value?.trim()) return fallback;
@@ -30,7 +30,7 @@ export function GrammarTable({ lessons }: { lessons: Lesson[] }) {
                   <button
                     aria-label="Nghe mẫu ngữ pháp"
                     className="icon-button"
-                    onClick={() => speakJapanese(lesson.japaneseTitle)}
+                    onClick={() => speakJapaneseSequence([lesson.japaneseTitle, lesson.example])}
                     type="button"
                   >
                     <Volume2 aria-hidden="true" />

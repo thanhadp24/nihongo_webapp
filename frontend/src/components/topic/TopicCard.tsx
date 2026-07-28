@@ -2,7 +2,6 @@ import { BookOpen, CalendarDays, Globe2, Home, IdCard, MessagesSquare } from "lu
 import { Link } from "react-router";
 import type { Topic } from "../../types/learning";
 import { actionLabel } from "../../utils/learning";
-import { StatusBadge } from "../common/StatusBadge";
 
 const topicIcons = {
   greetings: MessagesSquare,
@@ -29,7 +28,6 @@ export function TopicCard({ topic }: { topic: Topic }) {
           <h2>{topic.title}</h2>
           <p className="japanese-caption">{topic.japaneseTitle}</p>
         </div>
-        <StatusBadge status={topic.status} />
       </div>
       <p>{topic.description}</p>
       <div className="stat-row">

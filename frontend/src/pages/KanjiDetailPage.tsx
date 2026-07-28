@@ -6,7 +6,7 @@ import { ErrorState, SkeletonCard } from "../components/common/StateViews";
 import { useSavedState } from "../hooks/useSavedContent";
 import { apiLearningService } from "../services/apiLearningService";
 import { savedContentService } from "../services/savedContentService";
-import { speakJapanese } from "../utils/speech";
+import { speakJapanese, speakJapaneseSequence } from "../utils/speech";
 
 export function KanjiDetailPage() {
   const { kanjiId = "" } = useParams();
@@ -36,7 +36,13 @@ export function KanjiDetailPage() {
               <>
                 <button
                   className="secondary-button"
-                  onClick={() => speakJapanese(kanji.character)}
+                  onClick={() =>
+                    speakJapaneseSequence([
+                      kanji.character,
+                      words[0]?.word,
+                      words[0]?.example_sentence
+                    ])
+                  }
                   type="button"
                 >
                   <Volume2 aria-hidden="true" />

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { BookOpen, CreditCard } from "lucide-react";
-import { Link } from "react-router";
+import { BookOpen } from "lucide-react";
 import type { KanjiTopicSummary } from "../../types/learning";
 import { Pagination } from "../common/Pagination";
 
@@ -77,10 +76,6 @@ export function KanjiTopicTable({
                       <BookOpen aria-hidden="true" />
                       Xem Kanji
                     </button>
-                    <Link className="primary-button table-action" to={`/jlpt/${levelId}/kanji/flashcards?topicId=${topic.id}`}>
-                      <CreditCard aria-hidden="true" />
-                      Flashcard
-                    </Link>
                   </td>
                 </tr>
               ))}

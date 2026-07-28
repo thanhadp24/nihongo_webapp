@@ -2,7 +2,6 @@ import { BookOpen, Clock, Headphones, MessageCircle, PenTool, TestTube2 } from "
 import { Link } from "react-router";
 import type { Lesson } from "../../types/learning";
 import { actionLabel } from "../../utils/learning";
-import { StatusBadge } from "../common/StatusBadge";
 
 const lessonIcons = {
   VOCABULARY: BookOpen,
@@ -33,7 +32,6 @@ export function LessonCard({ lesson }: { lesson: Lesson }) {
         </div>
       </div>
       <div className="lesson-side">
-        <StatusBadge status={lesson.status} />
         <span className="primary-button">{actionLabel(lesson.status)}</span>
       </div>
     </Link>

@@ -18,3 +18,7 @@ export function speakJapanese(text: string) {
 
   window.speechSynthesis.speak(utterance);
 }
+
+export function speakJapaneseSequence(parts: Array<string | null | undefined>) {
+  speakJapanese(parts.map((part) => part?.trim()).filter(Boolean).join("。"));
+}

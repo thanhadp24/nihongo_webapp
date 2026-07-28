@@ -2,7 +2,6 @@ import { CheckCircle2, Lock, PlayCircle } from "lucide-react";
 import { Link } from "react-router";
 import type { Chapter } from "../../types/learning";
 import { actionLabel } from "../../utils/learning";
-import { StatusBadge } from "../common/StatusBadge";
 
 export function ChapterCard({ chapter }: { chapter: Chapter }) {
   const isLocked = chapter.status === "LOCKED";
@@ -20,7 +19,6 @@ export function ChapterCard({ chapter }: { chapter: Chapter }) {
             <p className="eyebrow">Chapter {chapter.chapterNumber}</p>
             <h2>{chapter.title}</h2>
           </div>
-          <StatusBadge status={chapter.status} />
         </div>
         <p>{chapter.description}</p>
         <div className="stat-row">

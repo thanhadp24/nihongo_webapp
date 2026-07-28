@@ -4,7 +4,7 @@ import { Link, Navigate, useParams } from "react-router";
 import { PageHeader } from "../components/common/PageHeader";
 import { ErrorState, SkeletonCard } from "../components/common/StateViews";
 import { apiLearningService } from "../services/apiLearningService";
-import { speakJapanese } from "../utils/speech";
+import { speakJapanese, speakJapaneseSequence } from "../utils/speech";
 
 export function LessonDetailPage() {
   const { lessonId = "" } = useParams();
@@ -30,7 +30,12 @@ export function LessonDetailPage() {
             actions={
               <button
                 className="secondary-button"
-                onClick={() => speakJapanese(detail?.pattern ?? lesson.japaneseTitle)}
+                onClick={() =>
+                  speakJapaneseSequence([
+                    detail?.pattern ?? lesson.japaneseTitle,
+                    examples[0]?.japanese_text ?? lesson.example
+                  ])
+                }
                 type="button"
               >
                 <Volume2 aria-hidden="true" />

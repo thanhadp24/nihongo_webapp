@@ -242,7 +242,20 @@ function grammarFlashcard(item: Lesson): FlashcardItem {
   };
 }
 
-function kanjiFlashcard(item: Kanji): FlashcardItem {
+function kanjiFlashcard(item: Kanji, detail?: KanjiDetail): FlashcardItem {
+  const exampleWord = detail?.words.find((word) => word.example_sentence) ?? detail?.words[0];
+  const wordLabel = exampleWord
+    ? [exampleWord.word, exampleWord.reading ? `(${exampleWord.reading})` : "", exampleWord.meaning_vi]
+        .filter(Boolean)
+        .join(" ")
+    : "";
+  const exampleLines = [
+    item.mnemonic,
+    wordLabel,
+    exampleWord?.example_sentence,
+    exampleWord?.example_meaning_vi
+  ].filter(Boolean);
+
   return {
     id: item.id,
     front: item.character,
@@ -250,7 +263,8 @@ function kanjiFlashcard(item: Kanji): FlashcardItem {
     back: item.meaning,
     backSubtext: item.hanViet ? `Hán Việt: ${item.hanViet}` : undefined,
     tag: item.topicMeaning || item.topicName,
-    example: item.mnemonic
+    example: exampleLines.join("\n"),
+    exampleAudioText: [exampleWord?.word, exampleWord?.example_sentence].filter(Boolean).join("。")
   };
 }
 
@@ -443,7 +457,16 @@ export const apiLearningService = {
 
   async getKanjiFlashcards(levelId: string, topicId?: string) {
     const items = await collectAllPages((page) => this.getKanjiPage(levelId, { page, pageSize: 500, topicId }));
-    return items.map(kanjiFlashcard);
+    const detailResults = await Promise.allSettled(
+      items.map((item) => api.kanjiDetail(Number(item.id)))
+    );
+
+    return items.map((item, index) =>
+      kanjiFlashcard(
+        item,
+        detailResults[index]?.status === "fulfilled" ? detailResults[index].value : undefined
+      )
+    );
   },
 
   async getKanjiDetail(kanjiId: string) {

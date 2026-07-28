@@ -2,14 +2,12 @@ import { Play } from "lucide-react";
 import { Link } from "react-router";
 import type { JLPTLevel } from "../../types/learning";
 import { actionLabel } from "../../utils/learning";
-import { StatusBadge } from "../common/StatusBadge";
 
 export function JLPTLevelCard({ level }: { level: JLPTLevel }) {
   const content = (
     <>
       <div className="level-card-top">
         <span className={`level-orb tone-${level.tone}`}>{level.code}</span>
-        <StatusBadge status={level.status} />
       </div>
       <div>
         <h2>{level.name}</h2>

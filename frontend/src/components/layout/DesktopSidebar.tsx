@@ -1,5 +1,6 @@
 import {
   Bookmark,
+  ChevronDown,
   GraduationCap,
   Headphones,
   Home,
@@ -11,6 +12,7 @@ import {
   SquareStack,
   type LucideIcon
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 
 type SidebarItem = {
@@ -121,7 +123,16 @@ const flashcardItems: SidebarItem[] = [
   }
 ];
 
-function SidebarLink({ currentLevelId, item, pathname, subItem = false }: {
+const flashcardIndex = sidebarItems.findIndex((item) => item.id === "kanji") + 1;
+const primaryItems = sidebarItems.slice(0, flashcardIndex);
+const secondaryItems = sidebarItems.slice(flashcardIndex);
+
+function SidebarLink({
+  currentLevelId,
+  item,
+  pathname,
+  subItem = false
+}: {
   currentLevelId: string;
   item: SidebarItem;
   pathname: string;
@@ -133,12 +144,9 @@ function SidebarLink({ currentLevelId, item, pathname, subItem = false }: {
   return (
     <Link
       aria-current={isActive ? "page" : undefined}
-      className={[
-        "sidebar-link",
-        subItem ? "sidebar-sub-link" : "",
-        isActive ? "active" : ""
-      ].filter(Boolean).join(" ")}
-      key={item.id}
+      className={["sidebar-link", subItem ? "sidebar-sub-link" : "", isActive ? "active" : ""]
+        .filter(Boolean)
+        .join(" ")}
       to={item.to(currentLevelId)}
     >
       <Icon aria-hidden="true" />
@@ -150,28 +158,48 @@ function SidebarLink({ currentLevelId, item, pathname, subItem = false }: {
 export function DesktopSidebar({ compact = false }: { compact?: boolean }) {
   const { pathname } = useLocation();
   const currentLevelId = pathname.match(/^\/jlpt\/([^/]+)/)?.[1] ?? "n2";
+  const hasActiveFlashcard = flashcardItems.some((item) => item.isActive(pathname));
+  const [isFlashcardOpen, setIsFlashcardOpen] = useState(hasActiveFlashcard);
+
+  useEffect(() => {
+    if (hasActiveFlashcard) setIsFlashcardOpen(true);
+  }, [hasActiveFlashcard]);
 
   return (
     <aside className={compact ? "desktop-sidebar compact" : "desktop-sidebar"}>
       <nav aria-label="Điều hướng chính">
-        {sidebarItems.map((item) => (
+        {primaryItems.map((item) => (
           <SidebarLink currentLevelId={currentLevelId} item={item} key={item.id} pathname={pathname} />
         ))}
-        <div className="sidebar-section-title">
+
+        <button
+          aria-expanded={isFlashcardOpen}
+          className={hasActiveFlashcard ? "sidebar-link sidebar-expand active" : "sidebar-link sidebar-expand"}
+          onClick={() => setIsFlashcardOpen((current) => !current)}
+          type="button"
+        >
           <SquareStack aria-hidden="true" />
           <span>Flashcard</span>
-        </div>
-        <div className="sidebar-group">
-          {flashcardItems.map((item) => (
-            <SidebarLink
-              currentLevelId={currentLevelId}
-              item={item}
-              key={item.id}
-              pathname={pathname}
-              subItem
-            />
-          ))}
-        </div>
+          <ChevronDown aria-hidden="true" className="sidebar-expand-icon" />
+        </button>
+
+        {isFlashcardOpen ? (
+          <div className="sidebar-group">
+            {flashcardItems.map((item) => (
+              <SidebarLink
+                currentLevelId={currentLevelId}
+                item={item}
+                key={item.id}
+                pathname={pathname}
+                subItem
+              />
+            ))}
+          </div>
+        ) : null}
+
+        {secondaryItems.map((item) => (
+          <SidebarLink currentLevelId={currentLevelId} item={item} key={item.id} pathname={pathname} />
+        ))}
       </nav>
     </aside>
   );

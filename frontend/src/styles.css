@@ -99,7 +99,7 @@ svg {
   top: 0;
   z-index: 40;
   display: grid;
-  grid-template-columns: minmax(230px, 0.9fr) minmax(280px, 1.5fr) auto;
+  grid-template-columns: minmax(230px, 0.9fr) minmax(280px, 1.5fr) auto auto;
   align-items: center;
   gap: var(--space-4);
   min-height: var(--header-height);
@@ -151,6 +151,11 @@ svg {
 
 .header-search {
   min-width: 0;
+}
+
+.header-level-selector {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .header-actions {
@@ -319,24 +324,6 @@ svg {
   background: var(--primary);
 }
 
-.sidebar-section-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: 34px;
-  margin: var(--space-4) var(--space-2) var(--space-1);
-  padding: 0 var(--space-2);
-  color: var(--text-secondary);
-  font-size: 0.74rem;
-  font-weight: 850;
-  text-transform: uppercase;
-}
-
-.sidebar-section-title svg {
-  width: 16px;
-  height: 16px;
-}
-
 .sidebar-group {
   display: grid;
   gap: var(--space-1);
@@ -346,6 +333,19 @@ svg {
 .sidebar-sub-link {
   min-height: 40px;
   padding-left: var(--space-5);
+}
+
+.sidebar-expand {
+  width: 100%;
+}
+
+.sidebar-expand-icon {
+  margin-left: auto;
+  transition: transform 180ms ease;
+}
+
+.sidebar-expand[aria-expanded="true"] .sidebar-expand-icon {
+  transform: rotate(180deg);
 }
 
 .content-shell {
@@ -615,7 +615,6 @@ svg {
   font-weight: 760;
 }
 
-.status-badge,
 .soft-badge {
   display: inline-flex;
   align-items: center;
@@ -625,31 +624,6 @@ svg {
   font-size: 0.78rem;
   font-weight: 850;
   white-space: nowrap;
-}
-
-.status-not_started {
-  color: #475569;
-  background: #f1f5f9;
-}
-
-.status-in_progress {
-  color: #1d4ed8;
-  background: #dbeafe;
-}
-
-.status-completed {
-  color: #15803d;
-  background: #dcfce7;
-}
-
-.status-review_required {
-  color: #b45309;
-  background: #fef3c7;
-}
-
-.status-locked {
-  color: #64748b;
-  background: #e2e8f0;
 }
 
 .soft-badge {
@@ -1547,7 +1521,7 @@ svg {
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .app-header {
-    grid-template-columns: minmax(210px, 0.7fr) minmax(240px, 1fr) auto;
+    grid-template-columns: minmax(210px, 0.7fr) minmax(220px, 1fr) auto auto;
     padding: 0 var(--space-4);
   }
 
@@ -1569,7 +1543,7 @@ svg {
   }
 
   .desktop-sidebar .sidebar-link span,
-  .desktop-sidebar .sidebar-section-title {
+  .desktop-sidebar .sidebar-expand-icon {
     display: none;
   }
 
@@ -1602,7 +1576,7 @@ svg {
   }
 
   .app-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     min-height: 60px;
     padding: 0 var(--space-4);
   }
@@ -1618,6 +1592,7 @@ svg {
 
   .brand-row span:last-child,
   .header-search,
+  .header-level-selector .level-selector span,
   .streak-pill {
     display: none;
   }
@@ -1855,6 +1830,10 @@ svg {
   .pagination,
   .flashcard-toolbar {
     width: 100%;
+  }
+
+  .header-level-selector .level-selector {
+    width: auto;
   }
 
   .pagination,

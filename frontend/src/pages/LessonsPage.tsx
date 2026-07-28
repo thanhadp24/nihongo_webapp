@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CreditCard } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { PageHeader } from "../components/common/PageHeader";
@@ -55,15 +54,9 @@ export function LessonsPage() {
       />
       <PageHeader
         actions={
-          <>
-            <Link className="secondary-button" to={`/jlpt/${levelId}/grammar`}>
-              Xem cả level
-            </Link>
-            <Link className="primary-button" to={`/jlpt/${levelId}/grammar/flashcards`}>
-              <CreditCard aria-hidden="true" />
-              Flashcard
-            </Link>
-          </>
+          <Link className="secondary-button" to={`/jlpt/${levelId}/grammar`}>
+            Xem cả level
+          </Link>
         }
         eyebrow={topic?.title ?? "Chủ đề"}
         subtitle="Bài ngữ pháp được lấy trực tiếp từ CSDL theo cấp độ JLPT."

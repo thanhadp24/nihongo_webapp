@@ -3,8 +3,7 @@ import { useLocation } from "react-router";
 import { useSavedState } from "../../hooks/useSavedContent";
 import { savedContentService } from "../../services/savedContentService";
 import type { Vocabulary } from "../../types/learning";
-import { speakJapanese } from "../../utils/speech";
-import { StatusBadge } from "../common/StatusBadge";
+import { speakJapanese, speakJapaneseSequence } from "../../utils/speech";
 
 export function VocabularyCard({ item }: { item: Vocabulary }) {
   const { pathname } = useLocation();
@@ -16,7 +15,7 @@ export function VocabularyCard({ item }: { item: Vocabulary }) {
         <button
           aria-label="Nghe phát âm"
           className="icon-button"
-          onClick={() => speakJapanese(item.word)}
+          onClick={() => speakJapaneseSequence([item.word, item.example])}
           type="button"
         >
           <Volume2 aria-hidden="true" />
@@ -39,19 +38,21 @@ export function VocabularyCard({ item }: { item: Vocabulary }) {
         >
           <Heart aria-hidden="true" />
         </button>
-        <button aria-label="Đánh dấu đã học" className="icon-button" type="button">
+        {/* <button aria-label="Đánh dấu đã học" className="icon-button" type="button">
           <Check aria-hidden="true" />
-        </button>
+        </button> */}
       </div>
       <div>
         <h2>{item.word}</h2>
         <p className="japanese-caption">{item.reading}</p>
-        <p className="romaji">{item.romaji}</p>
+        {
+          item.romaji === item.reading ? null : <p className="romaji">{item.romaji}</p>
+        }
+        {/* <p className="romaji">{item.romaji}</p> */}
       </div>
       <strong className="meaning">{item.meaning}</strong>
       <div className="card-title-row">
         <span className="soft-badge">{item.partOfSpeech}</span>
-        <StatusBadge status={item.status} />
       </div>
       {item.example ? (
         <div className="example-box">

@@ -1,10 +1,46 @@
 import { Bell, Menu, Search, UserRound } from "lucide-react";
 import { useState } from "react";
+import { useLocation } from "react-router";
+import { LevelSelector } from "../common/LevelSelector";
 import { SearchInput } from "../common/SearchInput";
 
+function pathForLevel(pathname: string, nextLevel: string) {
+  if (/^\/jlpt\/[^/]+\/vocabulary\/flashcards/.test(pathname)) {
+    return `/jlpt/${nextLevel}/vocabulary/flashcards`;
+  }
+
+  if (/^\/jlpt\/[^/]+\/grammar\/flashcards/.test(pathname)) {
+    return `/jlpt/${nextLevel}/grammar/flashcards`;
+  }
+
+  if (/^\/jlpt\/[^/]+\/kanji\/flashcards/.test(pathname)) {
+    return `/jlpt/${nextLevel}/kanji/flashcards`;
+  }
+
+  if (/^\/jlpt\/[^/]+\/chapters\/[^/]+\/topics\/[^/]+\/vocabulary/.test(pathname)) {
+    return `/jlpt/${nextLevel}/vocabulary`;
+  }
+
+  if (/^\/jlpt\/[^/]+\/chapters\/[^/]+\/topics\/[^/]+\/lessons/.test(pathname)) {
+    return `/jlpt/${nextLevel}/grammar`;
+  }
+
+  if (/^\/jlpt\/[^/]+\/vocabulary/.test(pathname)) return `/jlpt/${nextLevel}/vocabulary`;
+  if (/^\/jlpt\/[^/]+\/grammar/.test(pathname) || pathname.startsWith("/lessons/")) {
+    return `/jlpt/${nextLevel}/grammar`;
+  }
+  if (/^\/jlpt\/[^/]+\/kanji/.test(pathname) || pathname.startsWith("/kanji/")) {
+    return `/jlpt/${nextLevel}/kanji`;
+  }
+
+  return `/jlpt/${nextLevel}`;
+}
+
 export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
+  const { pathname } = useLocation();
   const [query, setQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const currentLevelId = pathname.match(/^\/jlpt\/([^/]+)/)?.[1] ?? "n2";
 
   return (
     <header className="app-header">
@@ -28,6 +64,14 @@ export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
         />
       </div>
 
+      <div className="header-level-selector">
+        <LevelSelector
+          label="JLPT"
+          value={currentLevelId}
+          toForLevel={(nextLevel) => pathForLevel(pathname, nextLevel)}
+        />
+      </div>
+
       <div className="header-actions">
         <button
           aria-label="Mở tìm kiếm"
@@ -40,10 +84,7 @@ export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
         <button aria-label="Thông báo" className="icon-button" type="button">
           <Bell aria-hidden="true" />
         </button>
-        <div className="streak-pill">
-          <span>12</span>
-          <small>ngày</small>
-        </div>
+
         <button aria-label="Tài khoản" className="avatar-button" type="button">
           <UserRound aria-hidden="true" />
         </button>

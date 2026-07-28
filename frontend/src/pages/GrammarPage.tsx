@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CreditCard } from "lucide-react";
-import { Link, Navigate, useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
-import { LevelSelector } from "../components/common/LevelSelector";
 import { PageHeader } from "../components/common/PageHeader";
 import { Pagination } from "../components/common/Pagination";
 import { SearchInput } from "../components/common/SearchInput";
@@ -49,15 +47,6 @@ export function GrammarPage() {
         ]}
       />
       <PageHeader
-        actions={
-          <>
-            <LevelSelector value={levelId} toForLevel={(nextLevel) => `/jlpt/${nextLevel}/grammar`} />
-            <Link className="primary-button" to={`/jlpt/${levelId}/grammar/flashcards`}>
-              <CreditCard aria-hidden="true" />
-              Flashcard
-            </Link>
-          </>
-        }
         eyebrow={level?.name ?? "JLPT"}
         subtitle="Chọn level để tải mẫu ngữ pháp đúng cấp độ từ CSDL."
         title="Ngữ pháp theo level"

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CreditCard } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
@@ -77,18 +76,9 @@ export function VocabularyPage() {
       />
       <PageHeader
         actions={
-          <>
-            <Link className="secondary-button" to={`/jlpt/${levelId}/vocabulary`}>
-              Xem cả level
-            </Link>
-            <Link
-              className="primary-button"
-              to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topicId}/vocabulary/flashcards`}
-            >
-              <CreditCard aria-hidden="true" />
-              Học bằng Flashcard
-            </Link>
-          </>
+          <Link className="secondary-button" to={`/jlpt/${levelId}/vocabulary`}>
+            Xem cả level
+          </Link>
         }
         eyebrow={topic?.title ?? "Chủ đề"}
         subtitle="Từ vựng được lấy trực tiếp từ CSDL theo level, chapter và topic."

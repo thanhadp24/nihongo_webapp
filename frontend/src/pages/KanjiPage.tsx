@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, CreditCard } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
-import { LevelSelector } from "../components/common/LevelSelector";
 import { PageHeader } from "../components/common/PageHeader";
 import { Pagination } from "../components/common/Pagination";
 import { SearchInput } from "../components/common/SearchInput";
@@ -72,18 +71,6 @@ export function KanjiPage() {
         ]}
       />
       <PageHeader
-        actions={
-          <>
-            <LevelSelector value={levelId} toForLevel={(nextLevel) => `/jlpt/${nextLevel}/kanji`} />
-            <Link
-              className="primary-button"
-              to={`/jlpt/${levelId}/kanji/flashcards${topicId ? `?topicId=${topicId}` : ""}`}
-            >
-              <CreditCard aria-hidden="true" />
-              Flashcard
-            </Link>
-          </>
-        }
         eyebrow={level?.name ?? "JLPT"}
         subtitle="Kanji được chia theo tuần/ngày. Chọn một chủ đề để tải danh sách Kanji của topic đó."
         title="Kanji theo tuần"

@@ -4,7 +4,6 @@ import { useSavedState } from "../../hooks/useSavedContent";
 import { savedContentService } from "../../services/savedContentService";
 import type { Kanji } from "../../types/learning";
 import { speakJapanese } from "../../utils/speech";
-import { StatusBadge } from "../common/StatusBadge";
 
 export function KanjiCard({ detailHref, item }: { detailHref?: string; item: Kanji }) {
   const { pathname } = useLocation();
@@ -56,7 +55,6 @@ export function KanjiCard({ detailHref, item }: { detailHref?: string; item: Kan
       </div>
       <div className="card-title-row">
         <span className="soft-badge">{item.topicMeaning || item.topicName}</span>
-        <StatusBadge status={item.status} />
       </div>
       {item.mnemonic ? (
         <div className="example-box">
