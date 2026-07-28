@@ -54,7 +54,6 @@ export function TopicsPage() {
           ) : null
         }
         eyebrow={chapter ? `Chapter ${chapter.chapterNumber}` : "Chapter"}
-        progress={{ label: "Tiến độ ôn tập", value: chapter?.progress ?? 0 }}
         subtitle={
           chapter
             ? `${chapter.topicCount} chủ đề • ${chapter.vocabularyCount} từ vựng`

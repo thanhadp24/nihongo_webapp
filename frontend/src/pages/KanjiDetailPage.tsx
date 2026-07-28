@@ -118,7 +118,26 @@ export function KanjiDetailPage() {
                       <strong>{word.word}</strong>
                       {word.reading ? <span>{word.reading}</span> : null}
                     </div>
-                    <p>{word.meaning_vi}</p>
+                    <div className="kanji-word-detail">
+                      <p>{word.meaning_vi}</p>
+                      {word.example_sentence ? (
+                        <div className="kanji-word-example">
+                          <button
+                            aria-label="Nghe ví dụ"
+                            className="icon-button"
+                            onClick={() => speakJapanese(word.example_sentence ?? "")}
+                            type="button"
+                          >
+                            <Volume2 aria-hidden="true" />
+                          </button>
+                          <div>
+                            <p className="example-jp">{word.example_sentence}</p>
+                            {word.example_reading ? <p>{word.example_reading}</p> : null}
+                            {word.example_meaning_vi ? <p>{word.example_meaning_vi}</p> : null}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
                   </article>
                 ))}
               </div>

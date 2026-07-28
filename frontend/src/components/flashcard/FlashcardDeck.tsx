@@ -1,5 +1,5 @@
 import { RotateCcw, Shuffle, Volume2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FlashcardItem } from "../../types/learning";
 import { speakJapanese } from "../../utils/speech";
 import { Pagination } from "../common/Pagination";
@@ -22,6 +22,42 @@ export function FlashcardDeck({ items }: { items: FlashcardItem[] }) {
   }, [items, shuffleSeed]);
 
   const card = cards[index];
+  const exampleAudioText = card?.exampleAudioText ?? card?.example ?? "";
+
+  const goToCard = useCallback((nextIndex: number) => {
+    setIndex(Math.min(Math.max(nextIndex, 0), Math.max(cards.length - 1, 0)));
+    setFlipped(false);
+  }, [cards.length]);
+
+  useEffect(() => {
+    if (index >= cards.length) goToCard(cards.length - 1);
+  }, [cards.length, goToCard, index]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isTyping =
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.tagName === "SELECT" ||
+        Boolean(target?.isContentEditable);
+
+      if (isTyping) return;
+
+      if (event.key === "ArrowRight" || event.key === "PageDown") {
+        event.preventDefault();
+        goToCard(index + 1);
+      }
+
+      if (event.key === "ArrowLeft" || event.key === "PageUp") {
+        event.preventDefault();
+        goToCard(index - 1);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [goToCard, index]);
 
   if (!card) return null;
 
@@ -38,6 +74,16 @@ export function FlashcardDeck({ items }: { items: FlashcardItem[] }) {
             <Volume2 aria-hidden="true" />
             Nghe
           </button>
+          {exampleAudioText ? (
+            <button
+              className="secondary-button"
+              onClick={() => speakJapanese(exampleAudioText)}
+              type="button"
+            >
+              <Volume2 aria-hidden="true" />
+              Ví dụ
+            </button>
+          ) : null}
           <button
             className="secondary-button"
             onClick={() => {
@@ -80,8 +126,7 @@ export function FlashcardDeck({ items }: { items: FlashcardItem[] }) {
 
       <Pagination
         onPageChange={(nextIndex) => {
-          setIndex(nextIndex - 1);
-          setFlipped(false);
+          goToCard(nextIndex - 1);
         }}
         page={index + 1}
         pageSize={1}

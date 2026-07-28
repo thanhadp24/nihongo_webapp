@@ -54,7 +54,6 @@ function App() {
         <Route element={<PlaceholderPage title="Luyện nghe" />} path="/listening" />
         <Route element={<PlaceholderPage title="Ôn tập" />} path="/review" />
         <Route element={<FavoritesPage />} path="/favorites" />
-        <Route element={<PlaceholderPage title="Tiến độ học tập" />} path="/progress" />
         <Route element={<PlaceholderPage title="Tài khoản" />} path="/profile" />
         <Route element={<Navigate to="/" replace />} path="*" />
       </Route>

@@ -2,7 +2,6 @@ import { BookOpen, CalendarDays, Globe2, Home, IdCard, MessagesSquare } from "lu
 import { Link } from "react-router";
 import type { Topic } from "../../types/learning";
 import { actionLabel } from "../../utils/learning";
-import { ProgressBar } from "../common/ProgressBar";
 import { StatusBadge } from "../common/StatusBadge";
 
 const topicIcons = {
@@ -38,7 +37,6 @@ export function TopicCard({ topic }: { topic: Topic }) {
         <span>{topic.lessonCount} bài học</span>
         <span>{topic.exerciseCount} luyện tập</span>
       </div>
-      <ProgressBar label="Tiến độ" value={topic.progress} />
       <span className="primary-button">{actionLabel(topic.status)}</span>
     </Link>
   );

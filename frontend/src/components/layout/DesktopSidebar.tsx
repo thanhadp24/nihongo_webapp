@@ -1,7 +1,5 @@
 import {
-  BarChart3,
   Bookmark,
-  BookOpen,
   GraduationCap,
   Headphones,
   Home,
@@ -9,16 +7,17 @@ import {
   LibraryBig,
   PenTool,
   Repeat,
-  ScrollText
+  ScrollText,
+  SquareStack,
+  type LucideIcon
 } from "lucide-react";
 import { Link, useLocation } from "react-router";
-import { ProgressBar } from "../common/ProgressBar";
 
 type SidebarItem = {
   id: string;
   to: (levelId: string) => string;
   label: string;
-  icon: typeof Home;
+  icon: LucideIcon;
   isActive: (pathname: string) => boolean;
 };
 
@@ -46,9 +45,8 @@ const sidebarItems: SidebarItem[] = [
     label: "Từ vựng",
     icon: LibraryBig,
     isActive: (pathname) =>
-      /^\/jlpt\/[^/]+\/vocabulary(\/flashcards)?$/.test(pathname) ||
-      pathname.endsWith("/vocabulary") ||
-      pathname.endsWith("/vocabulary/flashcards")
+      /^\/jlpt\/[^/]+\/vocabulary$/.test(pathname) ||
+      pathname.endsWith("/vocabulary")
   },
   {
     id: "grammar",
@@ -56,7 +54,7 @@ const sidebarItems: SidebarItem[] = [
     label: "Ngữ pháp",
     icon: PenTool,
     isActive: (pathname) =>
-      /^\/jlpt\/[^/]+\/grammar(\/flashcards)?$/.test(pathname) ||
+      /^\/jlpt\/[^/]+\/grammar$/.test(pathname) ||
       pathname.endsWith("/lessons") ||
       pathname.startsWith("/lessons/")
   },
@@ -65,7 +63,7 @@ const sidebarItems: SidebarItem[] = [
     to: (levelId) => `/jlpt/${levelId}/kanji`,
     label: "Kanji",
     icon: Languages,
-    isActive: (pathname) => /^\/jlpt\/[^/]+\/kanji(\/flashcards)?$/.test(pathname)
+    isActive: (pathname) => /^\/jlpt\/[^/]+\/kanji$/.test(pathname)
   },
   {
     id: "reading",
@@ -94,15 +92,60 @@ const sidebarItems: SidebarItem[] = [
     label: "Nội dung đã lưu",
     icon: Bookmark,
     isActive: (pathname) => pathname === "/favorites"
-  },
-  {
-    id: "progress",
-    to: () => "/progress",
-    label: "Tiến độ học",
-    icon: BarChart3,
-    isActive: (pathname) => pathname === "/progress"
   }
 ];
+
+const flashcardItems: SidebarItem[] = [
+  {
+    id: "flashcard-vocabulary",
+    to: (levelId) => `/jlpt/${levelId}/vocabulary/flashcards`,
+    label: "Từ vựng",
+    icon: LibraryBig,
+    isActive: (pathname) =>
+      /^\/jlpt\/[^/]+\/vocabulary\/flashcards$/.test(pathname) ||
+      /^\/jlpt\/[^/]+\/chapters\/[^/]+\/topics\/[^/]+\/vocabulary\/flashcards$/.test(pathname)
+  },
+  {
+    id: "flashcard-grammar",
+    to: (levelId) => `/jlpt/${levelId}/grammar/flashcards`,
+    label: "Ngữ pháp",
+    icon: PenTool,
+    isActive: (pathname) => /^\/jlpt\/[^/]+\/grammar\/flashcards$/.test(pathname)
+  },
+  {
+    id: "flashcard-kanji",
+    to: (levelId) => `/jlpt/${levelId}/kanji/flashcards`,
+    label: "Kanji",
+    icon: Languages,
+    isActive: (pathname) => /^\/jlpt\/[^/]+\/kanji\/flashcards$/.test(pathname)
+  }
+];
+
+function SidebarLink({ currentLevelId, item, pathname, subItem = false }: {
+  currentLevelId: string;
+  item: SidebarItem;
+  pathname: string;
+  subItem?: boolean;
+}) {
+  const Icon = item.icon;
+  const isActive = item.isActive(pathname);
+
+  return (
+    <Link
+      aria-current={isActive ? "page" : undefined}
+      className={[
+        "sidebar-link",
+        subItem ? "sidebar-sub-link" : "",
+        isActive ? "active" : ""
+      ].filter(Boolean).join(" ")}
+      key={item.id}
+      to={item.to(currentLevelId)}
+    >
+      <Icon aria-hidden="true" />
+      <span>{item.label}</span>
+    </Link>
+  );
+}
 
 export function DesktopSidebar({ compact = false }: { compact?: boolean }) {
   const { pathname } = useLocation();
@@ -111,32 +154,25 @@ export function DesktopSidebar({ compact = false }: { compact?: boolean }) {
   return (
     <aside className={compact ? "desktop-sidebar compact" : "desktop-sidebar"}>
       <nav aria-label="Điều hướng chính">
-        {sidebarItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = item.isActive(pathname);
-
-          return (
-            <Link
-              aria-current={isActive ? "page" : undefined}
-              className={isActive ? "sidebar-link active" : "sidebar-link"}
-              key={item.id}
-              to={item.to(currentLevelId)}
-            >
-              <Icon aria-hidden="true" />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
-      </nav>
-
-      <section className="daily-goal">
-        <BookOpen aria-hidden="true" />
-        <div>
-          <strong>Mục tiêu hôm nay</strong>
-          <span>12/20 từ vựng</span>
+        {sidebarItems.map((item) => (
+          <SidebarLink currentLevelId={currentLevelId} item={item} key={item.id} pathname={pathname} />
+        ))}
+        <div className="sidebar-section-title">
+          <SquareStack aria-hidden="true" />
+          <span>Flashcard</span>
         </div>
-        <ProgressBar value={60} />
-      </section>
+        <div className="sidebar-group">
+          {flashcardItems.map((item) => (
+            <SidebarLink
+              currentLevelId={currentLevelId}
+              item={item}
+              key={item.id}
+              pathname={pathname}
+              subItem
+            />
+          ))}
+        </div>
+      </nav>
     </aside>
   );
 }

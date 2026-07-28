@@ -224,7 +224,8 @@ function vocabularyFlashcard(item: Vocabulary): FlashcardItem {
     back: item.meaning,
     backSubtext: item.partOfSpeech,
     tag: "Từ vựng",
-    example: item.exampleMeaning ? `${item.example}\n${item.exampleMeaning}` : item.example
+    example: item.exampleMeaning ? `${item.example}\n${item.exampleMeaning}` : item.example,
+    exampleAudioText: item.example
   };
 }
 
@@ -235,7 +236,9 @@ function grammarFlashcard(item: Lesson): FlashcardItem {
     frontSubtext: item.title,
     back: item.title,
     backSubtext: "Ngữ pháp",
-    tag: "Ngữ pháp"
+    tag: "Ngữ pháp",
+    example: item.exampleMeaning ? `${item.example}\n${item.exampleMeaning}` : item.example,
+    exampleAudioText: item.example
   };
 }
 

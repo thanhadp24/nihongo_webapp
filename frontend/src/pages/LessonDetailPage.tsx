@@ -38,7 +38,6 @@ export function LessonDetailPage() {
               </button>
             }
             eyebrow={detail?.chapter_name ?? "Ngữ pháp"}
-            progress={{ label: "Tiến độ ôn tập", value: lesson.progress }}
             subtitle={detail?.meaning_vi ?? lesson.meaning}
             title={detail?.pattern ?? lesson.japaneseTitle}
           />

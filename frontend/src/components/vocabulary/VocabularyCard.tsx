@@ -55,7 +55,17 @@ export function VocabularyCard({ item }: { item: Vocabulary }) {
       </div>
       {item.example ? (
         <div className="example-box">
-          <span>Ví dụ</span>
+          <div className="example-box-title">
+            <span>Ví dụ</span>
+            <button
+              aria-label="Nghe ví dụ"
+              className="icon-button"
+              onClick={() => speakJapanese(item.example)}
+              type="button"
+            >
+              <Volume2 aria-hidden="true" />
+            </button>
+          </div>
           <p className="example-jp">{item.example}</p>
           <p>{item.exampleMeaning}</p>
         </div>

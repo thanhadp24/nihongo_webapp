@@ -2,7 +2,6 @@ import { CheckCircle2, Lock, PlayCircle } from "lucide-react";
 import { Link } from "react-router";
 import type { Chapter } from "../../types/learning";
 import { actionLabel } from "../../utils/learning";
-import { ProgressBar } from "../common/ProgressBar";
 import { StatusBadge } from "../common/StatusBadge";
 
 export function ChapterCard({ chapter }: { chapter: Chapter }) {
@@ -30,8 +29,7 @@ export function ChapterCard({ chapter }: { chapter: Chapter }) {
           <span>{chapter.lessonCount} Bài học</span>
         </div>
       </div>
-      <div className="chapter-progress">
-        <ProgressBar label="Tiến độ" value={chapter.progress} />
+      <div className="chapter-actions">
         <span className={isLocked ? "primary-button disabled" : "primary-button"}>
           {actionLabel(chapter.status)}
         </span>

@@ -3,7 +3,6 @@ import { BookOpen, Dumbbell, Languages, LibraryBig } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { PageHeader } from "../components/common/PageHeader";
-import { ProgressBar } from "../components/common/ProgressBar";
 import { ErrorState, SkeletonCard } from "../components/common/StateViews";
 import { apiLearningService } from "../services/apiLearningService";
 
@@ -70,7 +69,6 @@ export function TopicDetailPage() {
               <span><Languages aria-hidden="true" /> Kanji theo level</span>
               <span><Dumbbell aria-hidden="true" /> Ôn tập mở</span>
             </div>
-            <ProgressBar label="Tiến độ ôn tập chủ đề" value={topic.progress} />
           </div>
           <div className="content-tabs">
             <Link to={`/jlpt/${levelId}/chapters/${chapterId}/topics/${topic.id}`}>Tổng quan</Link>

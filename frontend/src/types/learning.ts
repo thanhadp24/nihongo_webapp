@@ -115,6 +115,7 @@ export type FlashcardItem = {
   backSubtext?: string;
   tag?: string;
   example?: string;
+  exampleAudioText?: string;
 };
 
 export type Lesson = {

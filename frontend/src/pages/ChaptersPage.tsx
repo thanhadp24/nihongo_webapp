@@ -30,10 +30,6 @@ export function ChaptersPage() {
       />
       <PageHeader
         eyebrow={level?.name ?? "JLPT"}
-        progress={{
-          label: `${chapters.length} Chapters từ CSDL`,
-          value: level?.progress ?? 0
-        }}
         subtitle="Danh sách chapter được lấy từ bảng chapter/topic của backend."
         title={level?.name ?? "Đang tải level"}
       />
