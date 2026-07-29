@@ -87,6 +87,18 @@ export type KanjiDetail = KanjiCharacter & {
   words: KanjiWord[];
 };
 
+export type VisualResource = {
+  id: number;
+  category_code: string;
+  category_name_vi: string;
+  jlpt_level_code: string | null;
+  title: string;
+  image_base_path: string;
+  image_filename: string;
+  image_url: string;
+  display_order: number;
+};
+
 export type GrammarChapter = {
   id: number;
   chapter_number: number;

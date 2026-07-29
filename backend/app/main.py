@@ -409,6 +409,48 @@ def get_kanji_character(
     return payload
 
 
+@app.get("/api/visual-resources")
+def list_visual_resources(
+    category: str = Query("kanji"),
+    level: str | None = None,
+    connection: Connection = Depends(get_connection),
+) -> list[dict[str, Any]]:
+    filters = ["vrc.code = :category", "vr.is_published = TRUE", "vrc.is_active = TRUE"]
+    params: dict[str, Any] = {"category": category}
+
+    if level:
+        filters.append("jl.code = :level")
+        params["level"] = level.upper()
+
+    try:
+        rows = connection.execute(
+            text(
+                f"""
+                SELECT
+                    vr.id,
+                    vrc.code AS category_code,
+                    vrc.name_vi AS category_name_vi,
+                    jl.code AS jlpt_level_code,
+                    vr.title,
+                    vr.image_base_path,
+                    vr.image_filename,
+                    CONCAT(vr.image_base_path, vr.image_filename) AS image_url,
+                    vr.display_order
+                FROM visual_resources vr
+                JOIN visual_resource_categories vrc ON vrc.id = vr.category_id
+                LEFT JOIN jlpt_levels jl ON jl.id = vr.jlpt_level_id
+                WHERE {" AND ".join(filters)}
+                ORDER BY jl.display_order, vr.display_order, vr.id
+                """
+            ),
+            params,
+        ).fetchall()
+    except SQLAlchemyError as exc:
+        raise HTTPException(status_code=503, detail="Database is unavailable") from exc
+
+    return rows_to_dicts(rows)
+
+
 @app.get("/api/grammar/chapters")
 def list_grammar_chapters(
     level: str = Query("N5"),

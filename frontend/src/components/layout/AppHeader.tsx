@@ -17,6 +17,10 @@ function pathForLevel(pathname: string, nextLevel: string) {
     return `/jlpt/${nextLevel}/kanji/flashcards`;
   }
 
+  if (/^\/jlpt\/[^/]+\/kanji\/images/.test(pathname)) {
+    return `/jlpt/${nextLevel}/kanji/images`;
+  }
+
   if (/^\/jlpt\/[^/]+\/chapters\/[^/]+\/topics\/[^/]+\/vocabulary/.test(pathname)) {
     return `/jlpt/${nextLevel}/vocabulary`;
   }

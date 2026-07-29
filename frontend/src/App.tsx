@@ -8,6 +8,7 @@ import { HomePage } from "./pages/HomePage";
 import { JLPTLevelsPage } from "./pages/JLPTLevelsPage";
 import { KanjiDetailPage } from "./pages/KanjiDetailPage";
 import { KanjiFlashcardsPage } from "./pages/KanjiFlashcardsPage";
+import { KanjiImageViewerPage } from "./pages/KanjiImageViewerPage";
 import { KanjiPage } from "./pages/KanjiPage";
 import { LevelVocabularyPage } from "./pages/LevelVocabularyPage";
 import { LessonDetailPage } from "./pages/LessonDetailPage";
@@ -30,6 +31,7 @@ function App() {
         <Route element={<GrammarPage />} path="/jlpt/:levelId/grammar" />
         <Route element={<GrammarFlashcardsPage />} path="/jlpt/:levelId/grammar/flashcards" />
         <Route element={<KanjiPage />} path="/jlpt/:levelId/kanji" />
+        <Route element={<KanjiImageViewerPage />} path="/jlpt/:levelId/kanji/images" />
         <Route element={<KanjiFlashcardsPage />} path="/jlpt/:levelId/kanji/flashcards" />
         <Route element={<KanjiDetailPage />} path="/kanji/:kanjiId" />
         <Route element={<TopicsPage />} path="/jlpt/:levelId/chapters/:chapterId" />

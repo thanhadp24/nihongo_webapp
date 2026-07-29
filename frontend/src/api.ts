@@ -6,6 +6,7 @@ import type {
   KanjiCharacter,
   KanjiDetail,
   KanjiTopic,
+  VisualResource,
   VocabularyHierarchy,
   VocabularyItem
 } from "./types";
@@ -130,6 +131,11 @@ export const api = {
       offset: params.offset
     }),
   kanjiDetail: (id: number) => request<KanjiDetail>(`/kanji/characters/${id}`),
+  visualResources: (params: { category?: string; level?: string }) =>
+    request<VisualResource[]>("/visual-resources", {
+      category: params.category,
+      level: params.level
+    }),
   grammarChapters: (level: string) => request<GrammarChapter[]>("/grammar/chapters", { level }),
   grammarLessons: (params: {
     level: string;

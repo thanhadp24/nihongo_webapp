@@ -65,7 +65,7 @@ const sidebarItems: SidebarItem[] = [
     to: (levelId) => `/jlpt/${levelId}/kanji`,
     label: "Kanji",
     icon: Languages,
-    isActive: (pathname) => /^\/jlpt\/[^/]+\/kanji$/.test(pathname)
+    isActive: (pathname) => /^\/jlpt\/[^/]+\/kanji(?:\/images)?$/.test(pathname)
   },
   {
     id: "reading",
