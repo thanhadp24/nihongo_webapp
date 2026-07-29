@@ -8,7 +8,7 @@ import {
   ZoomIn,
   ZoomOut
 } from "lucide-react";
-import { Link, useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import { api } from "../api";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
@@ -17,6 +17,34 @@ import { PageHeader } from "../components/common/PageHeader";
 const minZoom = 0.6;
 const maxZoom = 3;
 const zoomStep = 0.2;
+
+type ViewerMode = "kanji" | "letters";
+
+const viewerCopy: Record<
+  ViewerMode,
+  {
+    breadcrumb: string;
+    category: "kanji" | "reading";
+    empty: string;
+    subtitle: string;
+    title: string;
+  }
+> = {
+  kanji: {
+    breadcrumb: "Theo Kanji",
+    category: "kanji",
+    empty: "Level này chưa có ảnh Kanji.",
+    subtitle: "Xem bộ ảnh Kanji theo đúng thứ tự dữ liệu đã import.",
+    title: "Học theo Kanji"
+  },
+  letters: {
+    breadcrumb: "Theo lá thư",
+    category: "reading",
+    empty: "Chưa có ảnh lá thư đọc hiểu.",
+    subtitle: "Xem các lá thư đọc hiểu theo đúng thứ tự file đã import.",
+    title: "Học theo lá thư"
+  }
+};
 
 function imageDisplayUrl(url: string) {
   if (url.startsWith("https://drive.google.com/thumbnail?") && !url.includes("&sz=")) {
@@ -30,15 +58,22 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-export function KanjiImageViewerPage() {
-  const { levelId = "n5" } = useParams();
+export function VisualResourceViewerPage() {
+  const { levelId = "n5", mode = "kanji" } = useParams();
+  const viewerMode = mode as ViewerMode;
+  const isKnownMode = viewerMode in viewerCopy;
+  const config = isKnownMode ? viewerCopy[viewerMode] : viewerCopy.kanji;
   const [index, setIndex] = useState(0);
   const [zoom, setZoom] = useState(1);
 
   const resourcesQuery = useQuery({
-    queryKey: ["visual-resources", "kanji", levelId],
-    queryFn: () => api.visualResources({ category: "kanji", level: levelId }),
-    enabled: Boolean(levelId)
+    queryKey: ["visual-resources", config?.category, viewerMode === "kanji" ? levelId : "all"],
+    queryFn: () =>
+      api.visualResources({
+        category: config.category,
+        level: viewerMode === "kanji" ? levelId : undefined
+      }),
+    enabled: isKnownMode
   });
 
   const resources = resourcesQuery.data ?? [];
@@ -50,7 +85,7 @@ export function KanjiImageViewerPage() {
   useEffect(() => {
     setIndex(0);
     setZoom(1);
-  }, [levelId]);
+  }, [levelId, viewerMode]);
 
   useEffect(() => {
     if (index >= resources.length) {
@@ -90,34 +125,30 @@ export function KanjiImageViewerPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [canGoNext, canGoPrevious, current, goToImage, index]);
 
+  if (!isKnownMode) return <Navigate to="/visual/kanji/n5" replace />;
+
   return (
     <div className="page-stack">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
-          { label: levelId.toUpperCase(), to: `/jlpt/${levelId}` },
-          { label: "Kanji", to: `/jlpt/${levelId}/kanji` },
-          { label: "Ảnh Kanji" }
+          { label: "Học bằng hình ảnh" },
+          ...(viewerMode === "kanji" ? [{ label: levelId.toUpperCase() }] : []),
+          { label: config.breadcrumb }
         ]}
       />
 
       <PageHeader
-        actions={
-          <Link className="secondary-button" to={`/jlpt/${levelId}/kanji`}>
-            <ChevronLeft aria-hidden="true" />
-            Kanji
-          </Link>
-        }
-        eyebrow={levelId.toUpperCase()}
-        subtitle="Xem bộ ảnh Kanji theo đúng thứ tự dữ liệu đã import."
-        title="Ảnh Kanji"
+        eyebrow={viewerMode === "kanji" ? levelId.toUpperCase() : "Đọc hiểu"}
+        subtitle={config.subtitle}
+        title={config.title}
       />
 
       {resourcesQuery.isLoading ? <SkeletonCard count={3} /> : null}
       {resourcesQuery.isError ? <ErrorState onRetry={() => resourcesQuery.refetch()} /> : null}
 
       {!resourcesQuery.isLoading && !resourcesQuery.isError && resources.length === 0 ? (
-        <EmptyState text="Level này chưa có ảnh Kanji." title="Chưa có ảnh" />
+        <EmptyState text={config.empty} title="Chưa có ảnh" />
       ) : null}
 
       {current ? (
@@ -181,7 +212,9 @@ export function KanjiImageViewerPage() {
 
           <div className="kanji-image-title-row">
             <div>
-              <p className="eyebrow">{current.jlpt_level_code}</p>
+              <p className="eyebrow">
+                {current.jlpt_level_code ?? (viewerMode === "letters" ? "Đọc hiểu" : config.title)}
+              </p>
               <h2>{current.title}</h2>
             </div>
             <ImageIcon aria-hidden="true" />
@@ -199,7 +232,7 @@ export function KanjiImageViewerPage() {
             </div>
           </div>
 
-          <div className="kanji-image-strip" aria-label="Danh sách ảnh Kanji">
+          <div className="kanji-image-strip" aria-label="Danh sách ảnh">
             {resources.map((resource, resourceIndex) => (
               <button
                 aria-label={resource.title}

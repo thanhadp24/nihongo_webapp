@@ -17,8 +17,12 @@ function pathForLevel(pathname: string, nextLevel: string) {
     return `/jlpt/${nextLevel}/kanji/flashcards`;
   }
 
-  if (/^\/jlpt\/[^/]+\/kanji\/images/.test(pathname)) {
-    return `/jlpt/${nextLevel}/kanji/images`;
+  if (/^\/visual\/kanji\/[^/]+/.test(pathname)) {
+    return `/visual/kanji/${nextLevel}`;
+  }
+
+  if (pathname === "/visual/letters") {
+    return "/visual/letters";
   }
 
   if (/^\/jlpt\/[^/]+\/chapters\/[^/]+\/topics\/[^/]+\/vocabulary/.test(pathname)) {
@@ -44,7 +48,10 @@ export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
   const { pathname } = useLocation();
   const [query, setQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const currentLevelId = pathname.match(/^\/jlpt\/([^/]+)/)?.[1] ?? "n2";
+  const currentLevelId =
+    pathname.match(/^\/jlpt\/([^/]+)/)?.[1] ??
+    pathname.match(/^\/visual\/kanji\/([^/]+)/)?.[1] ??
+    "n2";
 
   return (
     <header className="app-header">

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import { Breadcrumb } from "../components/common/Breadcrumb";
 import { EmptyState, ErrorState, SkeletonCard } from "../components/common/StateViews";
@@ -71,12 +71,6 @@ export function KanjiPage() {
         ]}
       />
       <PageHeader
-        actions={
-          <Link className="secondary-button" to={`/jlpt/${levelId}/kanji/images`}>
-            <ImageIcon aria-hidden="true" />
-            Ảnh Kanji
-          </Link>
-        }
         eyebrow={level?.name ?? "JLPT"}
         subtitle="Kanji được chia theo tuần/ngày. Chọn một chủ đề để tải danh sách Kanji của topic đó."
         title="Kanji theo tuần"

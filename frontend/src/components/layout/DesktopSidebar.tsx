@@ -4,8 +4,10 @@ import {
   GraduationCap,
   Headphones,
   Home,
+  Images,
   Languages,
   LibraryBig,
+  MailOpen,
   PenTool,
   Repeat,
   ScrollText,
@@ -65,7 +67,7 @@ const sidebarItems: SidebarItem[] = [
     to: (levelId) => `/jlpt/${levelId}/kanji`,
     label: "Kanji",
     icon: Languages,
-    isActive: (pathname) => /^\/jlpt\/[^/]+\/kanji(?:\/images)?$/.test(pathname)
+    isActive: (pathname) => /^\/jlpt\/[^/]+\/kanji$/.test(pathname)
   },
   {
     id: "reading",
@@ -123,6 +125,23 @@ const flashcardItems: SidebarItem[] = [
   }
 ];
 
+const visualItems: SidebarItem[] = [
+  {
+    id: "visual-kanji",
+    to: (levelId) => `/visual/kanji/${levelId}`,
+    label: "Theo Kanji",
+    icon: Languages,
+    isActive: (pathname) => /^\/visual\/kanji\/[^/]+$/.test(pathname)
+  },
+  {
+    id: "visual-letters",
+    to: () => "/visual/letters",
+    label: "Theo lá thư",
+    icon: MailOpen,
+    isActive: (pathname) => pathname === "/visual/letters"
+  }
+];
+
 const flashcardIndex = sidebarItems.findIndex((item) => item.id === "kanji") + 1;
 const primaryItems = sidebarItems.slice(0, flashcardIndex);
 const secondaryItems = sidebarItems.slice(flashcardIndex);
@@ -157,13 +176,22 @@ function SidebarLink({
 
 export function DesktopSidebar({ compact = false }: { compact?: boolean }) {
   const { pathname } = useLocation();
-  const currentLevelId = pathname.match(/^\/jlpt\/([^/]+)/)?.[1] ?? "n2";
+  const currentLevelId =
+    pathname.match(/^\/jlpt\/([^/]+)/)?.[1] ??
+    pathname.match(/^\/visual\/kanji\/([^/]+)/)?.[1] ??
+    "n2";
   const hasActiveFlashcard = flashcardItems.some((item) => item.isActive(pathname));
+  const hasActiveVisual = visualItems.some((item) => item.isActive(pathname));
   const [isFlashcardOpen, setIsFlashcardOpen] = useState(hasActiveFlashcard);
+  const [isVisualOpen, setIsVisualOpen] = useState(hasActiveVisual);
 
   useEffect(() => {
     if (hasActiveFlashcard) setIsFlashcardOpen(true);
   }, [hasActiveFlashcard]);
+
+  useEffect(() => {
+    if (hasActiveVisual) setIsVisualOpen(true);
+  }, [hasActiveVisual]);
 
   return (
     <aside className={compact ? "desktop-sidebar compact" : "desktop-sidebar"}>
@@ -186,6 +214,31 @@ export function DesktopSidebar({ compact = false }: { compact?: boolean }) {
         {isFlashcardOpen ? (
           <div className="sidebar-group">
             {flashcardItems.map((item) => (
+              <SidebarLink
+                currentLevelId={currentLevelId}
+                item={item}
+                key={item.id}
+                pathname={pathname}
+                subItem
+              />
+            ))}
+          </div>
+        ) : null}
+
+        <button
+          aria-expanded={isVisualOpen}
+          className={hasActiveVisual ? "sidebar-link sidebar-expand active" : "sidebar-link sidebar-expand"}
+          onClick={() => setIsVisualOpen((current) => !current)}
+          type="button"
+        >
+          <Images aria-hidden="true" />
+          <span>Học bằng hình ảnh</span>
+          <ChevronDown aria-hidden="true" className="sidebar-expand-icon" />
+        </button>
+
+        {isVisualOpen ? (
+          <div className="sidebar-group">
+            {visualItems.map((item) => (
               <SidebarLink
                 currentLevelId={currentLevelId}
                 item={item}

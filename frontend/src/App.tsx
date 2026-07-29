@@ -8,7 +8,6 @@ import { HomePage } from "./pages/HomePage";
 import { JLPTLevelsPage } from "./pages/JLPTLevelsPage";
 import { KanjiDetailPage } from "./pages/KanjiDetailPage";
 import { KanjiFlashcardsPage } from "./pages/KanjiFlashcardsPage";
-import { KanjiImageViewerPage } from "./pages/KanjiImageViewerPage";
 import { KanjiPage } from "./pages/KanjiPage";
 import { LevelVocabularyPage } from "./pages/LevelVocabularyPage";
 import { LessonDetailPage } from "./pages/LessonDetailPage";
@@ -16,6 +15,7 @@ import { LessonsPage } from "./pages/LessonsPage";
 import { PlaceholderPage } from "./pages/PlaceholderPage";
 import { TopicDetailPage } from "./pages/TopicDetailPage";
 import { TopicsPage } from "./pages/TopicsPage";
+import { VisualResourceViewerPage } from "./pages/VisualResourceViewerPage";
 import { VocabularyFlashcardsPage } from "./pages/VocabularyFlashcardsPage";
 import { VocabularyPage } from "./pages/VocabularyPage";
 
@@ -31,9 +31,10 @@ function App() {
         <Route element={<GrammarPage />} path="/jlpt/:levelId/grammar" />
         <Route element={<GrammarFlashcardsPage />} path="/jlpt/:levelId/grammar/flashcards" />
         <Route element={<KanjiPage />} path="/jlpt/:levelId/kanji" />
-        <Route element={<KanjiImageViewerPage />} path="/jlpt/:levelId/kanji/images" />
         <Route element={<KanjiFlashcardsPage />} path="/jlpt/:levelId/kanji/flashcards" />
         <Route element={<KanjiDetailPage />} path="/kanji/:kanjiId" />
+        <Route element={<VisualResourceViewerPage />} path="/visual/:mode" />
+        <Route element={<VisualResourceViewerPage />} path="/visual/:mode/:levelId" />
         <Route element={<TopicsPage />} path="/jlpt/:levelId/chapters/:chapterId" />
         <Route
           element={<TopicDetailPage />}
